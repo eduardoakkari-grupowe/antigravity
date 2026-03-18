@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find C:/Users/User/Desktop/antigravity -name *keeta* -o -name *Keeta*)",
+      "Bash(for dir:*)",
+      "Bash(do echo:*)",
+      "Read(//c/Users/User/Desktop/antigravity$dir/**)",
+      "Bash(done)"
+    ]
+  }
+}
