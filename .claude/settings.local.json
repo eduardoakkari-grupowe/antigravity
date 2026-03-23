@@ -5,7 +5,9 @@
       "Bash(for dir:*)",
       "Bash(do echo:*)",
       "Read(//c/Users/User/Desktop/antigravity$dir/**)",
-      "Bash(done)"
+      "Bash(done)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
     ]
   }
 }
