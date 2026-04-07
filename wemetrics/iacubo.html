@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>IA DE ESTRATÉGIA E SEGMENTAÇÃO DE PÚBLICO - AREA51 - GRUPO WE</title>
+  <style>
+    :root { --bg:#1f2937; --panel:#111827; --card:#0b1220; --muted:#9ca3af; --text:#e5e7eb; --accent:#0099FF; --accent-2:#0088e6; --danger:#ef4444; --warn:#f59e0b; --border:#374151; }
+    * { box-sizing: border-box; }
+    body { margin:0; background:var(--bg); color:var(--text); font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Noto Sans; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 24px; }
+    h1 { margin: 0 0 6px 0; font-size: 28px; font-weight: 800; }
+    p.meta { color:var(--muted); margin:0 0 16px 0; }
+    section { background: var(--panel); padding: 18px; border-radius: 14px; border: 1px solid var(--border); margin-top: 20px; }
+    section h2 { margin: 0 0 12px 0; font-size: 18px; font-weight: 800; }
+    label { font-size: 12px; color: var(--muted); display:block; margin-bottom: 6px; }
+    input[type="text"], textarea { width: 100%; padding: 10px 12px; border-radius: 12px; border: 1px solid var(--border); background: #0c1424; color: var(--text); font-size: 14px; outline: none; }
+    textarea { min-height: 90px; resize: vertical; }
+    .btn { border: 0; padding: 10px 14px; border-radius: 12px; font-weight: 700; cursor: pointer; transition: background-color 0.2s; }
+    .btn.primary { background: var(--accent); color: white; } .btn.primary:hover { background: var(--accent-2); }
+    .btn:disabled { background: #334155; cursor: not-allowed; }
+    .logo-container { display: flex; justify-content: center; gap: 20px; }
+    
+    .error { 
+        color: var(--danger); 
+        background-color: #2c1d21;
+        border: 1px solid var(--danger);
+        padding: 12px;
+        border-radius: 8px;
+        font-size: 14px;
+        line-height: 1.6;
+        word-wrap: break-word;
+    }
+    .error pre {
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        color: #f3b6b6;
+        margin-top: 10px;
+        padding: 10px;
+        background-color: #111827;
+        border-radius: 6px;
+    }
+    
+    .segmentation-grid {
+        display: grid;
+        gap: 24px;
+        grid-template-columns: 1fr;
+    }
+    @media (min-width: 1024px) {
+        .segmentation-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    .segmentation-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    }
+    .segmentation-card h3 { color: var(--accent); font-size: 20px; font-weight: 800; margin: 0; }
+    .segmentation-card h4 { color: var(--muted); font-size: 14px; font-weight: 700; margin: 0 0 4px 0; border-bottom: 1px solid var(--border); padding-bottom: 4px; }
+    .segmentation-card p, .segmentation-card li { font-size: 14px; line-height: 1.6; color: var(--text); margin: 0; }
+    .segmentation-card ul { list-style: none; padding-left: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+    .segmentation-card li { background: #111827; padding: 6px 10px; border-radius: 8px; border-left: 3px solid var(--accent); }
+
+    #resultsSection { display: none; }
+
+    .loading-spinner {
+        border: 4px solid var(--panel);
+        border-top: 4px solid var(--accent);
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        animation: spin 1s linear infinite;
+        margin: 20px auto;
+    }
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo-container">
+      <img src="wemetrics.png" alt="Logo Area51 e GrupoWe" style="width: 250px;">
+    </div>
+    <br>
+    <h1>IA DE ESTRATÉGIA E SEGMENTAÇÃO DE PÚBLICO</h1>
+    <p class="meta">Desenvolvido por Eduardo Akkari e Renato Poletto.</p>
+
+    <div id="exportRoot">
+      <section id="initial">
+        <h2>DADOS DO CLIENTE</h2>
+        <div>
+          <label for="planName">Nome da empresa</label>
+          <input id="planName" type="text" placeholder="Ex: Agência WE" />
+        </div>
+		  <br>
+        <div>
+          <label for="clientSite">Site</label>
+          <input id="clientSite" type="text" placeholder="Ex: www.agenciawe.com.br" />
+        </div>
+		  <br>
+        <div>
+          <label for="objective">Objetivo</label>
+          <textarea id="objective" placeholder="Ex: Vender um novo consórcio de imóveis de alto padrão para pessoas com estabilidade financeira."></textarea>
+        </div>
+		  <br>
+        <button id="sendButton" class="btn primary">GERAR SEGMENTAÇÕES</button>
+      </section>
+
+      <section id="resultsSection" style="display: none;">
+        <h2>PROPOSTAS DE SEGMENTAÇÃO</h2>
+        <div id="segmentationsContainer" class="segmentation-grid"></div>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const sendButton = document.getElementById("sendButton");
+      const segmentationsContainer = document.getElementById("segmentationsContainer");
+      const resultsSection = document.getElementById("resultsSection");
+
+      sendButton.addEventListener("click", async () => {
+        const formData = {
+          planName: document.getElementById("planName").value,
+          clientSite: document.getElementById("clientSite").value,
+          objective: document.getElementById("objective").value,
+        };
+
+        if (!formData.planName || !formData.objective) {
+            alert("Por favor, preencha o Nome da Empresa e o Objetivo.");
+            return;
+        }
+
+        resultsSection.style.display = "block";
+        segmentationsContainer.innerHTML = `<div class="loading-spinner"></div>`;
+        sendButton.textContent = "Analisando e Gerando...";
+        sendButton.disabled = true;
+        
+        // --- COLE SUA CHAVE DA API AQUI ---
+        // Lembre-se: A chave de API deve ser válida e ter a "Generative Language API" ativada no Google Cloud.
+        const apiKey = "AIzaSyBSXcO7BlJRixVtnsioGOibmnWsFOs_auM"; 
+        
+        // CORREÇÃO: Alterado o nome do modelo para 'gemini-1.5-pro-latest', que é o identificador correto.
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro-latest:generateContent?key=${apiKey}`;
+        
+        const mainPrompt = `
+          Persona: Você é um(a) Especialista Sênior em EstratÉgia de Dados e Marketing Digital. Sua principal habilidade é pesquisar e entender um negócio a fundo e, em seguida, traduzir seus objetivos em públicos-alvo acionáveis usando uma vasta base de dados.
+
+          Tarefa de Múltiplas Etapas:
+
+          Etapa 1: Pesquisa e Análise do Negócio
+          - Primeiro, realize uma pesquisa na internet sobre a empresa e o site fornecidos abaixo.
+          - Analise o conteúdo do site para entender o que a empresa faz, quais produtos ou serviços ela oferece, seu posicionamento de mercado e quem são seus clientes atuais.
+          - Com base na sua pesquisa, crie um parágrafo conciso de "Contexto do Site". Este contexto é fundamental para a próxima etapa.
+
+          Etapa 2: Geração de Segmentação Estratégica
+          - Utilize o "Contexto do Site" que você acabou de criar E o "Objetivo" fornecido pelo cliente.
+          - Com base nessa combinação de informações (pesquisa + objetivo), crie 4 (quatro) propostas de segmentação de público distintas e detalhadas.
+          - Cada segmentação deve representar um perfil de cliente com alto potencial para atingir o objetivo da empresa, abordando diferentes ângulos e estratégias.
+
+          Formulário Preenchido pelo Cliente:
+          - Nome da Empresa: "${formData.planName}"
+          - Site: "${formData.clientSite}"
+          - Objetivo: "${formData.objective}"
+
+          Para cada uma das 4 segmentações, você deve fornecer a seguinte estrutura: Nome da Segmentação, Perfil do Público, Justificativa Estratégica, e Critérios de Filtragem.
+
+          Diretrizes Adicionais:
+          - As quatro segmentações devem ser complementares, evitando sobreposição excessiva.
+          - Combine atributos demográficos, financeiros, comportamentais e, especialmente, os modelos preditivos.
+          - A sua resposta deve ser clara, bem organizada e pronta para ser utilizada por uma equipe de Business Intelligence ou Marketing.
+          - Utilize exclusivamente os atributos da lista fornecida abaixo para os "Critérios de Filtragem".
+          - Se por algum motivo não puder completar a tarefa (ex: site inacessível, filtros de segurança), retorne um JSON com um array vazio.
+
+          LISTA DE ATRIBUTOS DA BIG DATA PARA CONSULTA:
+          bairro, bancos, black list, bolsa família, cadastro sus, cidade tipo, cidade, classe social individual, códigos de cargo, compliance - ppe vinculados, compliance - ppe/vip, comportamento digital - interesses & afinidade - e-commerce, comportamento digital - interesses & afinidade - entretenimento, comportamento digital - interesses & afinidade - finança pessoal, comportamento digital - interesses & afinidade - imobiliário, comportamento digital - interesses & afinidade - notícias, comportamento digital - interesses & afinidade - serviços, comportamento digital - interesses & afinidade - serviços financeiros, comportamento digital - dispositivos, comportamento digital - navegador/plataforma, comportamento digital - sistema operacional, cônjuge, conselho sigla, conselhos profissionais (registro), cor da pele, data de nascimento, deficiente, descrição de cargo, dívida, documentos e identificadores - número do pis, documentos e identificadores - rg, documentos e identificadores - título de eleitor, email corporativo, escolaridade, estado civil, faixa de idade, faixa de renda individual, faixa filhos, filtro cep, filtro km de distância, filtro numero, funcionário público, gênero, google, idade, judicial - mandado prisão, judicial - processo autor ativo, judicial - processo autor histórico, judicial - processo réu ativo, judicial - processo réu histórico, localização e contato - celular, localização e contato - e-mail, localização e contato - endereço, localização e contato - endereço comercial, localização e contato - geoposição (lat & long), localização e contato - telefone comercial, localização e contato - telefone(fixo), marca do veículo, meta, modelo do veículo, nome social, número de dependentes, óbito, ocupação - empresário, ocupação - profissional, operadoras, outros parentes, parentes diretos - cpf da mãe, parentes diretos - cpf do pai, parentes diretos - nome da mãe, parentes diretos - nome do pai, patrimônio & bens - proprietário de imóvel, patrimônio & bens - proprietário de veículos, perfis (modelos preditivos) - franquias, perfis (modelos preditivos) - luxo, perfis (modelos preditivos) - perfil a eventos culturais, perfis (modelos preditivos) - perfil amantes de cinema, perfis (modelos preditivos) - perfil amantes de futebol, perfis (modelos preditivos) - perfil clube do vinho, perfis (modelos preditivos) - perfil de aposta online, perfis (modelos preditivos) - perfil de comportamento digital, perfis (modelos preditivos) - perfil de consorcio, perfis (modelos preditivos) - perfil de conta bancária de investimento, perfis (modelos preditivos) - perfil de conta bancária digital, perfis (modelos preditivos) - perfil de conta bancária premium, perfis (modelos preditivos) - perfil de leitor digital, perfis (modelos preditivos) - perfil de pontos e milhas, perfis (modelos preditivos) - perfil de pós-graduação, perfis (modelos preditivos) - perfil de posse de automóvel, perfis (modelos preditivos) - perfil de posse de automóvel de luxo, perfis (modelos preditivos) - perfil de posse de imóvel, perfis (modelos preditivos) - perfil de posse de imóvel de alto padrão, perfis (modelos preditivos) - perfil de seguro, perfis (modelos preditivos) - perfil de tomador de empréstimos, perfis (modelos preditivos) - perfil de veículo zero km, perfis (modelos preditivos) - perfil de viagens e turismo, perfis (modelos preditivos) - perfil entusiasta de tecnologia, perfis (modelos preditivos) - perfil fãs de celebridades, perfis (modelos preditivos) - perfil moda e estilo, perfis (modelos preditivos) - perfil posse de moto, planos, política - doador a partido político, processo, programas sociais & benefícios - aposentado, pensionista, aposentado e pensionista, programas sociais & benefícios - auxílio emergencial, programas sociais & benefícios - bolsa família, protesto, relações familiares - filho/filha, relações familiares - irmão/irmã, relações familiares - outros parentes, renda individual, restrições, revendedores, risco financeiro - ccf, risco financeiro - pgfn - dívida ativa FGTS, risco financeiro - pgfn - dívida ativa não previdenciária, risco financeiro - pgfn - dívida ativa previdenciária, risco financeiro - situação de cobrança, sanções & listas restritivas, saúde - cadastro sus, saúde - plano de saúde, score de crédito, signo, situação cadastral (cpf), situação de cobrança, sócio tipo, sócio, tem filhos, tipo de cargo, tipo de veículo, título de eleitor, titulo eleitor, top 10 ano veiculo, top 10 marcas veículos, top 10 modelo veiculo, uf, valor da dívida, whatsapp.
+        `;
+
+        const payload = {
+            contents: [{ parts: [{ text: mainPrompt }] }],
+            generationConfig: {
+              responseMimeType: "application/json",
+            }
+        };
+
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) {
+                const errorBody = await response.json().catch(() => response.text());
+                const errorMessage = errorBody?.error?.message || JSON.stringify(errorBody);
+                throw new Error(`Erro na API (${response.status}): ${errorMessage}`);
+            }
+            
+            const result = await response.json();
+            const textResponse = result?.candidates?.[0]?.content?.parts?.[0]?.text;
+
+            if (!textResponse) {
+                const finishReason = result?.candidates?.[0]?.finishReason;
+                const safetyRatings = JSON.stringify(result?.candidates?.[0]?.safetyRatings, null, 2);
+                throw new Error(`A resposta da API veio vazia, provavelmente por filtros de segurança. <br>Motivo: ${finishReason}. <br>Classificação de Segurança: <pre>${safetyRatings}</pre>`);
+            }
+
+            let segmentationData;
+            try {
+                segmentationData = JSON.parse(textResponse);
+            } catch (parseError) {
+                console.error('Erro de parse do JSON:', parseError);
+                throw new Error(`A API não retornou um JSON válido, indicando um possível erro na interpretação da tarefa. Resposta recebida: <pre>${textResponse}</pre>`);
+            }
+
+            renderContent(segmentationData);
+
+        } catch (error) {
+            console.error('Erro capturado:', error);
+            segmentationsContainer.innerHTML = `<div class="error">${error.message}</div>`;
+        } finally {
+            sendButton.textContent = "GERAR SEGMENTAÇÕES";
+            sendButton.disabled = false;
+        }
+      });
+
+      function renderContent(segmentations) {
+        segmentationsContainer.innerHTML = '';
+        if (!Array.isArray(segmentations) || segmentations.length === 0) {
+            segmentationsContainer.innerHTML = `<p class="warn">Nenhuma segmentação foi gerada. A IA pode não ter conseguido encontrar informações ou o objetivo não foi específico o suficiente. Tente novamente.</p>`;
+            return;
+        }
+
+        segmentations.forEach(seg => {
+            const card = document.createElement('div');
+            card.className = 'segmentation-card';
+
+            const criteriaHTML = seg.criterios_filtragem && seg.criterios_filtragem.length > 0
+                ? `<ul>${seg.criterios_filtragem.map(c => `<li>${c}</li>`).join('')}</ul>`
+                : '<p>Nenhum critério especificado.</p>';
+            
+            card.innerHTML = `
+                <div>
+                    <h3>${seg.nome_segmentacao || 'Segmentação sem nome'}</h3>
+                </div>
+                <div>
+                    <h4>Perfil do Público</h4>
+                    <p>${seg.perfil_publico || 'N/A'}</p>
+                </div>
+                <div>
+                    <h4>Justificativa Estratégica</h4>
+                    <p>${seg.justificativa_estrategica || 'N/A'}</p>
+                </div>
+                <div>
+                    <h4>Critérios de Filtragem</h4>
+                    ${criteriaHTML}
+                </div>
+            `;
+            segmentationsContainer.appendChild(card);
+        });
+      }
+    });
+  </script>
+</body>
+</html>

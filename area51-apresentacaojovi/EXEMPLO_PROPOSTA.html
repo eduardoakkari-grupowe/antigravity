@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Area51 x Keeta — Proposta Comercial 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+  <style>
+    :root {
+      --bg-primary: #0a0a0c;
+      --bg-secondary: #111115;
+      --text-primary: #ffffff;
+      --text-secondary: rgba(255,255,255,0.65);
+      --accent: #E8D44D;
+      --accent-bright: #F5E663;
+      --accent-glow: rgba(232,212,77,0.35);
+      --accent-subtle: rgba(232,212,77,0.08);
+      --keeta-green: #3ECDA5;
+      --keeta-green-glow: rgba(62,205,165,0.3);
+      --area51-purple: #6B3FA0;
+      --area51-teal: #2DD4BF;
+      --danger: #E84D4D;
+      --font-headline: 'Bebas Neue', sans-serif;
+      --font-subhead: 'Space Grotesk', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .slides {
+      height: 100vh;
+      overflow-y: scroll;
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+    }
+
+    .slide {
+      min-height: 100vh;
+      scroll-snap-align: start;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 5vh 7vw;
+    }
+
+    .slide-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      z-index: 0;
+    }
+    .slide-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+    }
+
+    .slide-content { position: relative; z-index: 1; }
+
+    .bg-decoration {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Tipografia */
+    .headline {
+      font-family: var(--font-headline);
+      font-size: clamp(3rem, 7vw, 6.5rem);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+    .headline-xl {
+      font-family: var(--font-headline);
+      font-size: clamp(5rem, 12vw, 11rem);
+      line-height: 0.85;
+      letter-spacing: 0.01em;
+      text-transform: uppercase;
+    }
+    .subhead {
+      font-family: var(--font-subhead);
+      font-size: clamp(1rem, 1.8vw, 1.35rem);
+      font-weight: 500;
+      line-height: 1.5;
+      color: var(--text-secondary);
+    }
+    .label {
+      font-family: var(--font-subhead);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .big-number {
+      font-family: var(--font-headline);
+      font-size: clamp(4rem, 9vw, 8rem);
+      line-height: 1;
+      color: var(--accent);
+      text-shadow: 0 0 60px var(--accent-glow), 0 0 120px rgba(232,212,77,0.15);
+    }
+
+    /* Glass panels */
+    .glass {
+      backdrop-filter: blur(16px) saturate(140%);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 2rem;
+    }
+    .glass-accent {
+      backdrop-filter: blur(16px) saturate(140%);
+      background: rgba(232,212,77,0.06);
+      border: 1px solid rgba(232,212,77,0.15);
+      border-radius: 16px;
+      padding: 2rem;
+    }
+
+    /* Photo circles */
+    .photo-circle {
+      border-radius: 50%;
+      background-size: cover;
+      background-position: center;
+    }
+
+    /* Glow effects */
+    .glow-accent { box-shadow: 0 0 40px 8px var(--accent-glow), 0 0 80px 16px rgba(232,212,77,0.1); }
+    .glow-green { box-shadow: 0 0 40px 8px var(--keeta-green-glow), 0 0 80px 16px rgba(62,205,165,0.1); }
+
+    /* Divider accent */
+    .accent-bar {
+      width: 60px;
+      height: 4px;
+      background: var(--accent);
+      border-radius: 2px;
+      box-shadow: 0 0 20px var(--accent-glow);
+    }
+
+    /* Frente badge */
+    .frente-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 1rem;
+      border-radius: 100px;
+      font-family: var(--font-subhead);
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .frente-1 { background: rgba(232,212,77,0.12); color: var(--accent); border: 1px solid rgba(232,212,77,0.25); }
+    .frente-2 { background: rgba(62,205,165,0.12); color: var(--keeta-green); border: 1px solid rgba(62,205,165,0.25); }
+    .frente-3 { background: rgba(107,63,160,0.15); color: #B088E8; border: 1px solid rgba(176,136,232,0.25); }
+
+    /* Metric cards */
+    .metric-card {
+      text-align: center;
+      padding: 1.5rem;
+    }
+    .metric-card .value {
+      font-family: var(--font-headline);
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+    .metric-card .desc {
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+
+    /* Reveal animations */
+    .reveal { opacity: 0; transform: translateY(25px); transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-delay-1 { transition-delay: 0.12s; }
+    .reveal-delay-2 { transition-delay: 0.24s; }
+    .reveal-delay-3 { transition-delay: 0.36s; }
+    .reveal-delay-4 { transition-delay: 0.48s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+    }
+
+    /* Slide indicator */
+    .slide-indicator {
+      position: fixed;
+      right: 2vw;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .slide-indicator .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .slide-indicator .dot.active {
+      background: var(--accent);
+      box-shadow: 0 0 10px var(--accent-glow);
+      transform: scale(1.3);
+    }
+
+    /* Slide number */
+    .slide-num {
+      position: absolute;
+      bottom: 3vh;
+      right: 4vw;
+      font-family: var(--font-subhead);
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.2);
+      letter-spacing: 0.1em;
+      z-index: 2;
+    }
+
+    /* Category bars */
+    .cat-bar-container {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 0.6rem;
+    }
+    .cat-bar-label {
+      font-family: var(--font-subhead);
+      font-size: 0.8rem;
+      width: 120px;
+      text-align: right;
+      color: var(--text-secondary);
+    }
+    .cat-bar-track {
+      flex: 1;
+      height: 28px;
+      background: rgba(255,255,255,0.04);
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+    }
+    .cat-bar-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      align-items: center;
+      padding-left: 10px;
+    }
+    .cat-bar-value {
+      font-family: var(--font-subhead);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--bg-primary);
+    }
+
+    /* Product card */
+    .product-card {
+      padding: 2rem;
+      border-radius: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+    .product-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 3px;
+    }
+
+    /* Timeline */
+    .timeline-row {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .timeline-node {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-headline);
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+    .timeline-line {
+      width: 2px;
+      height: 40px;
+      margin-left: 23px;
+      background: rgba(255,255,255,0.08);
+    }
+
+    @media (max-width: 768px) {
+      .slide { padding: 3vh 5vw; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Slide indicator dots -->
+  <nav class="slide-indicator" id="slideIndicator"></nav>
+
+  <main class="slides" id="slidesContainer">
+
+    <!-- ========== SLIDE 1: CAPA ========== -->
+    <section class="slide" id="s1">
+      <div class="slide-bg" style="background-image: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1920&q=80&fit=crop')"></div>
+      <div style="position:absolute;inset:0;background:linear-gradient(135deg, rgba(10,10,12,0.92) 0%, rgba(10,10,12,0.6) 40%, rgba(10,10,12,0.85) 100%);z-index:0;"></div>
+      <!-- SVG decorative rays -->
+      <svg class="bg-decoration" viewBox="0 0 1920 1080" preserveAspectRatio="none" style="opacity:0.4">
+        <line x1="0" y1="1080" x2="1920" y2="0" stroke="rgba(232,212,77,0.06)" stroke-width="1"/>
+        <line x1="200" y1="1080" x2="1920" y2="200" stroke="rgba(232,212,77,0.04)" stroke-width="1"/>
+        <line x1="0" y1="800" x2="1600" y2="0" stroke="rgba(62,205,165,0.04)" stroke-width="1"/>
+        <circle cx="1500" cy="300" r="200" fill="none" stroke="rgba(232,212,77,0.04)" stroke-width="1"/>
+        <circle cx="1500" cy="300" r="300" fill="none" stroke="rgba(232,212,77,0.02)" stroke-width="1"/>
+      </svg>
+      <div class="slide-content">
+        <div style="display:flex;align-items:center;gap:1.5rem;margin-bottom:3rem;" class="reveal">
+          <div style="width:52px;height:52px;background:var(--accent);border-radius:12px;display:flex;align-items:center;justify-content:center;">
+            <span style="font-family:var(--font-subhead);font-weight:700;color:var(--bg-primary);font-size:0.65rem;letter-spacing:0.05em;">AREA<br>51</span>
+          </div>
+          <span style="font-family:var(--font-subhead);font-size:1rem;color:rgba(255,255,255,0.3);font-weight:400;">x</span>
+          <div style="background:var(--keeta-green);border-radius:12px;padding:8px 18px;display:flex;align-items:center;">
+            <span style="font-family:var(--font-subhead);font-weight:700;color:var(--bg-primary);font-size:1.1rem;">keeta</span>
+          </div>
+        </div>
+        <div class="reveal reveal-delay-1">
+          <p class="label" style="margin-bottom:1rem;">Proposta Comercial 2026</p>
+        </div>
+        <h1 class="headline reveal reveal-delay-2" style="font-size:clamp(3.5rem,8vw,7rem);max-width:900px;margin-bottom:1.5rem;">
+          Dados que<br>
+          <span style="color:var(--accent);">conquistam</span><br>
+          o ecossistema
+        </h1>
+        <p class="subhead reveal reveal-delay-3" style="max-width:550px;">
+          Inteligência de mercado para ativar restaurantes, motoboys e consumidores na Grande SP e Baixada Santista.
+        </p>
+      </div>
+      <span class="slide-num">01 / 12</span>
+    </section>
+
+    <!-- ========== SLIDE 2: O DESAFIO ========== -->
+    <section class="slide" id="s2" style="background:var(--bg-primary);">
+      <svg class="bg-decoration" viewBox="0 0 1920 1080" preserveAspectRatio="none" style="opacity:0.5">
+        <circle cx="960" cy="540" r="350" fill="none" stroke="rgba(255,255,255,0.02)" stroke-width="1"/>
+        <circle cx="960" cy="540" r="500" fill="none" stroke="rgba(255,255,255,0.015)" stroke-width="1"/>
+        <circle cx="960" cy="540" r="650" fill="none" stroke="rgba(255,255,255,0.01)" stroke-width="1"/>
+        <line x1="960" y1="540" x2="300" y2="200" stroke="rgba(232,212,77,0.05)" stroke-width="1"/>
+        <line x1="960" y1="540" x2="1600" y2="200" stroke="rgba(62,205,165,0.05)" stroke-width="1"/>
+        <line x1="960" y1="540" x2="960" y2="0" stroke="rgba(176,136,232,0.04)" stroke-width="1"/>
+      </svg>
+      <div class="slide-content">
+        <p class="label reveal" style="margin-bottom:1rem;">O desafio</p>
+        <h2 class="headline reveal reveal-delay-1" style="margin-bottom:1rem;max-width:700px;">
+          Três audiências.<br>Um <span style="color:var(--accent);">ecossistema</span>.
+        </h2>
+        <p class="subhead reveal reveal-delay-2" style="max-width:600px;margin-bottom:3.5rem;">
+          O Keeta precisa resolver o cold start de um marketplace de delivery: conquistar oferta, supply e demanda simultaneamente.
+        </p>
+
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;max-width:1100px;" class="reveal reveal-delay-3">
+          <!-- Frente 1 -->
+          <div class="glass" style="border-color:rgba(232,212,77,0.15);">
+            <div class="frente-badge frente-1" style="margin-bottom:1.2rem;">Frente 1</div>
+            <h3 style="font-family:var(--font-subhead);font-size:1.4rem;font-weight:700;margin-bottom:0.6rem;">Estabelecimentos</h3>
+            <p style="font-size:0.85rem;color:var(--text-secondary);line-height:1.5;">Cooptar donos e decisores de restaurantes, bares, lanchonetes e pizzarias para a plataforma.</p>
+          </div>
+          <!-- Frente 2 -->
+          <div class="glass" style="border-color:rgba(62,205,165,0.15);">
+            <div class="frente-badge frente-2" style="margin-bottom:1.2rem;">Frente 2</div>
+            <h3 style="font-family:var(--font-subhead);font-size:1.4rem;font-weight:700;margin-bottom:0.6rem;">Motoboys</h3>
+            <p style="font-size:0.85rem;color:var(--text-secondary);line-height:1.5;">Recrutar motoristas e entregadores para garantir a infraestrutura de entregas do ecossistema.</p>
+          </div>
+          <!-- Frente 3 -->
+          <div class="glass" style="border-color:rgba(176,136,232,0.15);">
+            <div class="frente-badge frente-3" style="margin-bottom:1.2rem;">Frente 3</div>
+            <h3 style="font-family:var(--font-subhead);font-size:1.4rem;font-weight:700;margin-bottom:0.6rem;">Consumidor Final</h3>
+            <p style="font-size:0.85rem;color:var(--text-secondary);line-height:1.5;">Ativar micro&shy;momentos de consumo: onde mora, onde trabalha, perfil familiar, hábitos digitais.</p>
+          </div>
+        </div>
+      </div>
+      <span class="slide-num">02 / 12</span>
+    </section>
+
+    <!-- ========== SLIDE 3: FRENTE 1 — ESTABELECIMENTOS ========== -->
+    <section class="slide" id="s3">
+      <div class="slide-bg" style="background-image: url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1920&q=80&fit=crop')"></div>
+      <div style="position:absolute;inset:0;background:linear-gradient(to right, rgba(10,10,12,0.95) 0%, rgba(10,10,12,0.85) 50%, rgba(10,10,12,0.6) 100%);z-index:0;"></div>
+      <div class="slide-content">
+        <div class="frente-badge frente-1 reveal" style="margin-bottom:1.5rem;">Frente 1 &mdash; Estabelecimentos</div>
+        <h2 class="headline reveal reveal-delay-1" style="margin-bottom:0.5rem;">
+          <span style="color:var(--accent);">371.9 mil</span>
+        </h2>
+        <p class="subhead reveal reveal-delay-1" style="margin-bottom:3rem;max-width:500px;">
+          estabelecimentos de food service mapeados na Grande SP e Baixada Santista, com dados de CNAE, decisores e faturamento.
+        </p>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;max-width:1000px;">
+          <!-- Grande SP -->
+          <div class="reveal reveal-delay-2">
+            <p style="font-family:var(--font-subhead);font-weight:600;font-size:0.9rem;margin-bottom:1.2rem;color:var(--accent);">Grande SP &mdash; 331.700</p>
+            <div class="cat-bar-container"><span class="cat-bar-label">Restaurantes</span><div class="cat-bar-track"><div class="cat-bar-fill" style="width:27%;background:var(--accent);"><span class="cat-bar-value">89,4K</span></div></div></div>
+            <div class="cat-bar-container"><span class="cat-bar-label">Bares</span><div class="cat-bar-track"><div class="cat-bar-fill" style="width:20%;background:var(--accent);opacity:0.85;"><span class="cat-bar-value">67,2K</span></div></div></div>
+            <div class="cat-bar-container"><span class="cat-bar-label">Lanchonetes</span><div class="cat-bar-track"><div class="cat-bar-fill" style="width:14%;background:var(--accent);opacity:0.7;"><span class="cat-bar-value">45,6K</span></div></div></div>
+            <div class="cat-bar-container"><span class="cat-bar-label">Pizzarias</span><div class="cat-bar-track"><div class="cat-bar-fill" style="width:5.6%;background:var(--accent);opacity:0.6;"><span class="cat-bar-value">18,7K</span></div></div></div>
+            <div class="cat-bar-container"><span class="cat-bar-label">Delivery puro</span><div class="cat-bar-track"><div class="cat-bar-fill" style="width:0.8%;background:var(--accent);opacity:0.5;"><span class="cat-bar-value">2,8K</span></div></div></div>
+          </div>
+          <!-- Baixada Santista -->
+          <div class="reveal reveal-delay-3">
+            <p style="font-family:var(--font-subhead);font-weight:600;font-size:0.9rem;margin-bottom:1.2rem;color:var(--keeta-green);">Baixada Santista &mdash; 40.205</p>
+            <div class="cat-bar-container"><span class="cat-bar-label">Restaurantes</span><div class="cat-bar-track"><div class="cat-bar-fill" style="width:27.6%;background:var(--keeta-green);"><span class="cat-bar-value">11,1K</span></div></div></div>
+            <div class="cat-bar-container"><span class="cat-bar-label">Bares</span><div class="cat-bar-track"><div class="cat-bar-fill" style="width:20%;background:var(--keeta-green);opacity:0.85;"><span class="cat-bar-value">8,1K</span></div></div></div>
+            <div class="cat-bar-container"><span class="cat-bar-label">Lanchonetes</span><div class="cat-bar-track"><div class="cat-bar-fill" style="width:13%;background:var(--keeta-green);opacity:0.7;"><span class="cat-bar-value">5,3K</span></div></div></div>
+            <div class="cat-bar-container"><span class="cat-bar-label">Pizzarias</span><div class="cat-bar-track"><div class="cat-bar-fill" style="width:5.6%;background:var(--keeta-green);opacity:0.6;"><span class="cat-bar-value">2,2K</span></div></div></div>
+            <div class="cat-bar-container"><span class="cat-bar-label">Delivery puro</span><div class="cat-bar-track"><div class="cat-bar-fill" style="width:1%;background:var(--keeta-green);opacity:0.5;"><span class="cat-bar-value">420</span></div></div></div>
+          </div>
+        </div>
+
+        <div class="glass reveal reveal-delay-4" style="margin-top:2rem;max-width:1000px;padding:1.2rem 2rem;display:flex;align-items:center;gap:1rem;border-left:3px solid var(--accent);">
+          <span style="font-size:0.85rem;color:var(--text-secondary);">
+            <strong style="color:var(--text-primary);">Ativação B2B:</strong> cada estabelecimento tem CNPJ, CNAE, dados de decisor, faturamento e localização exata &mdash; base pronta para campanhas segmentadas de cooptação.
+          </span>
+        </div>
+      </div>
+      <span class="slide-num">03 / 12</span>
+    </section>
+
+    <!-- ========== SLIDE 4: FRENTE 2 — MOTOBOYS ========== -->
+    <section class="slide" id="s4">
+      <div class="slide-bg" style="background-image: url('https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=1920&q=80&fit=crop')"></div>
+      <div style="position:absolute;inset:0;background:linear-gradient(135deg, rgba(10,10,12,0.93) 0%, rgba(10,10,12,0.7) 50%, rgba(10,10,12,0.88) 100%);z-index:0;"></div>
+      <div class="slide-content">
+        <div class="frente-badge frente-2 reveal" style="margin-bottom:1.5rem;">Frente 2 &mdash; Motoboys</div>
+        <h2 class="headline reveal reveal-delay-1" style="margin-bottom:0.5rem;">
+          <span style="color:var(--keeta-green);">14,5 milh&otilde;es</span>
+        </h2>
+        <p class="subhead reveal reveal-delay-1" style="margin-bottom:3rem;max-width:500px;">
+          de perfis mapeados no ecossistema de motociclistas &mdash; de proprietários a motofretistas registrados.
+        </p>
+
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;max-width:1000px;" class="reveal reveal-delay-2">
+          <div class="glass metric-card">
+            <div class="value" style="color:var(--keeta-green);">6,9M</div>
+            <div class="desc">Perfil de posse<br>de moto</div>
+          </div>
+          <div class="glass metric-card">
+            <div class="value" style="color:var(--keeta-green);">6,4M</div>
+            <div class="desc">Posse de moto<br>Classe C, D, E</div>
+          </div>
+          <div class="glass metric-card">
+            <div class="value" style="color:var(--keeta-green);">1,25M</div>
+            <div class="desc">Propriet&aacute;rios<br>de moto</div>
+          </div>
+          <div class="glass metric-card" style="border-color:rgba(62,205,165,0.3);">
+            <div class="value" style="color:var(--accent-bright);">26,9K</div>
+            <div class="desc">Motofretistas<br>registrados</div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;max-width:1000px;margin-top:2rem;" class="reveal reveal-delay-3">
+          <div class="glass" style="padding:1.2rem 1.5rem;">
+            <p style="font-family:var(--font-subhead);font-weight:600;font-size:0.85rem;color:var(--keeta-green);margin-bottom:0.6rem;">Grande SP</p>
+            <p style="font-size:0.85rem;color:var(--text-secondary);">25.700 motofretistas &bull; 1,1M propriet&aacute;rios &bull; 6,5M com perfil posse de moto</p>
+          </div>
+          <div class="glass" style="padding:1.2rem 1.5rem;">
+            <p style="font-family:var(--font-subhead);font-weight:600;font-size:0.85rem;color:var(--keeta-green);margin-bottom:0.6rem;">Baixada Santista</p>
+            <p style="font-size:0.85rem;color:var(--text-secondary);">1.241 motofretistas &bull; 151K propriet&aacute;rios &bull; 416K com perfil posse de moto</p>
+          </div>
+        </div>
+
+        <div class="glass reveal reveal-delay-4" style="margin-top:1.5rem;max-width:1000px;padding:1.2rem 2rem;display:flex;align-items:center;gap:1rem;border-left:3px solid var(--keeta-green);">
+          <span style="font-size:0.85rem;color:var(--text-secondary);">
+            <strong style="color:var(--text-primary);">Ativação Supply:</strong> identificamos motofretistas por profissão declarada, cruzamos com classe social, regi&atilde;o e posse de ve&iacute;culo para campanhas cirúrgicas de recrutamento.
+          </span>
+        </div>
+      </div>
+      <span class="slide-num">04 / 12</span>
+    </section>
+
+    <!-- ========== SLIDE 5: FRENTE 3 — CONSUMIDOR FINAL ========== -->
+    <section class="slide" id="s5">
+      <div class="slide-bg" style="background-image: url('https://images.unsplash.com/photo-1543007630-9710e4a00a20?w=1920&q=80&fit=crop')"></div>
+      <div style="position:absolute;inset:0;background:linear-gradient(to right, rgba(10,10,12,0.95) 0%, rgba(10,10,12,0.8) 60%, rgba(10,10,12,0.65) 100%);z-index:0;"></div>
+      <div class="slide-content">
+        <div class="frente-badge frente-3 reveal" style="margin-bottom:1.5rem;">Frente 3 &mdash; Consumidor Final</div>
+        <h2 class="headline reveal reveal-delay-1" style="margin-bottom:0.5rem;">
+          At&eacute; <span style="color:#B088E8;">8,2 milh&otilde;es</span><br>de CPFs
+        </h2>
+        <p class="subhead reveal reveal-delay-1" style="margin-bottom:3rem;max-width:550px;">
+          segmentados por moradia, local de trabalho, classe social, composição familiar e hábitos de consumo.
+        </p>
+
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:2rem;max-width:1000px;" class="reveal reveal-delay-2">
+          <!-- Moradia -->
+          <div>
+            <p style="font-family:var(--font-subhead);font-weight:600;font-size:0.85rem;margin-bottom:1rem;color:#B088E8;">
+              <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#B088E8;margin-right:8px;"></span>
+              Por moradia
+            </p>
+            <div class="glass" style="margin-bottom:1rem;padding:1.2rem 1.5rem;">
+              <div style="display:flex;justify-content:space-between;align-items:baseline;">
+                <span style="font-size:0.8rem;color:var(--text-secondary);">Grande SP (A, B)</span>
+                <span style="font-family:var(--font-headline);font-size:2rem;color:#B088E8;">3,2M</span>
+              </div>
+            </div>
+            <div class="glass" style="margin-bottom:1rem;padding:1.2rem 1.5rem;">
+              <div style="display:flex;justify-content:space-between;align-items:baseline;">
+                <span style="font-size:0.8rem;color:var(--text-secondary);">Grande SP (A, B, C)</span>
+                <span style="font-family:var(--font-headline);font-size:2rem;color:#B088E8;">8,2M</span>
+              </div>
+            </div>
+            <div class="glass" style="margin-bottom:1rem;padding:1.2rem 1.5rem;">
+              <div style="display:flex;justify-content:space-between;align-items:baseline;">
+                <span style="font-size:0.8rem;color:var(--text-secondary);">Baixada Santista (A, B)</span>
+                <span style="font-family:var(--font-headline);font-size:2rem;color:#B088E8;">164,6K</span>
+              </div>
+            </div>
+            <div class="glass" style="padding:1.2rem 1.5rem;">
+              <div style="display:flex;justify-content:space-between;align-items:baseline;">
+                <span style="font-size:0.8rem;color:var(--text-secondary);">Baixada Santista (A, B, C)</span>
+                <span style="font-family:var(--font-headline);font-size:2rem;color:#B088E8;">501,1K</span>
+              </div>
+            </div>
+          </div>
+          <!-- Trabalho -->
+          <div>
+            <p style="font-family:var(--font-subhead);font-weight:600;font-size:0.85rem;margin-bottom:1rem;color:var(--accent);">
+              <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--accent);margin-right:8px;"></span>
+              Por local de trabalho
+            </p>
+            <div class="glass" style="margin-bottom:1rem;padding:1.2rem 1.5rem;">
+              <div style="display:flex;justify-content:space-between;align-items:baseline;">
+                <span style="font-size:0.8rem;color:var(--text-secondary);">Grande SP (A, B)</span>
+                <span style="font-family:var(--font-headline);font-size:2rem;color:var(--accent);">2,9M</span>
+              </div>
+            </div>
+            <div class="glass" style="margin-bottom:1rem;padding:1.2rem 1.5rem;">
+              <div style="display:flex;justify-content:space-between;align-items:baseline;">
+                <span style="font-size:0.8rem;color:var(--text-secondary);">Grande SP (A, B, C)</span>
+                <span style="font-family:var(--font-headline);font-size:2rem;color:var(--accent);">6,6M</span>
+              </div>
+            </div>
+            <div class="glass" style="margin-bottom:1rem;padding:1.2rem 1.5rem;">
+              <div style="display:flex;justify-content:space-between;align-items:baseline;">
+                <span style="font-size:0.8rem;color:var(--text-secondary);">Baixada Santista (A, B)</span>
+                <span style="font-family:var(--font-headline);font-size:2rem;color:var(--accent);">106,9K</span>
+              </div>
+            </div>
+            <div class="glass" style="padding:1.2rem 1.5rem;">
+              <div style="display:flex;justify-content:space-between;align-items:baseline;">
+                <span style="font-size:0.8rem;color:var(--text-secondary);">Baixada Santista (A, B, C)</span>
+                <span style="font-family:var(--font-headline);font-size:2rem;color:var(--accent);">306,8K</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <span class="slide-num">05 / 12</span>
+    </section>
+
+    <!-- ========== SLIDE 6: MICROMOMENTOS ========== -->
+    <section class="slide" id="s6">
+      <div class="slide-bg" style="background-image: url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1920&q=80&fit=crop')"></div>
+      <div style="position:absolute;inset:0;background:linear-gradient(135deg, rgba(10,10,12,0.93) 0%, rgba(10,10,12,0.75) 100%);z-index:0;"></div>
+      <div class="slide-content">
+        <p class="label reveal" style="margin-bottom:1rem;">A vantagem competitiva</p>
+        <h2 class="headline reveal reveal-delay-1" style="margin-bottom:1.5rem;max-width:800px;">
+          Micromomentos:<br><span style="color:var(--accent);">onde mora</span> vs. <span style="color:#B088E8;">onde trabalha</span>
+        </h2>
+        <p class="subhead reveal reveal-delay-2" style="max-width:600px;margin-bottom:3rem;">
+          A mesma pessoa consome delivery em contextos diferentes. Quem mora em Osasco pode pedir almo&ccedil;o na Paulista. Quem trabalha em Santos pode jantar em S&atilde;o Vicente. Dois momentos, duas oportunidades.
+        </p>
+
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;max-width:1000px;" class="reveal reveal-delay-3">
+          <div class="glass-accent" style="text-align:center;">
+            <div style="font-family:var(--font-headline);font-size:3rem;color:var(--accent);margin-bottom:0.3rem;">95%</div>
+            <p style="font-size:0.8rem;color:var(--text-secondary);">t&ecirc;m perfil de<br><strong style="color:var(--text-primary);">comportamento digital</strong></p>
+          </div>
+          <div class="glass-accent" style="text-align:center;">
+            <div style="font-family:var(--font-headline);font-size:3rem;color:var(--accent);margin-bottom:0.3rem;">+300</div>
+            <p style="font-size:0.8rem;color:var(--text-secondary);">atributos por CPF<br><strong style="color:var(--text-primary);">renda, filhos, score, cargo</strong></p>
+          </div>
+          <div class="glass-accent" style="text-align:center;">
+            <div style="font-family:var(--font-headline);font-size:3rem;color:var(--accent);margin-bottom:0.3rem;">10+</div>
+            <p style="font-size:0.8rem;color:var(--text-secondary);">perfis de afinidade<br><strong style="color:var(--text-primary);">tech, gastronomia, viagens</strong></p>
+          </div>
+        </div>
+
+        <div class="glass reveal reveal-delay-4" style="margin-top:2rem;max-width:1000px;padding:1.5rem 2rem;border-left:3px solid #B088E8;">
+          <p style="font-size:0.9rem;color:var(--text-secondary);line-height:1.6;">
+            <strong style="color:var(--text-primary);">Exemplo de cluster:</strong> Mulheres 30-45, com filhos, classe A/B, que moram na Grande SP, com perfil de comportamento digital alto e afinidade com gastronomia &mdash; esse &eacute; o micromomento "fam&iacute;lia pede delivery no jantar". Identificamos e ativamos diretamente.
+          </p>
+        </div>
+      </div>
+      <span class="slide-num">06 / 12</span>
+    </section>
+
+    <!-- ========== SLIDE 7: TRANSIÇÃO / COMO RESOLVEMOS ========== -->
+    <section class="slide" id="s7">
+      <div class="slide-bg" style="background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80&fit=crop')"></div>
+      <div style="position:absolute;inset:0;background:linear-gradient(135deg, rgba(10,10,12,0.75) 0%, rgba(10,10,12,0.6) 100%);z-index:0;"></div>
+      <div class="slide-content" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;">
+        <p class="label reveal" style="margin-bottom:2rem;">Como resolvemos</p>
+        <h2 class="headline-xl reveal reveal-delay-1" style="max-width:900px;">
+          Dados que<br><span style="color:var(--accent);">ativam</span>
+        </h2>
+        <p class="subhead reveal reveal-delay-2" style="max-width:500px;margin-top:1.5rem;">
+          Tr&ecirc;s produtos integrados. Cada um resolve uma etapa do funil de conquista do ecossistema Keeta.
+        </p>
+      </div>
+      <span class="slide-num">07 / 12</span>
+    </section>
+
+    <!-- ========== SLIDE 8: SOLUÇÃO POR FRENTE ========== -->
+    <section class="slide" id="s8" style="background:var(--bg-primary);">
+      <svg class="bg-decoration" viewBox="0 0 1920 1080" preserveAspectRatio="none" style="opacity:0.3">
+        <line x1="640" y1="0" x2="640" y2="1080" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+        <line x1="1280" y1="0" x2="1280" y2="1080" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+      </svg>
+      <div class="slide-content">
+        <p class="label reveal" style="margin-bottom:0.8rem;">Solu&ccedil;&atilde;o integrada</p>
+        <h2 class="headline reveal reveal-delay-1" style="margin-bottom:2.5rem;font-size:clamp(2.5rem,5vw,4rem);">
+          Cada produto, uma miss&atilde;o
+        </h2>
+
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;max-width:1200px;" class="reveal reveal-delay-2">
+          <!-- DATA.51 -->
+          <div class="product-card glass" style="border-top:3px solid var(--accent);">
+            <div style="font-family:var(--font-subhead);font-weight:700;font-size:1.3rem;color:var(--accent);margin-bottom:1.2rem;">data.51</div>
+            <p style="font-size:0.8rem;color:var(--text-secondary);margin-bottom:1.2rem;line-height:1.5;">Identifica&ccedil;&atilde;o e segmenta&ccedil;&atilde;o de registros na base de 230M+ de pessoas e empresas.</p>
+            <div style="border-top:1px solid rgba(255,255,255,0.06);padding-top:1rem;">
+              <p style="font-size:0.75rem;color:var(--text-secondary);margin-bottom:0.5rem;">
+                <span class="frente-badge frente-1" style="font-size:0.65rem;padding:0.2rem 0.6rem;margin-right:0.3rem;">F1</span>
+                Base CNPJ food service + decisores
+              </p>
+              <p style="font-size:0.75rem;color:var(--text-secondary);margin-bottom:0.5rem;">
+                <span class="frente-badge frente-2" style="font-size:0.65rem;padding:0.2rem 0.6rem;margin-right:0.3rem;">F2</span>
+                Motofretistas + propriet&aacute;rios de moto
+              </p>
+              <p style="font-size:0.75rem;color:var(--text-secondary);">
+                <span class="frente-badge frente-3" style="font-size:0.65rem;padding:0.2rem 0.6rem;margin-right:0.3rem;">F3</span>
+                CPFs por perfil de micromomento
+              </p>
+            </div>
+          </div>
+          <!-- TAG.51 -->
+          <div class="product-card glass" style="border-top:3px solid var(--keeta-green);">
+            <div style="font-family:var(--font-subhead);font-weight:700;font-size:1.3rem;color:var(--keeta-green);margin-bottom:1.2rem;">tag.51</div>
+            <p style="font-size:0.8rem;color:var(--text-secondary);margin-bottom:1.2rem;line-height:1.5;">Identifica&ccedil;&atilde;o de visitantes n&atilde;o logados no site/app, com cruzamento de personas.</p>
+            <div style="border-top:1px solid rgba(255,255,255,0.06);padding-top:1rem;">
+              <p style="font-size:0.75rem;color:var(--text-secondary);margin-bottom:0.5rem;">
+                <span class="frente-badge frente-1" style="font-size:0.65rem;padding:0.2rem 0.6rem;margin-right:0.3rem;">F1</span>
+                Donos que visitaram LP de cadastro
+              </p>
+              <p style="font-size:0.75rem;color:var(--text-secondary);margin-bottom:0.5rem;">
+                <span class="frente-badge frente-2" style="font-size:0.65rem;padding:0.2rem 0.6rem;margin-right:0.3rem;">F2</span>
+                Entregadores que acessaram sem converter
+              </p>
+              <p style="font-size:0.75rem;color:var(--text-secondary);">
+                <span class="frente-badge frente-3" style="font-size:0.65rem;padding:0.2rem 0.6rem;margin-right:0.3rem;">F3</span>
+                Retargeting inteligente por persona
+              </p>
+            </div>
+          </div>
+          <!-- MEDIA.51 -->
+          <div class="product-card glass" style="border-top:3px solid #B088E8;">
+            <div style="font-family:var(--font-subhead);font-weight:700;font-size:1.3rem;color:#B088E8;margin-bottom:1.2rem;">media.51</div>
+            <p style="font-size:0.8rem;color:var(--text-secondary);margin-bottom:1.2rem;line-height:1.5;">Ativa&ccedil;&atilde;o das bases via Meta, Google, TikTok e LinkedIn com gest&atilde;o de performance.</p>
+            <div style="border-top:1px solid rgba(255,255,255,0.06);padding-top:1rem;">
+              <p style="font-size:0.75rem;color:var(--text-secondary);margin-bottom:0.5rem;">
+                <span class="frente-badge frente-1" style="font-size:0.65rem;padding:0.2rem 0.6rem;margin-right:0.3rem;">F1</span>
+                Campanha B2B Meta/LinkedIn
+              </p>
+              <p style="font-size:0.75rem;color:var(--text-secondary);margin-bottom:0.5rem;">
+                <span class="frente-badge frente-2" style="font-size:0.65rem;padding:0.2rem 0.6rem;margin-right:0.3rem;">F2</span>
+                Campanha recrutamento Meta/Google
+              </p>
+              <p style="font-size:0.75rem;color:var(--text-secondary);">
+                <span class="frente-badge frente-3" style="font-size:0.65rem;padding:0.2rem 0.6rem;margin-right:0.3rem;">F3</span>
+                Ativa&ccedil;&atilde;o de micromomentos multi-plataforma
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <span class="slide-num">08 / 12</span>
+    </section>
+
+    <!-- ========== SLIDE 9: METODOLOGIA ========== -->
+    <section class="slide" id="s9" style="background:var(--bg-secondary);">
+      <svg class="bg-decoration" viewBox="0 0 1920 1080" preserveAspectRatio="none" style="opacity:0.4">
+        <circle cx="150" cy="540" r="400" fill="none" stroke="rgba(232,212,77,0.03)" stroke-width="1"/>
+        <circle cx="1770" cy="540" r="400" fill="none" stroke="rgba(62,205,165,0.03)" stroke-width="1"/>
+      </svg>
+      <div class="slide-content">
+        <p class="label reveal" style="margin-bottom:0.8rem;">Metodologia</p>
+        <h2 class="headline reveal reveal-delay-1" style="margin-bottom:2.5rem;font-size:clamp(2.5rem,5vw,4rem);">
+          Do dado &agrave; <span style="color:var(--accent);">convers&atilde;o</span>
+        </h2>
+
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:0;max-width:1200px;position:relative;" class="reveal reveal-delay-2">
+          <!-- Step 1 -->
+          <div style="text-align:center;position:relative;">
+            <div style="width:56px;height:56px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;box-shadow:0 0 30px var(--accent-glow);">
+              <span style="font-family:var(--font-headline);font-size:1.5rem;color:var(--bg-primary);">1</span>
+            </div>
+            <p style="font-family:var(--font-subhead);font-weight:700;font-size:0.85rem;margin-bottom:0.4rem;">Mapeamento</p>
+            <p style="font-size:0.75rem;color:var(--text-secondary);line-height:1.4;padding:0 0.5rem;">BigData Area51 cruza bases do cliente + 230M registros nacionais</p>
+          </div>
+          <!-- Step 2 -->
+          <div style="text-align:center;">
+            <div style="width:56px;height:56px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;box-shadow:0 0 30px var(--accent-glow);">
+              <span style="font-family:var(--font-headline);font-size:1.5rem;color:var(--bg-primary);">2</span>
+            </div>
+            <p style="font-family:var(--font-subhead);font-weight:700;font-size:0.85rem;margin-bottom:0.4rem;">Segmenta&ccedil;&atilde;o</p>
+            <p style="font-size:0.75rem;color:var(--text-secondary);line-height:1.4;padding:0 0.5rem;">Cria&ccedil;&atilde;o de personas por frente com +300 atributos</p>
+          </div>
+          <!-- Step 3 -->
+          <div style="text-align:center;">
+            <div style="width:56px;height:56px;border-radius:50%;background:var(--keeta-green);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;box-shadow:0 0 30px var(--keeta-green-glow);">
+              <span style="font-family:var(--font-headline);font-size:1.5rem;color:var(--bg-primary);">3</span>
+            </div>
+            <p style="font-family:var(--font-subhead);font-weight:700;font-size:0.85rem;margin-bottom:0.4rem;">Cubo &amp; Dashboard</p>
+            <p style="font-size:0.75rem;color:var(--text-secondary);line-height:1.4;padding:0 0.5rem;">Dashboard personalizado com filtros din&acirc;micos por regi&atilde;o e perfil</p>
+          </div>
+          <!-- Step 4 -->
+          <div style="text-align:center;">
+            <div style="width:56px;height:56px;border-radius:50%;background:var(--keeta-green);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;box-shadow:0 0 30px var(--keeta-green-glow);">
+              <span style="font-family:var(--font-headline);font-size:1.5rem;color:var(--bg-primary);">4</span>
+            </div>
+            <p style="font-family:var(--font-subhead);font-weight:700;font-size:0.85rem;margin-bottom:0.4rem;">Ativa&ccedil;&atilde;o</p>
+            <p style="font-size:0.75rem;color:var(--text-secondary);line-height:1.4;padding:0 0.5rem;">Subida de bases no BM Area51 para campanhas em Meta, Google, TikTok, LinkedIn</p>
+          </div>
+          <!-- Step 5 -->
+          <div style="text-align:center;">
+            <div style="width:56px;height:56px;border-radius:50%;background:#B088E8;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;box-shadow:0 0 30px rgba(176,136,232,0.3);">
+              <span style="font-family:var(--font-headline);font-size:1.5rem;color:var(--bg-primary);">5</span>
+            </div>
+            <p style="font-family:var(--font-subhead);font-weight:700;font-size:0.85rem;margin-bottom:0.4rem;">Otimiza&ccedil;&atilde;o</p>
+            <p style="font-size:0.75rem;color:var(--text-secondary);line-height:1.4;padding:0 0.5rem;">Tag.51 desanonimiza, realimenta modelos e refina bases continuamente</p>
+          </div>
+          <!-- Connecting line -->
+          <div style="position:absolute;top:28px;left:10%;right:10%;height:2px;background:linear-gradient(to right, var(--accent), var(--keeta-green), #B088E8);opacity:0.25;z-index:-1;"></div>
+        </div>
+
+        <!-- Entregáveis -->
+        <div style="margin-top:3rem;display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;max-width:1200px;" class="reveal reveal-delay-3">
+          <div class="glass" style="padding:1.2rem 1.5rem;border-left:3px solid var(--accent);">
+            <p style="font-family:var(--font-subhead);font-weight:700;font-size:0.85rem;color:var(--accent);margin-bottom:0.5rem;">Entregável Data.51</p>
+            <p style="font-size:0.75rem;color:var(--text-secondary);line-height:1.5;">Custom audiences por frente &bull; Cubo personalizado &bull; Novas bases para ativa&ccedil;&atilde;o cont&iacute;nua</p>
+          </div>
+          <div class="glass" style="padding:1.2rem 1.5rem;border-left:3px solid var(--keeta-green);">
+            <p style="font-family:var(--font-subhead);font-weight:700;font-size:0.85rem;color:var(--keeta-green);margin-bottom:0.5rem;">Entregável Tag.51</p>
+            <p style="font-size:0.75rem;color:var(--text-secondary);line-height:1.5;">Tag nas LPs de cada frente &bull; Identifica&ccedil;&atilde;o de n&atilde;o logados &bull; Cruzamento com personas</p>
+          </div>
+          <div class="glass" style="padding:1.2rem 1.5rem;border-left:3px solid #B088E8;">
+            <p style="font-family:var(--font-subhead);font-weight:700;font-size:0.85rem;color:#B088E8;margin-bottom:0.5rem;">Entregável Media.51</p>
+            <p style="font-size:0.75rem;color:var(--text-secondary);line-height:1.5;">Subida no BM &bull; Gest&atilde;o de performance &bull; Acompanhamento de resultados por frente</p>
+          </div>
+        </div>
+      </div>
+      <span class="slide-num">09 / 12</span>
+    </section>
+
+    <!-- ========== SLIDE 10: COBERTURA GEOGRÁFICA ========== -->
+    <section class="slide" id="s10">
+      <div class="slide-bg" style="background-image: url('https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=1920&q=80&fit=crop')"></div>
+      <div style="position:absolute;inset:0;background:linear-gradient(135deg, rgba(10,10,12,0.9) 0%, rgba(10,10,12,0.7) 100%);z-index:0;"></div>
+      <div class="slide-content">
+        <p class="label reveal" style="margin-bottom:0.8rem;">Cobertura</p>
+        <h2 class="headline reveal reveal-delay-1" style="margin-bottom:2.5rem;font-size:clamp(2.5rem,5vw,4.5rem);">
+          <span style="color:var(--accent);">36 cidades</span> mapeadas
+        </h2>
+
+        <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:3rem;max-width:1100px;" class="reveal reveal-delay-2">
+          <div>
+            <p style="font-family:var(--font-subhead);font-weight:700;font-size:1rem;color:var(--accent);margin-bottom:1rem;">Grande S&atilde;o Paulo &mdash; 32 cidades</p>
+            <div style="display:flex;flex-wrap:wrap;gap:0.4rem;">
+              <span class="glass" style="padding:0.3rem 0.8rem;font-size:0.7rem;border-radius:100px;">S&atilde;o Paulo</span>
+              <span class="glass" style="padding:0.3rem 0.8rem;font-size:0.7rem;border-radius:100px;">Guarulhos</span>
+              <span class="glass" style="padding:0.3rem 0.8rem;font-size:0.7rem;border-radius:100px;">S. B. do Campo</span>
+              <span class="glass" style="padding:0.3rem 0.8rem;font-size:0.7rem;border-radius:100px;">Osasco</span>
+              <span class="glass" style="padding:0.3rem 0.8rem;font-size:0.7rem;border-radius:100px;">Santo Andr&eacute;</span>
+              <span class="glass" style="padding:0.3rem 0.8rem;font-size:0.7rem;border-radius:100px;">Mau&aacute;</span>
+              <span class="glass" style="padding:0.3rem 0.8rem;font-size:0.7rem;border-radius:100px;">Mogi das Cruzes</span>
+              <span class="glass" style="padding:0.3rem 0.8rem;font-size:0.7rem;border-radius:100px;">Diadema</span>
+              <span class="glass" style="padding:0.3rem 0.8rem;font-size:0.7rem;border-radius:100px;">Carapicu&iacute;ba</span>
+              <span class="glass" style="padding:0.3rem 0.8rem;font-size:0.7rem;border-radius:100px;">Barueri</span>
+              <span class="glass" style="padding:0.3rem 0.8rem;font-size:0.7rem;border-radius:100px;">Cotia</span>
+              <span class="glass" style="padding:0.3rem 0.8rem;font-size:0.7rem;border-radius:100px;">Tabo&atilde;o da Serra</span>
+              <span class="glass" style="padding:0.3rem 0.8rem;font-size:0.7rem;border-radius:100px;">+ 20 munic&iacute;pios</span>
+            </div>
+          </div>
+          <div>
+            <p style="font-family:var(--font-subhead);font-weight:700;font-size:1rem;color:var(--keeta-green);margin-bottom:1rem;">Baixada Santista &mdash; 4 cidades</p>
+            <div style="display:flex;flex-wrap:wrap;gap:0.4rem;">
+              <span class="glass" style="padding:0.3rem 0.8rem;font-size:0.7rem;border-radius:100px;">Santos</span>
+              <span class="glass" style="padding:0.3rem 0.8rem;font-size:0.7rem;border-radius:100px;">S&atilde;o Vicente</span>
+              <span class="glass" style="padding:0.3rem 0.8rem;font-size:0.7rem;border-radius:100px;">Guaruj&aacute;</span>
+              <span class="glass" style="padding:0.3rem 0.8rem;font-size:0.7rem;border-radius:100px;">Praia Grande</span>
+            </div>
+            <div style="margin-top:2rem;">
+              <p style="font-family:var(--font-subhead);font-weight:700;font-size:1rem;color:rgba(255,255,255,0.4);margin-bottom:0.5rem;">Governan&ccedil;a</p>
+              <p style="font-size:0.8rem;color:var(--text-secondary);line-height:1.6;">LGPD compliant &bull; ISO 27001 &bull; ISO 27701 &bull; ABEMD &bull; AnaMid &bull; Bureau Veritas certified</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <span class="slide-num">10 / 12</span>
+    </section>
+
+    <!-- ========== SLIDE 11: INVESTIMENTO ========== -->
+    <section class="slide" id="s11" style="background:var(--bg-primary);">
+      <svg class="bg-decoration" viewBox="0 0 1920 1080" preserveAspectRatio="none" style="opacity:0.3">
+        <rect x="100" y="100" width="1720" height="880" rx="40" fill="none" stroke="rgba(232,212,77,0.03)" stroke-width="1"/>
+      </svg>
+      <div class="slide-content" style="max-width:900px;margin:0 auto;">
+        <p class="label reveal" style="margin-bottom:1rem;text-align:center;">Investimento</p>
+        <h2 class="headline reveal reveal-delay-1" style="margin-bottom:3rem;text-align:center;font-size:clamp(2.5rem,5vw,4.5rem);">
+          Escopo &amp; <span style="color:var(--accent);">valores</span>
+        </h2>
+
+        <!-- Timeline vertical -->
+        <div class="reveal reveal-delay-2" style="max-width:700px;margin:0 auto;">
+          <!-- Setup -->
+          <div class="timeline-row">
+            <div class="timeline-node" style="background:var(--accent);color:var(--bg-primary);">S</div>
+            <div class="glass" style="flex:1;padding:1.2rem 1.5rem;">
+              <div style="display:flex;justify-content:space-between;align-items:baseline;">
+                <div>
+                  <p style="font-family:var(--font-subhead);font-weight:700;font-size:1rem;">Setup</p>
+                  <p style="font-size:0.8rem;color:var(--text-secondary);margin-top:0.3rem;">Mapeamento inicial, configura&ccedil;&atilde;o do cubo e integra&ccedil;&atilde;o de dados</p>
+                </div>
+                <div style="text-align:right;">
+                  <span style="font-family:var(--font-headline);font-size:2rem;color:var(--accent);">R$ 19K</span>
+                  <p style="font-size:0.7rem;color:var(--text-secondary);">10 dias ap&oacute;s assinatura</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-line"></div>
+          <!-- M&ecirc;s 1 -->
+          <div class="timeline-row">
+            <div class="timeline-node" style="background:var(--keeta-green);color:var(--bg-primary);">1</div>
+            <div class="glass" style="flex:1;padding:1.2rem 1.5rem;">
+              <div style="display:flex;justify-content:space-between;align-items:baseline;">
+                <div>
+                  <p style="font-family:var(--font-subhead);font-weight:700;font-size:1rem;">M&ecirc;s 1</p>
+                  <p style="font-size:0.8rem;color:var(--text-secondary);margin-top:0.3rem;">Segmenta&ccedil;&atilde;o, custom audiences, instala&ccedil;&atilde;o Tag.51 e primeiras ativa&ccedil;&otilde;es</p>
+                </div>
+                <div style="text-align:right;">
+                  <span style="font-family:var(--font-headline);font-size:2rem;color:var(--keeta-green);">R$ 44K</span>
+                  <p style="font-size:0.7rem;color:var(--text-secondary);">30 dias ap&oacute;s assinatura</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-line"></div>
+          <!-- M&ecirc;s 2 -->
+          <div class="timeline-row">
+            <div class="timeline-node" style="background:#B088E8;color:var(--bg-primary);">2</div>
+            <div class="glass" style="flex:1;padding:1.2rem 1.5rem;">
+              <div style="display:flex;justify-content:space-between;align-items:baseline;">
+                <div>
+                  <p style="font-family:var(--font-subhead);font-weight:700;font-size:1rem;">M&ecirc;s 2</p>
+                  <p style="font-size:0.8rem;color:var(--text-secondary);margin-top:0.3rem;">Otimiza&ccedil;&atilde;o de campanhas, refinamento de bases e acompanhamento de performance</p>
+                </div>
+                <div style="text-align:right;">
+                  <span style="font-family:var(--font-headline);font-size:2rem;color:#B088E8;">R$ 44K</span>
+                  <p style="font-size:0.7rem;color:var(--text-secondary);">60 dias ap&oacute;s assinatura</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Total -->
+        <div class="glass-accent reveal reveal-delay-3" style="max-width:700px;margin:2rem auto 0;text-align:center;padding:1.5rem;">
+          <p style="font-size:0.8rem;color:var(--text-secondary);margin-bottom:0.3rem;">Investimento total &mdash; 60 dias</p>
+          <span style="font-family:var(--font-headline);font-size:3.5rem;color:var(--accent);">R$ 107K</span>
+          <p style="font-size:0.75rem;color:var(--text-secondary);margin-top:0.5rem;">Possibilidade de extens&atilde;o por +30 dias (R$ 44K/m&ecirc;s adicional)</p>
+        </div>
+      </div>
+      <span class="slide-num">11 / 12</span>
+    </section>
+
+    <!-- ========== SLIDE 12: ENCERRAMENTO ========== -->
+    <section class="slide" id="s12">
+      <div class="slide-bg" style="background-image: url('https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?w=1920&q=80&fit=crop')"></div>
+      <div style="position:absolute;inset:0;background:linear-gradient(135deg, rgba(10,10,12,0.88) 0%, rgba(10,10,12,0.6) 50%, rgba(10,10,12,0.8) 100%);z-index:0;"></div>
+      <svg class="bg-decoration" viewBox="0 0 1920 1080" preserveAspectRatio="none" style="opacity:0.3;z-index:1;">
+        <circle cx="960" cy="540" r="250" fill="none" stroke="rgba(232,212,77,0.06)" stroke-width="1"/>
+        <circle cx="960" cy="540" r="400" fill="none" stroke="rgba(232,212,77,0.03)" stroke-width="1"/>
+      </svg>
+      <div class="slide-content" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;">
+        <div style="display:flex;align-items:center;gap:1.5rem;margin-bottom:3rem;" class="reveal">
+          <div style="width:52px;height:52px;background:var(--accent);border-radius:12px;display:flex;align-items:center;justify-content:center;">
+            <span style="font-family:var(--font-subhead);font-weight:700;color:var(--bg-primary);font-size:0.65rem;letter-spacing:0.05em;">AREA<br>51</span>
+          </div>
+          <span style="font-family:var(--font-subhead);font-size:1rem;color:rgba(255,255,255,0.3);font-weight:400;">x</span>
+          <div style="background:var(--keeta-green);border-radius:12px;padding:8px 18px;display:flex;align-items:center;">
+            <span style="font-family:var(--font-subhead);font-weight:700;color:var(--bg-primary);font-size:1.1rem;">keeta</span>
+          </div>
+        </div>
+        <h2 class="headline-xl reveal reveal-delay-1" style="margin-bottom:1.5rem;">
+          Precis&atilde;o<br>em <span style="color:var(--accent);">escala</span>
+        </h2>
+        <p class="subhead reveal reveal-delay-2" style="max-width:500px;">
+          371K estabelecimentos. 14,5M perfis de motociclistas. At&eacute; 8,2M consumidores. Tudo pronto para ativar.
+        </p>
+        <div class="accent-bar reveal reveal-delay-3" style="margin-top:2rem;"></div>
+        <p class="reveal reveal-delay-3" style="margin-top:1.5rem;font-size:0.8rem;color:rgba(255,255,255,0.3);">area51.ia.br</p>
+      </div>
+      <span class="slide-num">12 / 12</span>
+    </section>
+
+  </main>
+
+  <script>
+    // Slide indicator
+    const slidesContainer = document.getElementById('slidesContainer');
+    const allSlides = document.querySelectorAll('.slide');
+    const indicator = document.getElementById('slideIndicator');
+    let current = 0;
+
+    allSlides.forEach((_, i) => {
+      const dot = document.createElement('div');
+      dot.className = 'dot' + (i === 0 ? ' active' : '');
+      dot.addEventListener('click', () => goTo(i));
+      indicator.appendChild(dot);
+    });
+
+    function goTo(i) {
+      i = Math.max(0, Math.min(i, allSlides.length - 1));
+      allSlides[i].scrollIntoView({ behavior: 'smooth' });
+      current = i;
+      updateDots();
+    }
+
+    function updateDots() {
+      indicator.querySelectorAll('.dot').forEach((d, i) => {
+        d.classList.toggle('active', i === current);
+      });
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); goTo(current + 1); }
+      if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { e.preventDefault(); goTo(current - 1); }
+    });
+
+    // Intersection Observer for reveal animations and slide tracking
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+          current = [...allSlides].indexOf(entry.target);
+          updateDots();
+        }
+      });
+    }, { threshold: 0.3 });
+
+    allSlides.forEach(s => observer.observe(s));
+
+    // Animated counters
+    function animateValue(el, end, duration = 1500, prefix = '', suffix = '') {
+      let start = 0;
+      const step = end / (duration / 16);
+      const timer = setInterval(() => {
+        start = Math.min(start + step, end);
+        el.textContent = prefix + Math.floor(start).toLocaleString('pt-BR') + suffix;
+        if (start >= end) clearInterval(timer);
+      }, 16);
+    }
+
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !entry.target.dataset.counted) {
+          entry.target.dataset.counted = 'true';
+          const end = parseFloat(entry.target.dataset.value);
+          const prefix = entry.target.dataset.prefix || '';
+          const suffix = entry.target.dataset.suffix || '';
+          animateValue(entry.target, end, 1500, prefix, suffix);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('[data-value]').forEach(el => counterObserver.observe(el));
+  </script>
+</body>
+</html>

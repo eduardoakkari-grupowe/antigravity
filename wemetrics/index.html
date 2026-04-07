@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wemetrics - Área Segura - Login</title>
+    <style>
+        /* --- Estilos Gerais e de Fundo --- */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #1f2937; 
+            color: #FFFFFF; /* Fonte Branca */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px 0;
+            box-sizing: border-box;
+        }
+
+        /* --- Estilo do Bloco de Login --- */
+        #login-container {
+            background-color: #111227;
+            /* ESPAÇAMENTO INFERIOR ALTERADO */
+            padding: 40px 40px 27px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .logo {
+            width: 300px;
+            margin-bottom: 25px;
+        }
+
+        /* --- Estilo dos Campos de Formulário (Usuário e Senha) --- */
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 5px;
+            border: 1px solid #4b5563;
+            background-color: #374151;
+            color: #FFFFFF;
+            box-sizing: border-box; 
+        }
+
+        .form-group input::placeholder {
+            color: #9ca3af;
+        }
+
+        /* --- Estilo do Botão "ENTRAR" --- */
+        #login-button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            /* COR DO BOTÃO ALTERADA */
+            background-color: #0099FF;
+            color: #FFFFFF;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #login-button:hover {
+            /* COR DO HOVER AJUSTADA */
+            background-color: #007acc;
+        }
+
+        #error-message {
+            color: #ff4d4d;
+            margin-top: 8px;
+            height: 5px;
+        }
+
+        /* --- Estilos da Área de Cursos --- */
+        #cursos-container {
+            display: none; /* Começa oculto */
+            width: 90%;
+            max-width: 1200px;
+            text-align: center;
+        }
+        
+        h1 {
+            margin-top: 0;
+            margin-bottom: 40px;
+        }
+
+        .cards-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px; /* Espaço entre os cards */
+        }
+        
+        .cards-wrapper a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .card {
+            background-color: #111227;
+            border-radius: 10px;
+            width: 280px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s ease;
+        }
+        
+        /* Estilo da imagem dentro do card */
+        .card .card-image {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+
+        .card:hover {
+            transform: translateY(-5px); /* Efeito de flutuar */
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: #0099FF;
+        }
+
+        .card p {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="login-container">
+        <img src="wemetrics.png" alt="Logo da Empresa" class="logo">
+        
+        <form id="login-form">
+            <div class="form-group">
+                <label for="username">Usuário</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Senha</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit" id="login-button">ENTRAR</button>
+            <p id="error-message"></p>
+        </form>
+    </div>
+
+    <div id="cursos-container">
+        <img src="wemetrics.png" alt="Logo da Empresa" class="logo">
+        <div class="cards-wrapper">
+            
+            <a href="wenews.html">
+                <div class="card">
+                    <img src="img_wenews.png" alt="Imagem da grupowe news" class="card-image">
+                    <h3>NOTÍCIAS GRUPO WE</h3>
+                    <p>Saiba de todas notícias atualizadas do Grupo We.</p>
+                </div>
+            </a>
+			
+			 <a href="wenewsclientes.html">
+                <div class="card">
+                    <img src="img_wenewsclientes.png" alt="Imagem da grupowe clientes news" class="card-image">
+                    <h3>NOTÍCIAS CLIENTES GRUPO WE</h3>
+                    <p>Saiba de todas notícias atualizadas dos clientes do Grupo We.</p>
+                </div>
+            </a>
+
+				 <a href="wenewsmercado.html">
+                <div class="card">
+                    <img src="img_wenewsmercado.png" alt="Imagem da grupowe mercado" class="card-image">
+                    <h3>NOTÍCIAS DO MERCADO</h3>
+                    <p>Saiba de todas notícias atualizadas do mercado.</p>
+                </div>
+            </a>
+			<a href="sainsbury.html">
+                <div class="card">
+                    <img src="img_sainsbury.png" alt="Imagem da Calculadora de Sainsbury" class="card-image">
+                    <h3>CALCULADORA DE SAINSBURY</h3>
+                    <p>Realize os cálculos das métricas de mídia de Sainsbury.</p>
+                </div>
+            </a>
+			
+             <a href="populacaoprojetada.html">
+                <div class="card">
+                    <img src="img_populacaoprojetada.png" alt="Imagem da Calculadora de população projetada" class="card-image">
+                    <h3>CALCULADORA DE POPULAÇÃO PROJETADA</h3>
+                    <p>Realize os cálculos de população projetada.</p>
+                </div>
+            </a>
+
+			<a href="https://gemini.google.com/gem/1izdyfdEEQVY6OwArx0r-JYFfiIJh5v0K?usp=sharing">
+                <div class="card">
+                    <img src="img_area51_estudopersonaclusterpf.png" alt="Imagem da grupowe news" class="card-image">
+                    <h3>ESTUDO DAS PERSONAS X CRIAÇÃO DE CLUSTERS COM OS FILTROS DO CUBO PF</h3>
+                    <p>Utilize nosso agente criado para estudo das personas da modelagem e posterior criação de clusters com os filtros do cubo Pessoa Física PF.</p>
+                </div>
+            </a>
+
+          <a href="https://gemini.google.com/gem/1EGQhwuGxl1roT08Cy3ob0IM203OTbxp6?usp=sharing">
+                <div class="card">
+                    <img src="img_area51_aulasagenteempresapf.png" alt="Imagem da grupowe news" class="card-image">
+                    <h3>AGENTE IA DE ESTUDO DA EMPRESA X BIGDATA PF</h3>
+                    <p>Utilize nosso agente criado para estudo de empresas e posterior estudo das utilizações dos filtros de nossa Big Data Pessoa Física PF.</p>
+                </div>
+            </a>
+			
+			<a href="https://gemini.google.com/gem/127Lhe67afOu6ihOcWtvxbDVOpNael_0p?usp=sharing">
+                <div class="card">
+                    <img src="img_area51_modelagem.png" alt="Imagem da grupowe news" class="card-image">
+                    <h3>AGENTE IA DE MODELAGEM ESTATÍSTICA</h3>
+                    <p>Utilize nosso agente criado para realização de modelagem estatística completa com base nos arquivos de clientes bons e ruins enviados.</p>
+                </div>
+            </a>
+			
+			<a href="area51_aulascubopf.html">
+                <div class="card">
+                    <img src="img_area51_aulascubopf.png" alt="Imagem da grupowe news" class="card-image">
+                    <h3>VÍDEO AULAS CUBO PF</h3>
+                    <p>Assista nossas vídeo aulas sobre o cubo pessoas físicas.</p>
+                </div>
+            </a>
+
+            <a href="area51_aulascubopj.html">
+                <div class="card">
+                    <img src="img_area51_aulascubopj.png" alt="Imagem da grupowe news" class="card-image">
+                    <h3>VÍDEO AULAS CUBO PJ</h3>
+                    <p>Assista nossas vídeo aulas sobre o cubo pessoas jurídicas.</p>
+                </div>
+            </a>
+
+ 	  <a href="area51_aulasboaspraticasmeta.html">
+                <div class="card">
+                    <img src="img_area51_aulasboaspraticasmeta.png" alt="Imagem da grupowe news" class="card-image">
+                    <h3>VÍDEO AULAS BOAS PRÁTICAS PARA CAMPANHAS META</h3>
+                    <p>Assista nossas vídeo aulas sobre as boas práticas para criação de campanhas no Meta para melhor aproveitamento de nossa base.</p>
+                </div>
+            </a>
+
+  	 <a href="area51_aulasboaspraticasgoogle.html">
+                <div class="card">
+                    <img src="img_area51_aulasboaspraticasgoogle.png" alt="Imagem da grupowe news" class="card-image">
+                    <h3>VÍDEO AULAS BOAS PRÁTICAS PARA CAMPANHAS GOOGLE</h3>
+                    <p>Assista nossas vídeo aulas sobre as boas práticas para criação de campanhas no Google para melhor aproveitamento de nossa base.</p>
+                </div>
+            </a>
+  <a href="https://gemini.google.com/gem/1izdyfdEEQVY6OwArx0r-JYFfiIJh5v0K?usp=sharing">
+                <div class="card">
+                    <img src="img_area51_estudopersonaclusterpj.png" alt="Imagem da grupowe news" class="card-image">
+                    <h3>ESTUDO DAS PERSONAS X CRIAÇÃO DE CLUSTERS COM OS FILTROS DO CUBO PJ</h3>
+                    <p>Utilize nosso agente criado para estudo das personas da modelagem e posterior criação de clusters com os filtros do cubo Pessoa Jurídica PJ.</p>
+                </div>
+            </a>
+  <a href="https://gemini.google.com/gem/1EGQhwuGxl1roT08Cy3ob0IM203OTbxp6?usp=sharing">
+                <div class="card">
+                    <img src="img_area51_aulasagenteempresapj.png" alt="Imagem da grupowe news" class="card-image">
+                    <h3>AGENTE IA DE ESTUDO DA EMPRESA X BIGDATA PJ</h3>
+                    <p>Utilize nosso agente criado para estudo de empresas e posterior estudo das utilizações dos filtros de nossa Big Data Pessoa Jurídica PJ.</p>
+                </div>
+            </a>
+
+            <a href="https://gemini.google.com/gem/1fsNFG60ulfIVk1-d9f5hy7YVvMxrr40h?usp=sharing">
+                <div class="card">
+                    <img src="img_area51_agenteestudobigdatapf.png" alt="Imagem da grupowe news" class="card-image">
+                    <h3>AGENTE IA DE ESTUDO DA BIGDATA PF</h3>
+                    <p>Utilize nosso agente criado para estudo de objetivos com personas desejadas e posterior estudo das utilizações dos filtros de nossa Big Data Pessoa Física PF.</p>
+                </div>
+            </a>
+
+            <a href="https://gemini.google.com/gem/1EGQhwuGxl1roT08Cy3ob0IM203OTbxp6?usp=sharing">
+                <div class="card">
+                    <img src="img_area51_agenteestudobigdatapj.png" alt="Imagem da grupowe news" class="card-image">
+                    <h3>AGENTE IA DE ESTUDO DA BIGDATA PJ</h3>
+                    <p>Utilize nosso agente criado para estudo de objetivos com personas desejadas e posterior estudo das utilizações dos filtros de nossa Big Data Pessoa Jurídica PJ.</p>
+                </div>
+            </a>
+
+ 		 <a href="dashwe.html">
+                <div class="card">
+                    <img src="img_dash.png" alt="Imagem do Dashboard de campanhas" class="card-image">
+                    <h3>DASHBOARDS PARA METAADS E GOOGLE ADS</h3>
+                    <p>Realize o estudo de campanhas de Meta e Google com diversas funcionalidades exclusivas.</p>
+                </div>
+            </a>
+			
+				 <a href="metaads.html">
+                <div class="card">
+                    <img src="img_metaanalytics.png" alt="Imagem do Dashboard de campanhas" class="card-image">
+                    <h3>META ADS ANALYTICS</h3>
+                    <p>Realize a análise de campanhas de Meta Ads com auxílio do Gemini IA do Google.</p>
+                </div>
+            </a>
+			
+				<a href="https://chat.salebot.com.br/">
+                <div class="card">
+                    <img src="img_crm.png" alt="Imagem do CRM.51" class="card-image">
+                    <h3>CRM IA</h3>
+                    <p>Realize o estudo de campanhas de Meta e Google com diversas funcionalidades exclusivas.</p>
+                </div>
+            </a>
+			
+        </div>
+    </div>
+
+
+    <script>
+        // --- Funcionalidade de Login ---
+        const loginForm = document.getElementById('login-form');
+        const loginContainer = document.getElementById('login-container');
+        const cursosContainer = document.getElementById('cursos-container');
+        const errorMessage = document.getElementById('error-message');
+
+        loginForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const usernameInput = document.getElementById('username').value;
+            const passwordInput = document.getElementById('password').value;
+
+            if (usernameInput === 'admin' && passwordInput === '1234') {
+                loginContainer.style.display = 'none';
+                cursosContainer.style.display = 'block';
+            } else {
+                errorMessage.textContent = 'Usuário ou senha inválidos.';
+                setTimeout(() => {
+                    errorMessage.textContent = '';
+                }, 3000);
+            }
+        });
+    </script>
+
+</body>
+</html>
+
