@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" fill="none">
+  <rect width="400" height="200" rx="16" fill="#2845EC"/>
+  <text x="200" y="120" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-weight="800" font-size="110" fill="white" letter-spacing="-2">JOVI</text>
+  <text x="200" y="160" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-weight="400" font-size="28" fill="white" letter-spacing="8">SMARTPHONE</text>
+</svg>
