@@ -1,3 +1,6 @@
 [submodule "cortex-v3"]
 	path = cortex-v3
 	url = https://github.com/eduardoakkari-grupowe/cortex-v3.git
+[submodule "picpayproposta"]
+	path = picpayproposta
+	url = https://github.com/eduardoakkari-grupowe/picpayproposta.git
