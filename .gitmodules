@@ -7,3 +7,6 @@
 [submodule "bydhubv3"]
 	path = bydhubv3
 	url = https://github.com/eduardoakkari-grupowe/bydhubv3.git
+[submodule "bydv5"]
+	path = bydv5
+	url = https://github.com/eduardoakkari-grupowe/bydv5.git
