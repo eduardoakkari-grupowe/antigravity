@@ -127,6 +127,28 @@
             font-weight: 700;
         }
 
+        .dash-header-right {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .download-btn {
+            background-color: #D35400;
+            border: none;
+            color: #ffffff;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 700;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .download-btn:hover {
+            background-color: #B94700;
+        }
+
         .dash-header .logout-btn {
             background: none;
             border: 1px solid #334455;
@@ -278,8 +300,109 @@
             text-align: center;
         }
 
+        /* ========== PAINÉIS GÊNERO E CIDADES ========== */
+        .stats-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .stats-panel {
+            background-color: #1a2733;
+            border-radius: 12px;
+            padding: 24px;
+            flex: 1;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+            border: 1px solid #253340;
+        }
+
+        .stats-panel h3 {
+            font-size: 13px;
+            color: #8899aa;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        .genero-item { margin-bottom: 14px; }
+
+        .genero-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+
+        .genero-label { font-size: 14px; color: #ffffff; }
+
+        .genero-numbers { font-size: 14px; color: #8899aa; }
+        .genero-numbers strong { color: #ffffff; margin-right: 6px; }
+
+        .genero-bar {
+            height: 8px;
+            border-radius: 4px;
+            background-color: #253340;
+            overflow: hidden;
+        }
+
+        .genero-bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.6s ease;
+        }
+
+        .genero-bar-fill.masculino { background-color: #E8956A; }
+        .genero-bar-fill.feminino { background-color: #E866A0; }
+        .genero-bar-fill.desconhecido { background-color: #5B8CCC; }
+
+        .genero-footnote {
+            font-size: 11px;
+            color: #556677;
+            margin-top: 16px;
+        }
+
+        .cidade-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            gap: 12px;
+        }
+
+        .cidade-nome {
+            font-size: 14px;
+            color: #ffffff;
+            min-width: 150px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .cidade-bar-wrap {
+            flex: 1;
+            height: 8px;
+            background-color: #253340;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .cidade-bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            background-color: #5BB8A6;
+            transition: width 0.6s ease;
+        }
+
+        .cidade-count {
+            font-size: 14px;
+            font-weight: 700;
+            color: #ffffff;
+            min-width: 30px;
+            text-align: right;
+        }
+
         @media (max-width: 700px) {
             .cards { flex-direction: column; }
+            .stats-row { flex-direction: column; }
             .cal-day { min-height: 60px; }
             .dashboard { padding: 12px; }
         }
@@ -306,7 +429,10 @@
                 <img src="sistemaagitos.png" alt="Sistema Agitos">
                 <h1>Painel de Cadastros - Campos Winter Festival 2026</h1>
             </div>
-            <button class="logout-btn" id="logoutBtn">Sair</button>
+            <div class="dash-header-right">
+                <button class="download-btn" id="downloadBtn">BAIXAR CADASTROS</button>
+                <button class="logout-btn" id="logoutBtn">Sair</button>
+            </div>
         </div>
 
         <div class="cards">
@@ -317,6 +443,22 @@
             <div class="card">
                 <div class="card-label">Cadastros Hoje</div>
                 <div class="card-value" id="cadastrosHoje">—</div>
+            </div>
+        </div>
+
+        <div class="stats-row">
+            <div class="stats-panel">
+                <h3>Por Gênero</h3>
+                <div id="generoContent"></div>
+                <div class="genero-footnote">Inferido a partir do primeiro nome (heurística BR)</div>
+            </div>
+            <div class="stats-panel">
+                <h3>Top Cidades</h3>
+                <div id="cidadesContent"></div>
+            </div>
+            <div class="stats-panel">
+                <h3>Top Estados</h3>
+                <div id="estadosContent"></div>
             </div>
         </div>
 
@@ -386,7 +528,7 @@
         // ========== CARREGAR DADOS ==========
         async function carregarDados() {
             try {
-                const response = await fetch(SUPABASE_URL + '/rest/v1/cadastros?select=id,criado_em&order=criado_em.asc', {
+                const response = await fetch(SUPABASE_URL + '/rest/v1/cadastros?select=id,criado_em,nome,cidade,estado&order=criado_em.asc', {
                     headers: {
                         'apikey': SUPABASE_KEY,
                         'Authorization': 'Bearer ' + SUPABASE_KEY
@@ -397,6 +539,9 @@
 
                 cadastrosData = await response.json();
                 atualizarCards();
+                renderGenero();
+                renderCidades();
+                renderEstados();
 
                 const hoje = new Date();
                 currentMonth = hoje.getMonth();
@@ -430,6 +575,142 @@
             const hoje = hojeBR();
             const hojeCount = cadastrosData.filter(c => c.criado_em && dataLocalBR(c.criado_em) === hoje).length;
             document.getElementById('cadastrosHoje').textContent = hojeCount;
+        }
+
+        // ========== GÊNERO (heurística BR) ==========
+        function inferirGenero(nome) {
+            if (!nome || !nome.trim()) return 'Desconhecido';
+            const primeiro = nome.trim().split(/\s+/)[0].toLowerCase()
+                .normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
+            const mascEmA = ['luca','josua','nicola','batista','noa','esdra'];
+            const femSemA = [
+                'alice','beatriz','raquel','suelen','jaqueline','michele','carmen',
+                'miriam','liz','iris','ines','mabel','abigail','ingrid','nair',
+                'rute','jade','gisele','viviane','simone','elaine','diane',
+                'monique','denise','berenice','clarice','aline','cristiane',
+                'fabiane','luciane','rosane','solange','marilene','marlene',
+                'noemi','raquelle','sueli','arieli','nicole','maryane','nathalie'
+            ];
+
+            if (mascEmA.includes(primeiro)) return 'Masculino';
+            if (femSemA.includes(primeiro)) return 'Feminino';
+
+            const last = primeiro.slice(-1);
+            if (last === 'a') return 'Feminino';
+            if (last === 'o') return 'Masculino';
+
+            return 'Desconhecido';
+        }
+
+        function renderGenero() {
+            const contagem = { Masculino: 0, Feminino: 0, Desconhecido: 0 };
+            cadastrosData.forEach(c => {
+                const g = inferirGenero(c.nome);
+                contagem[g]++;
+            });
+
+            const total = cadastrosData.length || 1;
+            const container = document.getElementById('generoContent');
+            container.innerHTML = '';
+
+            const itens = [
+                { label: 'Masculino', classe: 'masculino' },
+                { label: 'Feminino', classe: 'feminino' },
+                { label: 'Desconhecido', classe: 'desconhecido' }
+            ];
+
+            itens.forEach(item => {
+                const count = contagem[item.label];
+                const pct = Math.round((count / total) * 100);
+                const div = document.createElement('div');
+                div.className = 'genero-item';
+                div.innerHTML =
+                    '<div class="genero-info">' +
+                        '<span class="genero-label">' + item.label + '</span>' +
+                        '<span class="genero-numbers"><strong>' + count + '</strong>' + pct + '%</span>' +
+                    '</div>' +
+                    '<div class="genero-bar">' +
+                        '<div class="genero-bar-fill ' + item.classe + '" style="width:' + pct + '%"></div>' +
+                    '</div>';
+                container.appendChild(div);
+            });
+        }
+
+        // ========== TOP CIDADES ==========
+        function renderCidades() {
+            const contagem = {};
+            cadastrosData.forEach(c => {
+                if (c.cidade && c.cidade.trim()) {
+                    const cidade = c.cidade.trim();
+                    contagem[cidade] = (contagem[cidade] || 0) + 1;
+                }
+            });
+
+            const ordenadas = Object.entries(contagem)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 10);
+
+            const container = document.getElementById('cidadesContent');
+            container.innerHTML = '';
+
+            if (!ordenadas.length) {
+                container.innerHTML = '<span style="color:#556677;font-size:13px;">Nenhum dado</span>';
+                return;
+            }
+
+            const max = ordenadas[0][1];
+
+            ordenadas.forEach(([cidade, count]) => {
+                const pct = Math.round((count / max) * 100);
+                const div = document.createElement('div');
+                div.className = 'cidade-item';
+                div.innerHTML =
+                    '<span class="cidade-nome">' + cidade + '</span>' +
+                    '<div class="cidade-bar-wrap">' +
+                        '<div class="cidade-bar-fill" style="width:' + pct + '%"></div>' +
+                    '</div>' +
+                    '<span class="cidade-count">' + count + '</span>';
+                container.appendChild(div);
+            });
+        }
+
+        // ========== TOP ESTADOS ==========
+        function renderEstados() {
+            const contagem = {};
+            cadastrosData.forEach(c => {
+                if (c.estado && c.estado.trim()) {
+                    const estado = c.estado.trim();
+                    contagem[estado] = (contagem[estado] || 0) + 1;
+                }
+            });
+
+            const ordenadas = Object.entries(contagem)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 10);
+
+            const container = document.getElementById('estadosContent');
+            container.innerHTML = '';
+
+            if (!ordenadas.length) {
+                container.innerHTML = '<span style="color:#556677;font-size:13px;">Nenhum dado</span>';
+                return;
+            }
+
+            const max = ordenadas[0][1];
+
+            ordenadas.forEach(([estado, count]) => {
+                const pct = Math.round((count / max) * 100);
+                const div = document.createElement('div');
+                div.className = 'cidade-item';
+                div.innerHTML =
+                    '<span class="cidade-nome">' + estado + '</span>' +
+                    '<div class="cidade-bar-wrap">' +
+                        '<div class="cidade-bar-fill" style="width:' + pct + '%"></div>' +
+                    '</div>' +
+                    '<span class="cidade-count">' + count + '</span>';
+                container.appendChild(div);
+            });
         }
 
         // ========== CALENDÁRIO ==========
@@ -514,6 +795,60 @@
             currentMonth = hoje.getMonth();
             currentYear = hoje.getFullYear();
             renderCalendario();
+        });
+
+        // ========== BAIXAR CADASTROS (CSV) ==========
+        document.getElementById('downloadBtn').addEventListener('click', async function() {
+            const btn = this;
+            btn.disabled = true;
+            btn.textContent = 'BAIXANDO...';
+
+            try {
+                const response = await fetch(SUPABASE_URL + '/rest/v1/cadastros?select=*&order=criado_em.desc', {
+                    headers: {
+                        'apikey': SUPABASE_KEY,
+                        'Authorization': 'Bearer ' + SUPABASE_KEY
+                    }
+                });
+
+                if (!response.ok) throw new Error('Erro ao baixar dados');
+
+                const dados = await response.json();
+                if (!dados.length) {
+                    alert('Nenhum cadastro encontrado.');
+                    return;
+                }
+
+                const colunas = Object.keys(dados[0]);
+                const linhas = [colunas.join(';')];
+
+                dados.forEach(row => {
+                    const valores = colunas.map(col => {
+                        let val = row[col] == null ? '' : String(row[col]);
+                        val = val.replace(/"/g, '""');
+                        return '"' + val + '"';
+                    });
+                    linhas.push(valores.join(';'));
+                });
+
+                const csv = '\uFEFF' + linhas.join('\r\n');
+                const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'cadastros_campos_winter_festival.csv';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+
+            } catch (error) {
+                console.error('Erro:', error);
+                alert('Erro ao baixar cadastros. Tente novamente.');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'BAIXAR CADASTROS';
+            }
         });
     </script>
 </body>

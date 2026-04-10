@@ -93,8 +93,28 @@
             color: #999999;
         }
 
-        .form-group input:focus {
+        .form-group input:focus,
+        .form-group select:focus {
             border-color: #D35400;
+        }
+
+        .form-group select {
+            width: 100%;
+            height: 38px;
+            padding: 8px 12px;
+            font-size: 14px;
+            color: #000000;
+            background-color: #ffffff;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            outline: none;
+            font-family: Arial, Helvetica, sans-serif;
+            appearance: auto;
+        }
+
+        .form-group select:disabled {
+            background-color: #e0e0e0;
+            color: #999999;
         }
 
         .submit-btn {
@@ -166,13 +186,7 @@
 <body>
     <div class="page-container">
         <div class="banner-image">
-            <img src="base-01.png" alt="Campos Winter Festival 2026">
-        </div>
-        <div class="banner-image">
-            <img src="base-02.png" alt="Campos Winter Festival 2026">
-        </div>
-        <div class="banner-image">
-            <img src="base-03.png" alt="Campos Winter Festival 2026">
+            <img src="camposwinterfestival.jpeg" alt="Campos Winter Festival 2026">
         </div>
 
         <!-- Separador -->
@@ -202,12 +216,16 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>Cidade</label>
-                    <input type="text" id="cidade" placeholder="Cidade">
+                    <label>Estado</label>
+                    <select id="estado" required>
+                        <option value="">Selecione o estado</option>
+                    </select>
                 </div>
                 <div class="form-group">
-                    <label>Estado</label>
-                    <input type="text" id="estado" placeholder="Estado">
+                    <label>Cidade</label>
+                    <select id="cidade" required disabled>
+                        <option value="">Selecione o estado primeiro</option>
+                    </select>
                 </div>
                 <button type="submit" class="submit-btn" id="submitBtn">FAZER CADASTRO</button>
                 <p class="msg-erro" id="msgErro"></p>
@@ -226,6 +244,49 @@
     <script>
         const SUPABASE_URL = 'https://sexwqzahwxgjkbcjlgxm.supabase.co';
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNleHdxemFod3hnamtiY2psZ3htIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUxNTY2MDUsImV4cCI6MjA5MDczMjYwNX0.4rL55mqa_wsWoVdTZWLkUAvpkiSlj7E5ZcxQvnoIz8w';
+
+        // ========== ESTADOS E CIDADES (IBGE) ==========
+        const estadoSelect = document.getElementById('estado');
+        const cidadeSelect = document.getElementById('cidade');
+
+        // Carregar estados
+        fetch('https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome')
+            .then(r => r.json())
+            .then(estados => {
+                estados.forEach(uf => {
+                    const opt = document.createElement('option');
+                    opt.value = uf.sigla;
+                    opt.textContent = uf.nome;
+                    estadoSelect.appendChild(opt);
+                });
+            });
+
+        // Ao selecionar estado, carregar cidades
+        estadoSelect.addEventListener('change', function() {
+            cidadeSelect.innerHTML = '';
+
+            if (!this.value) {
+                cidadeSelect.disabled = true;
+                cidadeSelect.innerHTML = '<option value="">Selecione o estado primeiro</option>';
+                return;
+            }
+
+            cidadeSelect.disabled = true;
+            cidadeSelect.innerHTML = '<option value="">Carregando...</option>';
+
+            fetch('https://servicodados.ibge.gov.br/api/v1/localidades/estados/' + this.value + '/municipios?orderBy=nome')
+                .then(r => r.json())
+                .then(cidades => {
+                    cidadeSelect.innerHTML = '<option value="">Selecione a cidade</option>';
+                    cidades.forEach(c => {
+                        const opt = document.createElement('option');
+                        opt.value = c.nome;
+                        opt.textContent = c.nome;
+                        cidadeSelect.appendChild(opt);
+                    });
+                    cidadeSelect.disabled = false;
+                });
+        });
 
         // Máscara de telefone: (XX) XXXXX-XXXX
         document.getElementById('telefone').addEventListener('input', function(e) {
@@ -251,12 +312,13 @@
             btn.textContent = 'AGUARDE...';
             msgErro.style.display = 'none';
 
+            const estadoEl = document.getElementById('estado');
             const dados = {
                 nome: document.getElementById('nome').value.trim(),
                 email: document.getElementById('email').value.trim(),
                 telefone: '+55 ' + document.getElementById('telefone').value.trim(),
-                cidade: document.getElementById('cidade').value.trim(),
-                estado: document.getElementById('estado').value.trim()
+                cidade: document.getElementById('cidade').value,
+                estado: estadoEl.options[estadoEl.selectedIndex].text
             };
 
             try {
