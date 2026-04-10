@@ -4,3 +4,6 @@
 [submodule "picpayproposta"]
 	path = picpayproposta
 	url = https://github.com/eduardoakkari-grupowe/picpayproposta.git
+[submodule "bydhubv3"]
+	path = bydhubv3
+	url = https://github.com/eduardoakkari-grupowe/bydhubv3.git
