@@ -10,3 +10,6 @@
 [submodule "bydv5"]
 	path = bydv5
 	url = https://github.com/eduardoakkari-grupowe/bydv5.git
+[submodule "keetamaratona"]
+	path = keetamaratona
+	url = https://github.com/eduardoakkari-grupowe/keetamaratona.git
