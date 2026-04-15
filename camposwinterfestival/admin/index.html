@@ -361,6 +361,32 @@
             margin-top: 16px;
         }
 
+        .genero-progress {
+            margin-bottom: 16px;
+        }
+
+        .genero-progress-label {
+            font-size: 12px;
+            color: #8899aa;
+            margin-bottom: 6px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .genero-progress-bar {
+            height: 6px;
+            border-radius: 3px;
+            background-color: #253340;
+            overflow: hidden;
+        }
+
+        .genero-progress-fill {
+            height: 100%;
+            border-radius: 3px;
+            background-color: #D35400;
+            transition: width 0.15s ease;
+        }
+
         .cidade-item {
             display: flex;
             align-items: center;
@@ -450,7 +476,7 @@
             <div class="stats-panel">
                 <h3>Por Gênero</h3>
                 <div id="generoContent"></div>
-                <div class="genero-footnote">Inferido a partir do primeiro nome (heurística BR)</div>
+                <div class="genero-footnote">Classificado por base de nomes brasileiros</div>
             </div>
             <div class="stats-panel">
                 <h3>Top Cidades</h3>
@@ -577,25 +603,119 @@
             document.getElementById('cadastrosHoje').textContent = hojeCount;
         }
 
-        // ========== GÊNERO (heurística BR) ==========
+        // ========== GÊNERO (base completa de nomes BR) ==========
+        const NOMES_MASCULINOS = new Set([
+            'abel','abner','abreu','adailton','adalberto','ademir','adriano','adriel','agnaldo','agostinho','ailton',
+            'alan','alberto','alcides','aldo','alejandro','alessandro','alex','alexander','alexandre','alexandro',
+            'alexsandro','alfredo','allan','almir','alisson','alvaro','amauri','amilton','anderson','andre',
+            'andrei','angelo','anselmo','anthony','antonio','aparecido','ariel','aristides','armando','artur',
+            'arthur','augusto','aurelio','batista',
+            'benedito','benjamin','bento','bernardo','beto','breno','brian','bruno','bryan',
+            'caio','carlos','celso','cesar','charles','christian','ciro','claudio','clayton',
+            'cleber','cleiton','cleberton','conrado','cristian','cristiano',
+            'dalton','damiao','daniel','danilo','dario','davi','david','davidson','deivid','denis','diego',
+            'diogo','djavan','domingos','douglas',
+            'eder','edgard','edilson','edimar','edinaldo','edivaldo','edmilson','edson','edu','eduardo',
+            'elias','eliseu','elton','emanoel','emanuel','emerson','emilio','eneias','enrique','enzo','erasmo',
+            'eriberto','eric','erick','ernesto','esdras','estevao','euclides','evandro','everaldo','everlim','everton',
+            'fabiano','fabio','fabricio','fagner','felipe','fernandinho','fernando','filipe','flavio',
+            'francisco','frank','franklin','fred','frederico',
+            'gabriel','geovane','geraldo','gerson','gilberto','gilmar','gilson','giovanni','giuseppe',
+            'guilherme','gustavo',
+            'hamilton','heitor','helio','helmut','henrique','hercules','hernandes','hiago','higor','horacio','hugo',
+            'igor','isaac','ismael','israel','italo','ivan','ivo',
+            'jackson','jaime','jair','jairo','jeferson','jefferson','jeremias','jesse','jhon','jhonatan',
+            'joao','joaquim','jocimar','joel','jonas','jonathan','jorge','jose','josias','josimar','josue',
+            'juan','juliano','julio','junior','jurandir',
+            'kaio','kaique','kayquy','kelvin','kevin','kleber',
+            'laercio','leandro','leonardo','levi','lian','lincoln','lindenberg','luca','lucas','luciano','lucio',
+            'luis','luiz','luan',
+            'magno','manoel','marcelo','marcio','marco','marcos','mario','mateus','matheus',
+            'mauricio','mauro','max','maximiliano','michel','miguel','milton','moises','murilo','murillo',
+            'natan','nathan','nelson','neto','neuri','newton','nicolas','nilson','nilton','noel',
+            'odair','odilon','orlando','oscar','osmar','osvaldo','otavio',
+            'pablo','patrick','paulo','pedro','percy','peter','peterson','pierre','plinio',
+            'rafael','raimundo','ramon','rangel','raphael','raul','reginaldo','reinaldo','renan','renato',
+            'ricardo','richard','rivaldo','roberto','robson','rodolfo','rodrigo','roger','rogerio',
+            'romario','romero','ronald','ronaldo','ronildo','roque','rubens','rui',
+            'samuel','sandro','saul','sebastiao','sergio','sidnei','sidney','silas','silvano','silvio','simao',
+            'tadeu','tales','thales','thiago','tiago','tomas','tulio',
+            'ubirajara','ulisses',
+            'vagner','valdemir','valdir','valter','vanderlei','vicente','victor','vinicius','vitor','vladmir',
+            'wagner','walace','wallace','wander','wanderley','washington','wellington','welton','wendell','wesley','william','wilson',
+            'yago','yan'
+        ]);
+
+        const NOMES_FEMININOS = new Set([
+            'adelia','adileia','adriana','agatha','agnes','aida','alba','alcione','alessandra','alexa',
+            'alexandra','alice','aline','allana','amanda','amelia','ana','anabela','ananda','andrea',
+            'andreia','andressa','andreza','ane','angelica','angelina','anita','anna','antonia','any',
+            'aparecida','ariadne','ariana','ariane','arlete','aurea','aurora','ayumi',
+            'barbara','beatriz','berenice','betania','bianca','brenda','brendha','bruna',
+            'cacilda','cailane','camila','camilla','camille','carina','carla','carmen','carol','carola',
+            'carolina','caroline','cassia','catarina','cecilia','celeste','celia','celina','chantal',
+            'charlene','christiane','cibele','cida','cidineia','cinara','cindy','cinthia','cintia',
+            'cirlandia','clara','clarice','claudete','claudia','cleonice','conceicao','corina','cristiana',
+            'cristiane','cristina','cynthia',
+            'daiana','daiane','dalva','damiana','daniela','daniele','daniella','danielle','daphne','darci',
+            'dayane','dayani','debora','deborah','deise','denais','denise','diana','digiani','dilma','dina',
+            'dirce','dolores','dominique','dulce','dyanna',
+            'edneia','edna','elaine','elane','elena','eliana','eliane','elisabeth','elisabete','elisandra',
+            'elisangela','elisa','elizabeth','elizangela','elma','eloa','eloisa','elza','emanuele',
+            'emanuella','emanuellen','emilianne','emily','erica','estela','esther','eugenia','eunice','eva',
+            'evelin','eveline','evellyn','evelyn',
+            'fabiana','fabiane','fabiola','fabricia','fabrizia','fatima','fernanda','fernandacosta','flavia',
+            'flaviane','flora','franciele','francine','francini','francisca','franciralda',
+            'gabriela','gabriele','gabrieli','gabriella','gabrielle','geisa','geni','geovana','gessica',
+            'giane','gilmara','giovana','giovanna','gisele','giselle','gislaine','gislene','giulia',
+            'gleice','gleyce','gloria','graca','graziela','graziele','graziella',
+            'haisa','hanna','heloisa',
+            'iara','ilza','imaculada','indyara','ines','ione','iraci','iracema','iracyara','irene','iris',
+            'isabel','isabela','isabele','isabella','isabelle','isadora','isis','ivanete','ivanilde','ivone',
+            'ivy',
+            'jackeline','jacqueline','jailma','jaine','janaina','jane','janete','jaqueline','jeane',
+            'jessica','joana','joice','jordana','josefa','josiane','josielle','josilene','joyce','juciene',
+            'julia','juliana','juliane','julieta','julinha','jurema','jussara',
+            'kamilla','karen','karin','karina','karla','karolayne','katia','kathleen','keila','kelli',
+            'kelly','keyla','kimberly',
+            'lais','lara','larissa','laura','layse','layla','lea','leilaine','leila','leni','leticia',
+            'lidia','lidiane','lidines','ligia','lilian','liliana','liliane','lindiara','livia','lorayne',
+            'lorena','lourin','lourdes','luana','lucia','luciana','luciane','luciene','lucilene','lucimar',
+            'lucimara','lucinda','ludmila','luisa','luiza','lyriel',
+            'mabel','magali','maira','maisa','maite','manuela','manoela','mara','marcela','marcia','marcy',
+            'mareska','margarete','margareth','maria','mariana','mariangela','marianna','mariane','maricy',
+            'mariele','mariela','marilia','marilene','marilza','marina','marise','marisa','marlene','marriet',
+            'marta','matilde','maureen','mayara','mayra','meire','mel','melina','melissa','mercedes',
+            'micaela','michele','michelle','milena','millena','mirela','miriam','mirna','monica','monique',
+            'morgana','maryane',
+            'nadia','nadja','naomi','natalia','natallyne','nataly','natasha','nathalia','nayara','neide',
+            'neuza','neyfe','nicoli','nicole','nicolle','nilza','nina','nivea','noemia','nora','norma',
+            'olga','olivia','ozana',
+            'paloma','pamela','paola','patricia','paula','paulina','penelope','pietra','poliana',
+            'priscila','priscilla',
+            'rafaela','rafaeli','raissa','raquel','rayane','rayssa','rebeca','rebecca','regiane','regina',
+            'rejane','renata','rita','roberta','rosa','rosana','rosane','rosangela','roseli','roselaine',
+            'rosemary','rosiane','roxana','rubia','rute','ruth',
+            'sabrina','samanta','samantha','samara','sandra','sara','sarah','selma','sheila','shirlei',
+            'shirley','silmara','silvana','simone','sindy','socorro','solange','sonia','soraia','stefani',
+            'stephanie','suelen','sueli','susi','suzamara','suzana',
+            'taimy','taina','talita','tamara','tamiris','tamires','tamyris','tania','tatiana','tatiane',
+            'taynara','tereza','teresa','thaiana','thais','thays','thalita','thamires','thamiris',
+            'thatiana','thayane','thuane','valeria','vanda','vanessa','vera','veronica','victoria',
+            'vilmara','vilma','virginia','vitoria','vivian','viviane','viviam','vyvian',
+            'yara','yasmim','yasmin','yolanda',
+            'zelia','zenaide','zilma','zuleica','zulmira'
+        ]);
+
         function inferirGenero(nome) {
             if (!nome || !nome.trim()) return 'Desconhecido';
             const primeiro = nome.trim().split(/\s+/)[0].toLowerCase()
                 .normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 
-            const mascEmA = ['luca','josua','nicola','batista','noa','esdra'];
-            const femSemA = [
-                'alice','beatriz','raquel','suelen','jaqueline','michele','carmen',
-                'miriam','liz','iris','ines','mabel','abigail','ingrid','nair',
-                'rute','jade','gisele','viviane','simone','elaine','diane',
-                'monique','denise','berenice','clarice','aline','cristiane',
-                'fabiane','luciane','rosane','solange','marilene','marlene',
-                'noemi','raquelle','sueli','arieli','nicole','maryane','nathalie'
-            ];
+            if (NOMES_FEMININOS.has(primeiro)) return 'Feminino';
+            if (NOMES_MASCULINOS.has(primeiro)) return 'Masculino';
 
-            if (mascEmA.includes(primeiro)) return 'Masculino';
-            if (femSemA.includes(primeiro)) return 'Feminino';
-
+            // Fallback: último caractere
             const last = primeiro.slice(-1);
             if (last === 'a') return 'Feminino';
             if (last === 'o') return 'Masculino';
@@ -604,23 +724,66 @@
         }
 
         function renderGenero() {
-            const contagem = { Masculino: 0, Feminino: 0, Desconhecido: 0 };
-            cadastrosData.forEach(c => {
-                const g = inferirGenero(c.nome);
-                contagem[g]++;
-            });
+            const container = document.getElementById('generoContent');
+            const total = cadastrosData.length;
 
-            const total = cadastrosData.length || 1;
+            if (!total) {
+                container.innerHTML = '<span style="color:#556677;font-size:13px;">Nenhum dado</span>';
+                return;
+            }
+
+            // Mostrar barra de progresso
+            container.innerHTML =
+                '<div class="genero-progress">' +
+                    '<div class="genero-progress-label">' +
+                        '<span>Classificando nomes...</span>' +
+                        '<span id="generoPct">0%</span>' +
+                    '</div>' +
+                    '<div class="genero-progress-bar">' +
+                        '<div class="genero-progress-fill" id="generoProgressFill" style="width:0%"></div>' +
+                    '</div>' +
+                '</div>';
+
+            const contagem = { Masculino: 0, Feminino: 0, Desconhecido: 0 };
+            let processados = 0;
+            const BATCH = Math.max(1, Math.ceil(total / 20)); // 20 steps
+
+            function processarLote() {
+                const fim = Math.min(processados + BATCH, total);
+                for (let i = processados; i < fim; i++) {
+                    const g = inferirGenero(cadastrosData[i].nome);
+                    contagem[g]++;
+                }
+                processados = fim;
+                const pct = Math.round((processados / total) * 100);
+
+                const fillEl = document.getElementById('generoProgressFill');
+                const pctEl = document.getElementById('generoPct');
+                if (fillEl) fillEl.style.width = pct + '%';
+                if (pctEl) pctEl.textContent = pct + '%';
+
+                if (processados < total) {
+                    setTimeout(processarLote, 30);
+                } else {
+                    // Processamento completo — renderizar resultado
+                    setTimeout(function() { mostrarResultadoGenero(contagem, total); }, 120);
+                }
+            }
+
+            setTimeout(processarLote, 60);
+        }
+
+        function mostrarResultadoGenero(contagem, total) {
             const container = document.getElementById('generoContent');
             container.innerHTML = '';
 
             const itens = [
-                { label: 'Masculino', classe: 'masculino' },
                 { label: 'Feminino', classe: 'feminino' },
+                { label: 'Masculino', classe: 'masculino' },
                 { label: 'Desconhecido', classe: 'desconhecido' }
             ];
 
-            itens.forEach(item => {
+            itens.forEach(function(item) {
                 const count = contagem[item.label];
                 const pct = Math.round((count / total) * 100);
                 const div = document.createElement('div');
