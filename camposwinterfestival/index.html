@@ -241,9 +241,10 @@
         <div class="divider-bottom"></div>
     </div>
 
+    <script src="env.js"></script>
     <script>
-        const SUPABASE_URL = 'https://sexwqzahwxgjkbcjlgxm.supabase.co';
-        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNleHdxemFod3hnamtiY2psZ3htIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUxNTY2MDUsImV4cCI6MjA5MDczMjYwNX0.4rL55mqa_wsWoVdTZWLkUAvpkiSlj7E5ZcxQvnoIz8w';
+        const SUPABASE_URL = ENV.SUPABASE_URL;
+        const SUPABASE_KEY = ENV.SUPABASE_KEY;
 
         // ========== ESTADOS E CIDADES (IBGE) ==========
         const estadoSelect = document.getElementById('estado');
