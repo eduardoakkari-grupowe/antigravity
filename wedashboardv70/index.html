@@ -6,8 +6,62 @@
 <title id="page-title">Awareness Dashboard</title>
 <link rel="stylesheet" href="fonts/fonts.css">
 <link rel="stylesheet" href="src/style.css">
+<style>
+  /* -- PASSWORD GATE -- */
+  #gate{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;background:#ffffff;font-family:'Inter',sans-serif}
+  #gate-box{background:#f0f0f0;border-radius:20px;padding:48px 36px;width:380px;display:flex;flex-direction:column;align-items:center;gap:22px;box-shadow:0 4px 24px rgba(0,0,0,.08)}
+  #gate img{width:160px;filter:brightness(0)}
+  #gate p{font-size:14px;color:#444;font-weight:500;margin:0}
+  #gate input{width:100%;padding:14px 16px;border:1.5px solid #ddd;border-radius:12px;background:#fff;font-size:14px;outline:none;transition:border .2s;color:#333}
+  #gate input:focus{border-color:#999}
+  #gate button{width:100%;padding:14px;background:#666;color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;letter-spacing:.02em;transition:background .2s}
+  #gate button:hover{background:#444}
+  #gate .err{color:#e53e3e;font-size:12px;display:none}
+  .gate-hidden{display:none!important}
+</style>
+<script>
+(function(){
+  var H='a0bda5d68540896556ec258fdb31337e369d1f100b8d2f164c5307409861b132';
+  function unlock(){
+    document.getElementById('gate').style.display='none';
+    var els=document.querySelectorAll('.gate-hidden');
+    for(var i=0;i<els.length;i++){els[i].classList.remove('gate-hidden');}
+    setTimeout(function(){window.dispatchEvent(new Event('scroll'));},100);
+  }
+  async function check(){
+    var v=document.getElementById('pw').value;
+    var b=new TextEncoder().encode(v);
+    var h=await crypto.subtle.digest('SHA-256',b);
+    var arr=new Uint8Array(h);
+    var hex='';
+    for(var k=0;k<arr.length;k++){hex+=('0'+arr[k].toString(16)).slice(-2);}
+    if(hex===H){unlock();}
+    else{
+      var e=document.getElementById('gate-err');
+      e.style.display='block';
+      document.getElementById('pw').value='';
+      setTimeout(function(){e.style.display='none';},2000);
+    }
+  }
+  window.addEventListener('DOMContentLoaded',function(){
+    document.getElementById('gate-btn').addEventListener('click',check);
+    document.getElementById('pw').addEventListener('keydown',function(e){if(e.key==='Enter')check();});
+  });
+})();
+</script>
 </head>
 <body>
+
+<!-- PASSWORD GATE -->
+<div id="gate">
+  <div id="gate-box">
+    <img src="Logo Jovi.png" alt="Jovi">
+    <p>Digite a senha para acessar:</p>
+    <input id="pw" type="password" autocomplete="off" autofocus placeholder="Senha">
+    <div class="err" id="gate-err">Senha incorreta. Tente novamente.</div>
+    <button id="gate-btn">Entrar</button>
+  </div>
+</div>
 
 <div id="tip">
   <div class="tw" id="tip-w"></div>
@@ -15,7 +69,7 @@
   <div class="tr"><span class="trl"><span class="trd" style="background:#22D4C8"></span><span data-i18n="legend_alc">Investimento</span></span><span class="trv" id="tip-a"></span></div>
 </div>
 
-<header class="hdr">
+<header class="hdr gate-hidden">
   <div class="hdr-l">
     <div class="logo" id="hdr-logo"></div>
     <span class="brand" id="hdr-brand"></span>
@@ -25,7 +79,7 @@
   </div>
 </header>
 
-<nav class="nav">
+<nav class="nav gate-hidden">
   <div class="tabs" id="tabs"></div>
 
   <div style="display:flex;align-items:center;gap:10px">
@@ -54,7 +108,7 @@
   </div>
 </nav>
 
-<main>
+<main class="gate-hidden">
 
 <!-- VISÃO GERAL -->
 <div class="tc active" id="tab-visao">
