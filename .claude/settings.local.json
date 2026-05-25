@@ -7,7 +7,8 @@
       "Read(//c/Users/User/Desktop/antigravity$dir/**)",
       "Bash(done)",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "PowerShell(gh repo list eduardoakkari-grupowe --limit 50 2>&1)"
     ]
   }
 }
