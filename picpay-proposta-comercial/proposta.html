@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>area51 x PicPay — Proposta Comercial</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'HelveticaNeue';
+      src: url('../area51-apresentacaomodelo/HelveticaNeue.ttc') format('truetype-collection');
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      --bg-primary: #0a0a0c;
+      --bg-secondary: #111115;
+      --text-primary: #ffffff;
+      --text-secondary: rgba(255,255,255,0.65);
+      --text-tertiary: rgba(255,255,255,0.45);
+      /* Paleta area51 */
+      --verde-nexus: #00B8A9;
+      --verde-glow: rgba(0,184,169,0.35);
+      --verde-subtle: rgba(0,184,169,0.08);
+      --violeta-pulse: #8B3FA0;
+      --violeta-light: #C088F0;
+      --violeta-glow: rgba(192,136,240,0.30);
+      --roxo-quantum: #2E1B47;
+      --azul-synapse: #5B7C9B;
+      --eclipse-noir: #1A1A2E;
+      --font-headline: 'Bebas Neue', sans-serif;
+      --font-subhead: 'HelveticaNeue', 'Helvetica Neue', 'Space Grotesk', sans-serif;
+      --font-body: 'HelveticaNeue', 'Helvetica Neue', 'DM Sans', sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      -webkit-font-smoothing: antialiased;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    @page {
+      size: 1920px 1080px;
+      margin: 0;
+    }
+
+    .slide {
+      width: 1920px;
+      height: 1080px;
+      position: relative;
+      overflow: hidden;
+      page-break-after: always;
+      break-after: page;
+      padding: 80px 110px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .slide:last-child { page-break-after: auto; }
+
+    .slide-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      z-index: 0;
+    }
+
+    .slide-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .slide-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .slide-num {
+      position: absolute;
+      bottom: 50px;
+      right: 90px;
+      font-family: var(--font-body);
+      font-size: 16px;
+      letter-spacing: 0.25em;
+      color: var(--text-tertiary);
+      z-index: 3;
+    }
+
+    .brand-mark {
+      position: absolute;
+      bottom: 50px;
+      left: 90px;
+      z-index: 3;
+      width: 180px;
+      height: 56px;
+      background-image: url('../area51-apresentacaomodelo/Gaion Apresentacao/area51-conselho-2026/area51.png');
+      background-size: contain;
+      background-position: left center;
+      background-repeat: no-repeat;
+    }
+
+    /* ======= area51 logo (PNG = brackets + wordmark) ======= */
+    .a51-logo {
+      background-image: url('../area51-apresentacaomodelo/Gaion Apresentacao/area51-conselho-2026/area51.png');
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    .a51-cover { width: 1000px; height: 310px; }
+    .a51-closing { width: 640px; height: 198px; }
+
+    /* PicPay logo */
+    .picpay-logo {
+      display: block;
+      object-fit: contain;
+      object-position: left center;
+    }
+    .picpay-logo.cover-size { height: 80px; width: auto; }
+    .picpay-logo.title-size { height: 84px; width: auto; }
+
+    /* ============ Typography ============ */
+    .eyebrow {
+      font-family: var(--font-body);
+      font-size: 18px;
+      font-weight: 500;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-bottom: 14px;
+    }
+    .title {
+      font-family: var(--font-body);
+      font-size: 78px;
+      font-weight: 800;
+      line-height: 0.98;
+      letter-spacing: -0.01em;
+      color: #ffffff;
+    }
+    .title .accent {
+      background: linear-gradient(90deg, var(--verde-nexus), var(--violeta-light));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .h2 {
+      font-family: var(--font-body);
+      font-size: 46px;
+      font-weight: 700;
+      letter-spacing: -0.005em;
+      line-height: 1.05;
+      color: #fff;
+    }
+    .label {
+      font-family: var(--font-body);
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-size: 16px;
+      color: var(--verde-nexus);
+    }
+    .label.violet { color: var(--violeta-light); }
+    .body-text {
+      font-family: var(--font-body);
+      font-size: 22px;
+      line-height: 1.55;
+      color: var(--text-secondary);
+      font-weight: 400;
+    }
+    .body-text strong { color: #fff; font-weight: 600; }
+    .body-text-sm {
+      font-family: var(--font-body);
+      font-size: 18px;
+      line-height: 1.6;
+      color: var(--text-secondary);
+    }
+
+    /* ============ Glass cards ============ */
+    .glass {
+      background: rgba(255,255,255,0.04);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 18px;
+      padding: 32px 36px;
+    }
+    .glass-teal {
+      border-color: rgba(0,184,169,0.30);
+      background: linear-gradient(180deg, rgba(0,184,169,0.06), rgba(0,184,169,0.02));
+    }
+    .glass-violet {
+      border-color: rgba(192,136,240,0.30);
+      background: linear-gradient(180deg, rgba(192,136,240,0.06), rgba(192,136,240,0.02));
+    }
+
+    /* ============ Cover ============ */
+    .cover-bg {
+      background: radial-gradient(ellipse at 30% 30%, rgba(0,184,169,0.18) 0%, transparent 55%),
+                  radial-gradient(ellipse at 70% 70%, rgba(139,63,160,0.22) 0%, transparent 55%),
+                  linear-gradient(135deg, #0a0a14 0%, #14091e 50%, #0a0a14 100%);
+    }
+    .cover-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url('../area51-apresentacaomodelo/elementos/Fundo degradê.jpg');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.28;
+      mix-blend-mode: screen;
+      filter: blur(2px);
+    }
+
+    .cover-logo {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+    }
+
+    .cover-meta {
+      position: absolute;
+      left: 110px;
+      bottom: 110px;
+      z-index: 3;
+    }
+    .cover-meta .small-label {
+      font-family: var(--font-body);
+      font-size: 22px;
+      font-weight: 400;
+      letter-spacing: 0.32em;
+      color: rgba(255,255,255,0.65);
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .cover-meta .picpay-logo.cover-size { margin-bottom: 16px; }
+    .cover-meta .date {
+      font-family: var(--font-body);
+      font-size: 22px;
+      letter-spacing: 0.28em;
+      color: rgba(255,255,255,0.55);
+      text-transform: uppercase;
+    }
+
+    /* ============ Slide 2 (Público / Produto) ============ */
+    .s2-bg {
+      background: radial-gradient(ellipse at 85% 15%, rgba(0,184,169,0.10) 0%, transparent 55%),
+                  radial-gradient(ellipse at 15% 85%, rgba(139,63,160,0.10) 0%, transparent 55%),
+                  #0a0a0c;
+    }
+    .s2-bg::before {
+      content:'';
+      position:absolute; inset:0;
+      background-image:url('../area51-apresentacaomodelo/elementos/FUNDOS-01.png');
+      background-size: cover; background-position: center;
+      opacity:0.45;
+    }
+
+    .row-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+    }
+    .row-1-2 {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 56px;
+    }
+
+    .header-block {
+      margin-bottom: 56px;
+    }
+    .header-block .eyebrow {
+      color: var(--text-tertiary);
+    }
+
+    .info-block .lab {
+      font-family: var(--font-body);
+      font-weight: 700;
+      letter-spacing: 0.20em;
+      text-transform: uppercase;
+      font-size: 18px;
+      margin-bottom: 14px;
+    }
+    .info-block.teal .lab { color: var(--verde-nexus); }
+    .info-block.violet .lab { color: var(--violeta-light); }
+    .info-block .body {
+      font-family: var(--font-body);
+      font-size: 21px;
+      line-height: 1.5;
+      color: rgba(255,255,255,0.78);
+    }
+    .info-block .body strong { color: #fff; font-weight: 700; }
+
+    .binocular-strip {
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      height: 320px;
+      z-index: 1;
+      overflow: hidden;
+    }
+    .binocular-strip img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(1.05) blur(1px);
+    }
+    .binocular-strip::after {
+      content:'';
+      position:absolute; inset:0;
+      background: linear-gradient(180deg, #0a0a0c 0%, transparent 18%, transparent 65%, rgba(10,10,12,0.5) 100%);
+    }
+
+    /* ============ Slide 3 (Segmentação) ============ */
+    .s3-bg {
+      background: radial-gradient(ellipse at 75% 30%, rgba(0,184,169,0.10) 0%, transparent 50%),
+                  radial-gradient(ellipse at 20% 80%, rgba(139,63,160,0.10) 0%, transparent 50%),
+                  #0a0a0c;
+    }
+    .s3-bg::before {
+      content:'';
+      position:absolute; inset:0;
+      background-image:url('../area51-apresentacaomodelo/elementos/Fundo tecnologico.jpg');
+      background-size: cover; background-position: center;
+      opacity:0.18;
+    }
+
+    .seg-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 24px;
+    }
+    .seg-header .picpay-logo.title-size { height: 70px; }
+
+    .total-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 22px;
+      padding: 20px 38px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      backdrop-filter: blur(20px);
+    }
+    .total-pill .dot {
+      width: 14px; height: 14px; border-radius: 50%;
+      background: var(--verde-nexus);
+      box-shadow: 0 0 16px var(--verde-glow);
+    }
+    .total-pill .lab {
+      font-size: 16px; letter-spacing: 0.25em;
+      text-transform: uppercase; color: rgba(255,255,255,0.75);
+      font-weight: 500;
+    }
+    .total-pill .val {
+      font-family: var(--font-body);
+      font-size: 44px; font-weight: 800; color: #fff;
+      letter-spacing: -0.01em;
+    }
+    .total-pill .unit {
+      font-size: 22px; color: rgba(255,255,255,0.7);
+      font-weight: 400; letter-spacing: 0.01em;
+    }
+
+    .seg-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 22px 32px;
+      flex: 1;
+      min-height: 0;
+    }
+
+    .seg-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 14px;
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      overflow: hidden;
+    }
+    .seg-card.span-2 { grid-column: span 2; }
+
+    .seg-card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .seg-card-head .title {
+      font-family: var(--font-body);
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.85);
+    }
+    .seg-card-head .meta {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      color: rgba(255,255,255,0.40);
+      text-transform: uppercase;
+    }
+
+    .bar-row {
+      display: grid;
+      grid-template-columns: 22px 1fr auto;
+      align-items: center;
+      gap: 10px;
+      padding: 3px 0;
+    }
+    .bar-row .ix {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: rgba(255,255,255,0.35);
+    }
+    .bar-row .lab {
+      font-size: 15px;
+      color: rgba(255,255,255,0.85);
+      font-weight: 500;
+    }
+    .bar-row .lab small {
+      color: rgba(255,255,255,0.4);
+      font-weight: 400;
+      font-size: 12px;
+      margin-left: 6px;
+    }
+    .bar-row .val {
+      font-family: var(--font-body);
+      font-size: 16px;
+      font-weight: 600;
+      color: #fff;
+    }
+    .bar-track {
+      grid-column: 2 / 4;
+      height: 3px;
+      border-radius: 2px;
+      background: rgba(255,255,255,0.07);
+      position: relative;
+      margin-top: 2px;
+      margin-bottom: 0;
+    }
+    .bar-fill {
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      border-radius: 2px;
+      background: linear-gradient(90deg, var(--verde-nexus), rgba(0,184,169,0.4));
+    }
+    .bar-fill.violet { background: linear-gradient(90deg, var(--violeta-light), rgba(192,136,240,0.4)); }
+    .bar-fill.deep { background: linear-gradient(90deg, #3D2A6B, rgba(61,42,107,0.4)); }
+
+    .row-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .donut-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 22px;
+      flex: 1;
+      min-height: 0;
+    }
+    .donut {
+      width: 115px; height: 115px;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .donut svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+    .donut-legend { font-size: 15px; }
+    .donut-legend .li {
+      display: flex; align-items: baseline; gap: 10px;
+      margin-bottom: 10px;
+    }
+    .donut-legend .li:last-child { margin-bottom: 0; }
+    .donut-legend .swatch { width: 9px; height: 9px; border-radius: 50%; flex-shrink:0; align-self: center; }
+    .donut-legend .li .text { color: rgba(255,255,255,0.85); font-weight: 500; }
+    .donut-legend .li .num { color: #fff; font-weight: 700; font-size: 18px; }
+    .donut-legend .li .pct { color: rgba(255,255,255,0.45); font-size: 13px; }
+
+    .classe-split { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+    .classe-split .col .sub {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      color: rgba(255,255,255,0.40);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .ec-list .row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 0;
+    }
+    .ec-list .row .lab {
+      font-size: 15px; color: rgba(255,255,255,0.85); font-weight: 500;
+    }
+    .ec-list .row .val {
+      font-size: 16px; color: #fff; font-weight: 600;
+    }
+    .ec-list .track {
+      grid-column: 1 / 3;
+      height: 3px;
+      border-radius: 2px;
+      background: rgba(255,255,255,0.06);
+      position: relative;
+      margin-top: 2px;
+    }
+    .ec-list .fill {
+      position: absolute; left:0; top:0; bottom:0;
+      background: linear-gradient(90deg, var(--violeta-light), rgba(192,136,240,0.4));
+      border-radius: 2px;
+    }
+
+    /* ============ Slide 4/5 (Entregáveis) ============ */
+    .s4-bg, .s5-bg {
+      background: radial-gradient(ellipse at 80% 20%, rgba(139,63,160,0.10) 0%, transparent 50%),
+                  radial-gradient(ellipse at 15% 90%, rgba(0,184,169,0.08) 0%, transparent 50%),
+                  #0a0a0c;
+    }
+    .s4-bg::before {
+      content:'';
+      position:absolute; inset:0;
+      background-image:url('../area51-apresentacaomodelo/elementos/FUNDOS-02.png');
+      background-size: cover; background-position: right center;
+      opacity:0.40;
+    }
+    .s5-bg::before {
+      content:'';
+      position:absolute; inset:0;
+      background-image:url('../area51-apresentacaomodelo/elementos/FUNDOS-03.png');
+      background-size: cover; background-position: left center;
+      opacity:0.40;
+    }
+
+    .deliverables-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      flex: 1;
+      align-content: start;
+    }
+
+    .deliverable-card {
+      padding: 38px 42px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.035);
+      border: 1px solid rgba(255,255,255,0.10);
+      position: relative;
+      overflow: hidden;
+    }
+    .deliverable-card.teal { border-color: rgba(0,184,169,0.25); }
+    .deliverable-card.teal::before {
+      content:''; position:absolute; left:0; top:0; bottom:0; width:4px;
+      background: linear-gradient(180deg, var(--verde-nexus), transparent);
+    }
+    .deliverable-card.violet { border-color: rgba(192,136,240,0.25); }
+    .deliverable-card.violet::before {
+      content:''; position:absolute; left:0; top:0; bottom:0; width:4px;
+      background: linear-gradient(180deg, var(--violeta-light), transparent);
+    }
+
+    .deliverable-card h3 {
+      font-family: var(--font-body);
+      font-size: 32px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 6px;
+      letter-spacing: -0.005em;
+    }
+    .deliverable-card .tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 22px;
+    }
+    .deliverable-card.teal .tag-color { color: var(--verde-nexus); }
+    .deliverable-card.violet .tag-color { color: var(--violeta-light); }
+
+    .deliverable-card ul {
+      list-style: none;
+      padding: 0;
+    }
+    .deliverable-card li {
+      font-family: var(--font-body);
+      font-size: 18px;
+      line-height: 1.55;
+      color: rgba(255,255,255,0.80);
+      padding-left: 22px;
+      position: relative;
+      margin-bottom: 14px;
+    }
+    .deliverable-card li:last-child { margin-bottom: 0; }
+    .deliverable-card li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 12px;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--verde-nexus);
+      box-shadow: 0 0 8px var(--verde-glow);
+    }
+    .deliverable-card.violet li::before {
+      background: var(--violeta-light);
+      box-shadow: 0 0 8px var(--violeta-glow);
+    }
+    .deliverable-card li strong { color: #fff; font-weight: 600; }
+
+    /* ============ Slide 6 (POC) ============ */
+    .s6-bg {
+      background: radial-gradient(ellipse at 30% 30%, rgba(0,184,169,0.10) 0%, transparent 55%),
+                  radial-gradient(ellipse at 70% 70%, rgba(139,63,160,0.14) 0%, transparent 55%),
+                  linear-gradient(135deg, #0a0a14 0%, #14091e 50%, #0a0a14 100%);
+    }
+    .s6-bg::before {
+      content:'';
+      position:absolute; inset:0;
+      background-image:url('../area51-apresentacaomodelo/elementos/Fundo degradê.jpg');
+      background-size: cover; background-position: center;
+      opacity:0.16;
+      mix-blend-mode: screen;
+    }
+
+    .poc-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 1fr;
+      gap: 56px;
+      flex: 1;
+      align-content: start;
+    }
+
+    .poc-investment {
+      padding: 48px 52px;
+      border-radius: 22px;
+      background: linear-gradient(180deg, rgba(0,184,169,0.10), rgba(0,184,169,0.02));
+      border: 1px solid rgba(0,184,169,0.30);
+      position: relative;
+      overflow: hidden;
+    }
+    .poc-investment::after {
+      content:'';
+      position: absolute;
+      right: -80px; top: -80px;
+      width: 280px; height: 280px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--verde-glow) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .poc-investment .tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      letter-spacing: 0.25em;
+      color: var(--verde-nexus);
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+    .poc-prices {
+      display: flex;
+      align-items: flex-end;
+      gap: 36px;
+      margin-bottom: 14px;
+    }
+    .poc-price-col { display: flex; flex-direction: column; }
+    .poc-price-col .k {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      font-weight: 500;
+    }
+    .poc-price-col.original .k { color: rgba(255,255,255,0.5); }
+    .poc-price-col.discount .k {
+      color: var(--verde-nexus);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .poc-price-col .v {
+      font-family: var(--font-body);
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      color: #fff;
+      line-height: 0.9;
+    }
+    .poc-price-col.original .v {
+      font-size: 64px;
+      color: rgba(255,255,255,0.55);
+    }
+    .poc-price-col.original .v .cur {
+      font-size: 36px;
+      font-weight: 600;
+      margin-right: 4px;
+    }
+    .poc-price-col.original .v .strike {
+      text-decoration: line-through;
+      text-decoration-thickness: 4px;
+      text-decoration-color: rgba(255,255,255,0.55);
+    }
+    .poc-price-col.discount .v { font-size: 108px; }
+    .poc-price-col.discount .v .cur { font-size: 54px; vertical-align: 22px; color: var(--verde-nexus); font-weight: 600; margin-right: 8px; }
+    .poc-investment .desc {
+      font-family: var(--font-body);
+      font-size: 20px;
+      color: rgba(255,255,255,0.78);
+      margin-bottom: 24px;
+      line-height: 1.4;
+    }
+    .poc-investment .meta-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,0.12);
+    }
+    .poc-investment .meta-row .item .k {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 6px;
+    }
+    .poc-investment .meta-row .item .v {
+      font-family: var(--font-body);
+      font-size: 22px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .poc-investment .meta-row .item .v small {
+      font-weight: 400;
+      color: rgba(255,255,255,0.65);
+      font-size: 16px;
+      display: block;
+      margin-top: 4px;
+    }
+
+    .poc-side {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .poc-detail {
+      padding: 28px 32px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.10);
+    }
+    .poc-detail .k {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.25em;
+      color: var(--violeta-light);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .poc-detail .v {
+      font-family: var(--font-body);
+      font-size: 22px;
+      line-height: 1.4;
+      color: rgba(255,255,255,0.85);
+    }
+    .poc-detail .v strong { color: #fff; font-weight: 700; }
+
+    .poc-note {
+      padding: 22px 28px;
+      border-radius: 14px;
+      background: rgba(192,136,240,0.06);
+      border: 1px solid rgba(192,136,240,0.25);
+      border-left: 4px solid var(--violeta-light);
+    }
+    .poc-note .lab {
+      font-family: var(--font-body);
+      font-size: 13px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--violeta-light);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .poc-note .txt {
+      font-size: 17px;
+      line-height: 1.5;
+      color: rgba(255,255,255,0.78);
+    }
+
+    /* ============ Slide 7 (closing) ============ */
+    .s7-bg {
+      background: #0a0a0c;
+    }
+    .s7-bg::before {
+      content:'';
+      position:absolute; inset:0;
+      background-image:url('../area51-apresentacaomodelo/elementos/Imagem-4.png');
+      background-size: cover; background-position: center;
+      opacity: 0.65;
+      filter: saturate(1.1) brightness(0.85);
+    }
+    .s7-bg::after {
+      content:'';
+      position:absolute; inset:0;
+      background: radial-gradient(ellipse at center, transparent 0%, rgba(10,10,15,0.7) 75%);
+    }
+    .closing {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 3;
+      text-align: center;
+    }
+    .closing-logo {
+      margin-bottom: 14px;
+    }
+    .closing-tag {
+      font-family: var(--font-body);
+      font-size: 38px;
+      font-weight: 300;
+      letter-spacing: 0.05em;
+      color: rgba(255,255,255,0.95);
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ================== SLIDE 1 — COVER ================== -->
+<section class="slide cover-bg">
+  <div class="slide-bg"></div>
+
+  <div class="cover-logo">
+    <div class="a51-logo a51-cover"></div>
+  </div>
+
+  <div class="cover-meta">
+    <div class="small-label">Proposta Comercial</div>
+    <img src="picpay-logo.png" class="picpay-logo cover-size" alt="PicPay">
+    <div class="date">Maio / 2026</div>
+  </div>
+</section>
+
+<!-- ================== SLIDE 2 — PÚBLICO / PRODUTO ================== -->
+<section class="slide s2-bg">
+  <div class="slide-bg"></div>
+  <div class="slide-content">
+    <div class="header-block">
+      <div class="eyebrow">Proposta Comercial</div>
+      <img src="picpay-logo.png" class="picpay-logo title-size" alt="PicPay">
+    </div>
+
+    <div class="row-2col" style="margin-top:10px;">
+      <div class="glass glass-teal info-block teal">
+        <div class="lab">Público</div>
+        <p class="body">Pessoas com renda a partir de <strong>R$ 15.000</strong> até <strong>R$ 50.000</strong> — classificados como clientes de <strong>Alta Renda</strong>.</p>
+      </div>
+      <div class="glass glass-violet info-block violet">
+        <div class="lab">Produto — EPIC</div>
+        <p class="body">Oferta <strong>top tier</strong> da hierarquia de produtos do PicPay. Assinatura mensal que desbloqueia um portfólio exclusivo de benefícios financeiros e de lifestyle, posicionada como o produto de maior valor da plataforma.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="binocular-strip">
+    <img src="../area51-apresentacaomodelo/elementos/Imagem-4.png" alt="">
+  </div>
+
+  <div class="brand-mark"></div>
+  <div class="slide-num">02 / 07</div>
+</section>
+
+<!-- ================== SLIDE 3 — SEGMENTAÇÃO ================== -->
+<section class="slide s3-bg">
+  <div class="slide-bg"></div>
+  <div class="slide-content">
+    <div class="seg-header">
+      <div>
+        <div class="eyebrow">Segmentação</div>
+        <img src="picpay-logo.png" class="picpay-logo title-size" alt="PicPay">
+      </div>
+      <div class="total-pill">
+        <div class="dot"></div>
+        <div class="lab">Total de pessoas</div>
+        <div class="val">6,2</div>
+        <div class="unit">milhões</div>
+      </div>
+    </div>
+
+    <div class="seg-grid">
+
+      <!-- TOP 5 CIDADES -->
+      <div class="seg-card">
+        <div class="seg-card-head">
+          <div class="title">Top 5 Cidades</div>
+          <div class="meta">01 / 05</div>
+        </div>
+        <div class="row-stack">
+          <div class="bar-row">
+            <div class="ix">01</div>
+            <div class="lab">São Paulo</div>
+            <div class="val">1.04M</div>
+            <div class="bar-track"><div class="bar-fill" style="width:100%"></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="ix">02</div>
+            <div class="lab">Rio de Janeiro</div>
+            <div class="val">442k</div>
+            <div class="bar-track"><div class="bar-fill" style="width:42%"></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="ix">03</div>
+            <div class="lab">Brasília</div>
+            <div class="val">298k</div>
+            <div class="bar-track"><div class="bar-fill" style="width:28%"></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="ix">04</div>
+            <div class="lab">Belo Horizonte</div>
+            <div class="val">185k</div>
+            <div class="bar-track"><div class="bar-fill violet" style="width:18%"></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="ix">05</div>
+            <div class="lab">Curitiba</div>
+            <div class="val">141k</div>
+            <div class="bar-track"><div class="bar-fill violet" style="width:13%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAIXA DE IDADE -->
+      <div class="seg-card">
+        <div class="seg-card-head">
+          <div class="title">Faixa de Idade</div>
+          <div class="meta">06 faixas</div>
+        </div>
+        <div class="row-stack">
+          <div class="bar-row">
+            <div class="ix"></div>
+            <div class="lab">Sênior <small>60+</small></div>
+            <div class="val">2.18M</div>
+            <div class="bar-track"><div class="bar-fill" style="width:100%"></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="ix"></div>
+            <div class="lab">Adulto maduro <small>45–59</small></div>
+            <div class="val">2.11M</div>
+            <div class="bar-track"><div class="bar-fill" style="width:97%"></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="ix"></div>
+            <div class="lab">Adulto em ascensão <small>30–44</small></div>
+            <div class="val">1.73M</div>
+            <div class="bar-track"><div class="bar-fill" style="width:79%"></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="ix"></div>
+            <div class="lab">Jovem adulto <small>18–29</small></div>
+            <div class="val">222k</div>
+            <div class="bar-track"><div class="bar-fill violet" style="width:10%"></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="ix"></div>
+            <div class="lab">Adolescente <small>13–17</small></div>
+            <div class="val">1.76k</div>
+            <div class="bar-track"><div class="bar-fill violet" style="width:1%"></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="ix"></div>
+            <div class="lab">Infantil <small>0–12</small></div>
+            <div class="val">1.04k</div>
+            <div class="bar-track"><div class="bar-fill violet" style="width:1%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- GÊNERO -->
+      <div class="seg-card">
+        <div class="seg-card-head">
+          <div class="title">Gênero</div>
+          <div class="meta">03 grupos</div>
+        </div>
+        <div class="donut-wrap">
+          <div class="donut">
+            <svg viewBox="0 0 36 36">
+              <circle cx="18" cy="18" r="14" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="4"/>
+              <!-- Masculino 61.8% -->
+              <circle cx="18" cy="18" r="14" fill="none" stroke="#2E1B5E" stroke-width="4"
+                stroke-dasharray="54.4 87.96" />
+              <!-- Feminino 37.8% -->
+              <circle cx="18" cy="18" r="14" fill="none" stroke="#00B8A9" stroke-width="4"
+                stroke-dasharray="33.2 87.96" stroke-dashoffset="-54.4" />
+              <!-- Indefinido 0.4% -->
+              <circle cx="18" cy="18" r="14" fill="none" stroke="rgba(255,255,255,0.30)" stroke-width="4"
+                stroke-dasharray="0.4 87.96" stroke-dashoffset="-87.6" />
+            </svg>
+          </div>
+          <div class="donut-legend">
+            <div class="li"><span class="swatch" style="background:#2E1B5E"></span>
+              <div><div class="text">Masculino</div><div class="num">3,86M <span class="pct">61,8%</span></div></div>
+            </div>
+            <div class="li"><span class="swatch" style="background:#00B8A9"></span>
+              <div><div class="text">Feminino</div><div class="num">2,36M <span class="pct">37,8%</span></div></div>
+            </div>
+            <div class="li"><span class="swatch" style="background:rgba(255,255,255,0.35)"></span>
+              <div><div class="text">Indefinido</div><div class="num">28k <span class="pct">0,4%</span></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CLASSE SOCIAL -->
+      <div class="seg-card span-2">
+        <div class="seg-card-head">
+          <div class="title">Classe Social</div>
+          <div class="meta">Individual + Familiar</div>
+        </div>
+        <div class="classe-split">
+          <div class="col">
+            <div class="sub">Individual</div>
+            <div class="row-stack">
+              <div class="bar-row">
+                <div class="ix"></div>
+                <div class="lab">Classe A</div>
+                <div class="val">4.81M</div>
+                <div class="bar-track"><div class="bar-fill" style="width:100%"></div></div>
+              </div>
+              <div class="bar-row">
+                <div class="ix"></div>
+                <div class="lab">Classe B</div>
+                <div class="val">1.44M</div>
+                <div class="bar-track"><div class="bar-fill violet" style="width:30%"></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="sub">Familiar</div>
+            <div class="row-stack">
+              <div class="bar-row">
+                <div class="ix"></div>
+                <div class="lab">Classe A</div>
+                <div class="val">1.21M</div>
+                <div class="bar-track"><div class="bar-fill" style="width:31%"></div></div>
+              </div>
+              <div class="bar-row">
+                <div class="ix"></div>
+                <div class="lab">Classe B</div>
+                <div class="val">3.86M</div>
+                <div class="bar-track"><div class="bar-fill violet" style="width:100%"></div></div>
+              </div>
+              <div class="bar-row">
+                <div class="ix"></div>
+                <div class="lab">Classe C</div>
+                <div class="val">1.18M</div>
+                <div class="bar-track"><div class="bar-fill deep" style="width:30%"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ESTADO CIVIL -->
+      <div class="seg-card">
+        <div class="seg-card-head">
+          <div class="title">Estado Civil</div>
+          <div class="meta">05 status</div>
+        </div>
+        <div class="ec-list">
+          <div class="row"><div class="lab">Casado(a)</div><div class="val">1.46M</div>
+            <div class="track"><div class="fill" style="width:100%"></div></div></div>
+          <div class="row"><div class="lab">Solteiro(a)</div><div class="val">861k</div>
+            <div class="track"><div class="fill" style="width:59%"></div></div></div>
+          <div class="row"><div class="lab">Divorciado(a)</div><div class="val">76.7k</div>
+            <div class="track"><div class="fill" style="width:5%"></div></div></div>
+          <div class="row"><div class="lab">Viúvo(a)</div><div class="val">17.5k</div>
+            <div class="track"><div class="fill" style="width:2%"></div></div></div>
+          <div class="row"><div class="lab">União estável</div><div class="val">8.56k</div>
+            <div class="track"><div class="fill" style="width:1%"></div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="brand-mark"></div>
+  <div class="slide-num">03 / 07</div>
+</section>
+
+<!-- ================== SLIDE 4 — ENTREGÁVEIS: Personas + Data.51 ================== -->
+<section class="slide s4-bg">
+  <div class="slide-bg"></div>
+  <div class="slide-content">
+    <div class="header-block">
+      <div class="eyebrow">Entregáveis · Parte 1 de 2</div>
+      <div class="title">FRENTES <span class="accent">DE TRABALHO</span></div>
+    </div>
+
+    <div class="deliverables-grid">
+      <div class="deliverable-card teal">
+        <h3>Estudo de Personas</h3>
+        <div class="tag"><span class="tag-color">●</span> &nbsp;Modelagem estatística · ICP</div>
+        <ul>
+          <li>Análise da base de clientes <strong>(Bons e Maus)</strong> e aplicação de modelagens estatísticas para criação das personas, identificando as principais características e atributos.</li>
+          <li><strong>Enriquecimento</strong> das amostras disponibilizadas para a modelagem estatística, entregando estes novos dados ao cliente.</li>
+        </ul>
+      </div>
+
+      <div class="deliverable-card violet">
+        <h3>Data.51</h3>
+        <div class="tag"><span class="tag-color">●</span> &nbsp;Custom Audience · Dashboard · Bases alvo</div>
+        <ul>
+          <li><strong>Custom Audience:</strong> identificação de registros em nossa bigdata, conforme características aderentes às personas mapeadas na modelagem estatística (ICP).</li>
+          <li>Criação do <strong>Cubo (Dashboard)</strong> customizado para PICPAY.</li>
+          <li>Criação de <strong>novas bases alvo</strong>, não pertencentes ao cliente, mas que poderão ser impactadas diretamente através de campanhas de marketing digital.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="brand-mark"></div>
+  <div class="slide-num">04 / 07</div>
+</section>
+
+<!-- ================== SLIDE 5 — Tag.51 + Media.51 ================== -->
+<section class="slide s5-bg">
+  <div class="slide-bg"></div>
+  <div class="slide-content">
+    <div class="header-block">
+      <div class="eyebrow">Entregáveis · Parte 2 de 2</div>
+      <div class="title">ATIVAÇÃO <span class="accent">& MÍDIA</span></div>
+    </div>
+
+    <div class="deliverables-grid">
+      <div class="deliverable-card teal">
+        <h3>Tag.51</h3>
+        <div class="tag"><span class="tag-color">●</span> &nbsp;Identificação · Retargeting</div>
+        <ul>
+          <li>Criação de <strong>tag</strong> a ser instalada pelo cliente nas páginas relacionadas à campanha.</li>
+          <li>Serviço de <strong>identificação de visitantes não logados</strong>, enquanto durar o projeto.</li>
+          <li><strong>Cruzamento com as personas</strong> para melhorar a estratégia de retargeting.</li>
+        </ul>
+      </div>
+
+      <div class="deliverable-card violet">
+        <h3>Media.51</h3>
+        <div class="tag"><span class="tag-color">●</span> &nbsp;Bases · BM area51 · Performance</div>
+        <ul>
+          <li><strong>Extratificação das bases</strong>, a partir dos filtros feitos no Cubo customizado.</li>
+          <li><strong>Subida</strong> destas bases no BM area51, de modo que o cliente possa impactá-las através de suas campanhas.</li>
+          <li><strong>Suporte recorrente</strong> nas configurações das plataformas e acompanhamento dos resultados de mídia/performance junto com o cliente.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="brand-mark"></div>
+  <div class="slide-num">05 / 07</div>
+</section>
+
+<!-- ================== SLIDE 6 — POC / INVESTIMENTO ================== -->
+<section class="slide s6-bg">
+  <div class="slide-bg"></div>
+  <div class="slide-content">
+    <div class="header-block">
+      <div class="eyebrow">Prova de Conceito (POC)</div>
+      <div class="title">INVESTIMENTO</div>
+      <p class="body-text" style="margin-top:18px; max-width:1100px;">Oferecemos abaixo uma proposta comercial <strong>excepcional</strong> para o produto, público, período e contexto descritos no documento de briefing e no slide 02 desta apresentação.</p>
+    </div>
+
+    <div class="poc-grid">
+      <div class="poc-investment">
+        <div class="tag">Contrato · 60 dias</div>
+        <div class="poc-prices">
+          <div class="poc-price-col original">
+            <div class="k">Valor Integral</div>
+            <div class="v"><span class="cur">R$</span><span class="strike">42.000</span></div>
+          </div>
+          <div class="poc-price-col discount">
+            <div class="k"><span>●</span> 33% de Desconto</div>
+            <div class="v"><span class="cur">R$</span>28.000</div>
+          </div>
+        </div>
+        <div class="desc">2 parcelas mensais · vinte e oito mil reais cada</div>
+        <div class="meta-row">
+          <div class="item">
+            <div class="k">Setup</div>
+            <div class="v">Isento</div>
+          </div>
+          <div class="item">
+            <div class="k">Forma de Pagamento</div>
+            <div class="v">30 e 60 dias <small>após a data de assinatura do contrato</small></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="poc-side">
+        <div class="poc-detail">
+          <div class="k">Duração da POC</div>
+          <div class="v"><strong>60 dias</strong></div>
+        </div>
+        <div class="poc-detail">
+          <div class="k">Validade da Proposta</div>
+          <div class="v"><strong>08 / 06 / 2026</strong></div>
+        </div>
+        <div class="poc-note">
+          <div class="lab">Importante</div>
+          <div class="txt">Para adequada validação da POC, se necessário, poderá ser feito o acréscimo de <strong>mais 30 dias</strong> (totalizando um período máximo de <strong>90 dias</strong>), mediante o pagamento de mais uma mensalidade de <strong>R$ 28.000,00</strong>.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="brand-mark"></div>
+  <div class="slide-num">06 / 07</div>
+</section>
+
+<!-- ================== SLIDE 7 — CLOSING ================== -->
+<section class="slide s7-bg">
+  <div class="slide-bg"></div>
+  <div class="closing">
+    <div class="closing-logo">
+      <div class="a51-logo a51-closing"></div>
+    </div>
+    <div class="closing-tag">precisão em escala</div>
+  </div>
+  <div class="slide-num">07 / 07</div>
+</section>
+
+</body>
+</html>
