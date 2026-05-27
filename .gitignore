@@ -20,3 +20,12 @@ Thumbs.db
 .vscode/*
 !.vscode/extensions.json
 .idea
+
+# Lovable projects (cada um tem seu proprio remote no GitHub —
+# nao commita no antigravity pra evitar nested git repo / gitlink quebrado)
+/culturelle-we
+/figurinhaswe
+/we-controle-ai-custos
+/we-sbt-dash
+/we-taodeo-dash
+/wedomingao-black-canvas

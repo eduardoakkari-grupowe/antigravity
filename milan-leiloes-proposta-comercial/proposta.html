@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>area51 x Milan Leilões — Proposta Comercial</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'HelveticaNeue';
+      src: url('../area51-apresentacaomodelo/HelveticaNeue.ttc') format('truetype-collection');
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      --bg-primary: #0a0a0c;
+      --text-primary: #ffffff;
+      --text-secondary: rgba(255,255,255,0.65);
+      --text-tertiary: rgba(255,255,255,0.45);
+      --verde-nexus: #00B8A9;
+      --verde-glow: rgba(0,184,169,0.35);
+      --violeta-pulse: #8B3FA0;
+      --violeta-light: #C088F0;
+      --violeta-glow: rgba(192,136,240,0.30);
+      --roxo-quantum: #2E1B47;
+      --font-body: 'HelveticaNeue', 'Helvetica Neue', 'DM Sans', sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      -webkit-font-smoothing: antialiased;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    @page { size: 1920px 1080px; margin: 0; }
+
+    .slide {
+      width: 1920px;
+      height: 1080px;
+      position: relative;
+      overflow: hidden;
+      page-break-after: always;
+      break-after: page;
+      padding: 80px 110px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .slide:last-child { page-break-after: auto; }
+
+    .slide-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      z-index: 0;
+    }
+
+    .slide-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .slide-num {
+      position: absolute;
+      bottom: 50px;
+      right: 90px;
+      font-size: 16px;
+      letter-spacing: 0.25em;
+      color: var(--text-tertiary);
+      z-index: 3;
+    }
+
+    .brand-mark {
+      position: absolute;
+      bottom: 50px;
+      left: 90px;
+      z-index: 3;
+      width: 180px;
+      height: 56px;
+      background-image: url('../area51-apresentacaomodelo/area51.png');
+      background-size: contain;
+      background-position: left center;
+      background-repeat: no-repeat;
+    }
+
+    .a51-logo {
+      background-image: url('../area51-apresentacaomodelo/area51.png');
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    .a51-cover { width: 1000px; height: 310px; }
+    .a51-closing { width: 640px; height: 198px; }
+
+    /* Milan logo - forced white */
+    .milan-logo {
+      display: block;
+      object-fit: contain;
+      object-position: left center;
+      filter: brightness(0) invert(1);
+    }
+    .milan-logo.cover-size { height: 90px; width: auto; }
+    .milan-logo.title-size { height: 80px; width: auto; }
+    .milan-logo.title-size-sm { height: 60px; width: auto; }
+
+    /* Typography */
+    .eyebrow {
+      font-size: 18px;
+      font-weight: 500;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-bottom: 14px;
+    }
+    .title {
+      font-size: 78px;
+      font-weight: 800;
+      line-height: 0.98;
+      letter-spacing: -0.01em;
+      color: #fff;
+    }
+    .title .accent {
+      background: linear-gradient(90deg, var(--verde-nexus), var(--violeta-light));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .body-text {
+      font-size: 22px;
+      line-height: 1.55;
+      color: var(--text-secondary);
+    }
+    .body-text strong { color: #fff; font-weight: 600; }
+
+    /* Glass cards */
+    .glass {
+      background: rgba(255,255,255,0.04);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 18px;
+      padding: 32px 36px;
+    }
+    .glass-teal {
+      border-color: rgba(0,184,169,0.30);
+      background: linear-gradient(180deg, rgba(0,184,169,0.06), rgba(0,184,169,0.02));
+    }
+    .glass-violet {
+      border-color: rgba(192,136,240,0.30);
+      background: linear-gradient(180deg, rgba(192,136,240,0.06), rgba(192,136,240,0.02));
+    }
+
+    /* ============ Cover ============ */
+    .cover-bg {
+      background: radial-gradient(ellipse at 30% 30%, rgba(0,184,169,0.18) 0%, transparent 55%),
+                  radial-gradient(ellipse at 70% 70%, rgba(139,63,160,0.22) 0%, transparent 55%),
+                  linear-gradient(135deg, #0a0a14 0%, #14091e 50%, #0a0a14 100%);
+    }
+    .cover-bg::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: url('../area51-apresentacaomodelo/elementos/Fundo degradê.jpg');
+      background-size: cover; background-position: center;
+      opacity: 0.28;
+      mix-blend-mode: screen;
+      filter: blur(2px);
+    }
+    .cover-logo {
+      position: absolute;
+      left: 50%; top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+    }
+    .cover-meta {
+      position: absolute;
+      left: 110px;
+      bottom: 110px;
+      z-index: 3;
+    }
+    .cover-meta .small-label {
+      font-size: 22px;
+      letter-spacing: 0.32em;
+      color: rgba(255,255,255,0.65);
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+    .cover-meta .milan-logo.cover-size { margin-bottom: 20px; }
+    .cover-meta .date {
+      font-size: 22px;
+      letter-spacing: 0.28em;
+      color: rgba(255,255,255,0.55);
+      text-transform: uppercase;
+    }
+
+    /* ============ Slide 2 ============ */
+    .s2-bg {
+      background: radial-gradient(ellipse at 85% 15%, rgba(0,184,169,0.10) 0%, transparent 55%),
+                  radial-gradient(ellipse at 15% 85%, rgba(139,63,160,0.10) 0%, transparent 55%),
+                  #0a0a0c;
+    }
+    .s2-bg::before {
+      content:''; position:absolute; inset:0;
+      background-image:url('../area51-apresentacaomodelo/elementos/FUNDOS-01.png');
+      background-size: cover; background-position: center;
+      opacity:0.45;
+    }
+    .row-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+    }
+    .header-block { margin-bottom: 56px; }
+    .header-block .eyebrow { color: var(--text-tertiary); }
+
+    .info-block .lab {
+      font-weight: 700;
+      letter-spacing: 0.20em;
+      text-transform: uppercase;
+      font-size: 18px;
+      margin-bottom: 14px;
+    }
+    .info-block.teal .lab { color: var(--verde-nexus); }
+    .info-block.violet .lab { color: var(--violeta-light); }
+    .info-block .body {
+      font-size: 21px;
+      line-height: 1.5;
+      color: rgba(255,255,255,0.78);
+    }
+    .info-block .body strong { color: #fff; font-weight: 700; }
+
+    .binocular-strip {
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      height: 320px;
+      z-index: 1;
+      overflow: hidden;
+    }
+    .binocular-strip img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: saturate(1.05) blur(1px);
+    }
+    .binocular-strip::after {
+      content:''; position:absolute; inset:0;
+      background: linear-gradient(180deg, #0a0a0c 0%, transparent 18%, transparent 65%, rgba(10,10,12,0.5) 100%);
+    }
+
+    /* ============ Slide 3 (Segmentação) ============ */
+    .s3-bg {
+      background: radial-gradient(ellipse at 75% 30%, rgba(0,184,169,0.10) 0%, transparent 50%),
+                  radial-gradient(ellipse at 20% 80%, rgba(139,63,160,0.10) 0%, transparent 50%),
+                  #0a0a0c;
+    }
+    .s3-bg::before {
+      content:''; position:absolute; inset:0;
+      background-image:url('../area51-apresentacaomodelo/elementos/Fundo tecnologico.jpg');
+      background-size: cover; background-position: center;
+      opacity:0.18;
+    }
+    .seg-header {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 32px;
+      align-items: flex-end;
+      margin-bottom: 24px;
+    }
+    .seg-header .milan-logo.title-size { height: 64px; }
+
+    .base-desc {
+      background: linear-gradient(180deg, rgba(192,136,240,0.07), rgba(192,136,240,0.02));
+      border: 1px solid rgba(192,136,240,0.30);
+      border-radius: 14px;
+      padding: 14px 22px;
+      backdrop-filter: blur(20px);
+    }
+    .base-desc .lab {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--violeta-light);
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .base-desc .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .base-desc .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      font-size: 13px;
+      color: rgba(255,255,255,0.88);
+      font-weight: 500;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .base-desc .chip::before {
+      content: '';
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--violeta-light);
+      box-shadow: 0 0 6px var(--violeta-glow);
+    }
+    .total-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 22px;
+      padding: 18px 34px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      backdrop-filter: blur(20px);
+    }
+    .total-pill .dot {
+      width: 14px; height: 14px; border-radius: 50%;
+      background: var(--verde-nexus);
+      box-shadow: 0 0 16px var(--verde-glow);
+    }
+    .total-pill .lab {
+      font-size: 16px; letter-spacing: 0.25em;
+      text-transform: uppercase; color: rgba(255,255,255,0.75);
+      font-weight: 500;
+    }
+    .total-pill .val {
+      font-size: 42px; font-weight: 800; color: #fff;
+      letter-spacing: -0.01em;
+    }
+    .total-pill .unit {
+      font-size: 20px; color: rgba(255,255,255,0.7);
+    }
+    .seg-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 1fr 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 18px 22px;
+      flex: 1;
+      min-height: 0;
+    }
+    .seg-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 14px;
+      padding: 18px 22px;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      overflow: hidden;
+    }
+    .seg-card.span-row { grid-row: span 2; }
+    .seg-card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .seg-card-head .title {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.85);
+    }
+    .seg-card-head .meta {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      color: rgba(255,255,255,0.40);
+      text-transform: uppercase;
+    }
+    .bar-row {
+      display: grid;
+      grid-template-columns: 22px 1fr auto;
+      align-items: center;
+      gap: 10px;
+      padding: 3px 0;
+    }
+    .bar-row .ix {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: rgba(255,255,255,0.35);
+    }
+    .bar-row .lab {
+      font-size: 14px;
+      color: rgba(255,255,255,0.85);
+      font-weight: 500;
+    }
+    .bar-row .lab small {
+      color: rgba(255,255,255,0.4);
+      font-weight: 400;
+      font-size: 11px;
+      margin-left: 5px;
+    }
+    .bar-row .val {
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
+    }
+    .bar-track {
+      grid-column: 2 / 4;
+      height: 3px;
+      border-radius: 2px;
+      background: rgba(255,255,255,0.07);
+      position: relative;
+      margin-top: 1px;
+    }
+    .bar-fill {
+      position: absolute; left:0; top:0; bottom:0;
+      border-radius: 2px;
+      background: linear-gradient(90deg, var(--verde-nexus), rgba(0,184,169,0.4));
+    }
+    .bar-fill.violet { background: linear-gradient(90deg, var(--violeta-light), rgba(192,136,240,0.4)); }
+    .bar-fill.deep { background: linear-gradient(90deg, #3D2A6B, rgba(61,42,107,0.4)); }
+    .row-stack {
+      display: flex; flex-direction: column;
+      gap: 4px;
+    }
+    .donut-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      flex: 1;
+      min-height: 0;
+    }
+    .donut {
+      width: 100px; height: 100px;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .donut svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+    .donut-legend { font-size: 13px; }
+    .donut-legend .li {
+      display: flex; align-items: center; gap: 9px;
+      margin-bottom: 7px;
+    }
+    .donut-legend .li:last-child { margin-bottom: 0; }
+    .donut-legend .swatch { width: 9px; height: 9px; border-radius: 50%; flex-shrink:0; }
+    .donut-legend .li .text { color: rgba(255,255,255,0.85); font-weight: 500; line-height: 1.15; }
+    .donut-legend .li .num { color: #fff; font-weight: 700; font-size: 15px; }
+    .donut-legend .li .pct { color: rgba(255,255,255,0.45); font-size: 11px; margin-left: 4px; }
+
+    /* ============ Slides 4/5 ============ */
+    .s4-bg, .s5-bg {
+      background: radial-gradient(ellipse at 80% 20%, rgba(139,63,160,0.10) 0%, transparent 50%),
+                  radial-gradient(ellipse at 15% 90%, rgba(0,184,169,0.08) 0%, transparent 50%),
+                  #0a0a0c;
+    }
+    .s4-bg::before {
+      content:''; position:absolute; inset:0;
+      background-image:url('../area51-apresentacaomodelo/elementos/FUNDOS-02.png');
+      background-size: cover; background-position: right center;
+      opacity:0.40;
+    }
+    .s5-bg::before {
+      content:''; position:absolute; inset:0;
+      background-image:url('../area51-apresentacaomodelo/elementos/FUNDOS-03.png');
+      background-size: cover; background-position: left center;
+      opacity:0.40;
+    }
+    .deliverables-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      flex: 1;
+      align-content: start;
+    }
+    .deliverable-card {
+      padding: 38px 42px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.035);
+      border: 1px solid rgba(255,255,255,0.10);
+      position: relative;
+      overflow: hidden;
+    }
+    .deliverable-card.teal { border-color: rgba(0,184,169,0.25); }
+    .deliverable-card.teal::before {
+      content:''; position:absolute; left:0; top:0; bottom:0; width:4px;
+      background: linear-gradient(180deg, var(--verde-nexus), transparent);
+    }
+    .deliverable-card.violet { border-color: rgba(192,136,240,0.25); }
+    .deliverable-card.violet::before {
+      content:''; position:absolute; left:0; top:0; bottom:0; width:4px;
+      background: linear-gradient(180deg, var(--violeta-light), transparent);
+    }
+    .deliverable-card h3 {
+      font-size: 32px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 6px;
+      letter-spacing: -0.005em;
+    }
+    .deliverable-card .tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 22px;
+    }
+    .deliverable-card.teal .tag-color { color: var(--verde-nexus); }
+    .deliverable-card.violet .tag-color { color: var(--violeta-light); }
+    .deliverable-card ul { list-style: none; padding: 0; }
+    .deliverable-card li {
+      font-size: 18px;
+      line-height: 1.55;
+      color: rgba(255,255,255,0.80);
+      padding-left: 22px;
+      position: relative;
+      margin-bottom: 14px;
+    }
+    .deliverable-card li:last-child { margin-bottom: 0; }
+    .deliverable-card li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 12px;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--verde-nexus);
+      box-shadow: 0 0 8px var(--verde-glow);
+    }
+    .deliverable-card.violet li::before {
+      background: var(--violeta-light);
+      box-shadow: 0 0 8px var(--violeta-glow);
+    }
+    .deliverable-card li strong { color: #fff; font-weight: 600; }
+
+    /* ============ Slide 6 (Investimento) ============ */
+    .s6-bg {
+      background: radial-gradient(ellipse at 30% 30%, rgba(0,184,169,0.10) 0%, transparent 55%),
+                  radial-gradient(ellipse at 70% 70%, rgba(139,63,160,0.14) 0%, transparent 55%),
+                  linear-gradient(135deg, #0a0a14 0%, #14091e 50%, #0a0a14 100%);
+    }
+    .s6-bg::before {
+      content:''; position:absolute; inset:0;
+      background-image:url('../area51-apresentacaomodelo/elementos/Fundo degradê.jpg');
+      background-size: cover; background-position: center;
+      opacity:0.16;
+      mix-blend-mode: screen;
+    }
+    .poc-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 1fr;
+      gap: 56px;
+      flex: 1;
+      align-content: start;
+    }
+    .poc-investment {
+      padding: 48px 52px;
+      border-radius: 22px;
+      background: linear-gradient(180deg, rgba(0,184,169,0.10), rgba(0,184,169,0.02));
+      border: 1px solid rgba(0,184,169,0.30);
+      position: relative;
+      overflow: hidden;
+    }
+    .poc-investment::after {
+      content:''; position: absolute;
+      right: -80px; top: -80px;
+      width: 280px; height: 280px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--verde-glow) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .poc-investment .tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      letter-spacing: 0.25em;
+      color: var(--verde-nexus);
+      text-transform: uppercase;
+      margin-bottom: 22px;
+    }
+    .price-stack { display: flex; flex-direction: column; gap: 28px; }
+    .price-row .k {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 8px;
+    }
+    .price-row .v {
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      color: #fff;
+      line-height: 0.9;
+    }
+    .price-row .v .cur {
+      color: var(--verde-nexus);
+      font-weight: 600;
+      margin-right: 8px;
+    }
+    .price-row .v .sub {
+      font-size: 22px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.6);
+      margin-left: 14px;
+      letter-spacing: 0;
+    }
+    .price-row.setup .v { font-size: 64px; }
+    .price-row.setup .v .cur { font-size: 32px; vertical-align: 14px; }
+    .price-row.monthly .v { font-size: 84px; }
+    .price-row.monthly .v .cur { font-size: 44px; vertical-align: 18px; }
+    .price-row.monthly .v .per { font-size: 28px; color: rgba(255,255,255,0.5); font-weight: 400; margin-left: 10px; }
+
+    .poc-side { display: flex; flex-direction: column; gap: 24px; }
+    .poc-detail {
+      padding: 28px 32px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.10);
+    }
+    .poc-detail .k {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.25em;
+      color: var(--violeta-light);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .poc-detail .v {
+      font-size: 26px;
+      line-height: 1.3;
+      color: #fff;
+      font-weight: 700;
+    }
+    .poc-detail .v small {
+      display: block;
+      font-size: 16px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.65);
+      margin-top: 6px;
+    }
+
+    /* ============ Slide 7 (Pacotes Pessoa Física) ============ */
+    .slide.s7-bg { justify-content: flex-start; padding-top: 70px; padding-bottom: 130px; }
+    .s7-bg {
+      background: radial-gradient(ellipse at 80% 30%, rgba(0,184,169,0.10) 0%, transparent 50%),
+                  radial-gradient(ellipse at 15% 80%, rgba(139,63,160,0.10) 0%, transparent 50%),
+                  #0a0a0c;
+    }
+    .s7-bg::before {
+      content:''; position:absolute; inset:0;
+      background-image:url('../area51-apresentacaomodelo/elementos/FUNDOS-01.png');
+      background-size: cover; background-position: center;
+      opacity: 0.35;
+    }
+    .pkg-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .pkg-header .pkg-eyebrow {
+      font-size: 13px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      margin-bottom: 10px;
+    }
+    .pkg-header .milan-logo.title-size-sm { height: 44px; }
+    .pkg-header .pf-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 20px;
+      border-radius: 999px;
+      background: rgba(0,184,169,0.10);
+      border: 1px solid rgba(0,184,169,0.35);
+      font-size: 13px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--verde-nexus);
+      font-weight: 600;
+    }
+    .pkg-header .pf-tag::before {
+      content: '✓';
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .pkg-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .pkg-card {
+      border-radius: 14px;
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .pkg-card.basic {
+      background: rgba(255,255,255,0.035);
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+    .pkg-card.plus {
+      background: linear-gradient(180deg, rgba(0,184,169,0.08), rgba(0,184,169,0.02));
+      border: 1px solid rgba(0,184,169,0.30);
+    }
+    .pkg-card.master {
+      background: linear-gradient(180deg, rgba(192,136,240,0.08), rgba(192,136,240,0.02));
+      border: 1px solid rgba(192,136,240,0.35);
+    }
+    .pkg-card .pkg-head {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.10);
+      margin-bottom: 10px;
+    }
+    .pkg-card .pkg-name {
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      line-height: 1;
+    }
+    .pkg-card.basic .pkg-name { color: #fff; }
+    .pkg-card.plus .pkg-name { color: var(--verde-nexus); }
+    .pkg-card.master .pkg-name { color: var(--violeta-light); }
+    .pkg-card .pkg-bracket {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      color: rgba(255,255,255,0.4);
+    }
+    .pkg-card ul { list-style: none; padding: 0; }
+    .pkg-card li {
+      font-size: 12.5px;
+      line-height: 1.32;
+      color: rgba(255,255,255,0.85);
+      padding-left: 14px;
+      position: relative;
+      margin-bottom: 4px;
+    }
+    .pkg-card li:last-child { margin-bottom: 0; }
+    .pkg-card li::before {
+      content: '✦';
+      position: absolute;
+      left: 0; top: 0;
+      font-size: 10px;
+      line-height: 1.7;
+    }
+    .pkg-card.basic li::before { color: rgba(255,255,255,0.5); }
+    .pkg-card.plus li::before { color: var(--verde-nexus); }
+    .pkg-card.master li::before { color: var(--violeta-light); }
+    .pkg-card .pkg-includes {
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 7px;
+      padding: 4px 9px;
+      border-radius: 6px;
+      display: inline-block;
+      align-self: flex-start;
+    }
+    .pkg-card.plus .pkg-includes {
+      background: rgba(0,184,169,0.12);
+      color: var(--verde-nexus);
+    }
+    .pkg-card.master .pkg-includes {
+      background: rgba(192,136,240,0.12);
+      color: var(--violeta-light);
+    }
+
+    /* Pricing table */
+    .price-table-wrap {
+      border-radius: 12px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.10);
+      overflow: hidden;
+    }
+    .price-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .price-table th, .price-table td {
+      padding: 6px 16px;
+      text-align: center;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .price-table th {
+      background: rgba(0,184,169,0.10);
+      color: #fff;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-size: 11px;
+      padding: 9px 16px;
+    }
+    .price-table th.range-h { background: rgba(192,136,240,0.10); color: var(--violeta-light); }
+    .price-table tr:last-child td { border-bottom: none; }
+    .price-table tr:nth-child(even) td { background: rgba(255,255,255,0.015); }
+    .price-table td.range {
+      color: rgba(255,255,255,0.75);
+      font-weight: 500;
+      text-align: left;
+    }
+    .price-table td.range-right {
+      color: rgba(255,255,255,0.75);
+      font-weight: 500;
+    }
+    .price-table td.price {
+      font-weight: 700;
+      color: #fff;
+      font-size: 13.5px;
+    }
+    .price-table td.price.plus { color: var(--verde-nexus); }
+    .price-table td.price.master { color: var(--violeta-light); }
+
+    /* ============ Slide 8 (closing) ============ */
+    .s8-bg { background: #0a0a0c; }
+    .s8-bg::before {
+      content:''; position:absolute; inset:0;
+      background-image:url('../area51-apresentacaomodelo/elementos/Imagem-4.png');
+      background-size: cover; background-position: center;
+      opacity: 0.65;
+      filter: saturate(1.1) brightness(0.85);
+    }
+    .s8-bg::after {
+      content:''; position:absolute; inset:0;
+      background: radial-gradient(ellipse at center, transparent 0%, rgba(10,10,15,0.7) 75%);
+    }
+    .closing {
+      position: absolute; inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 3;
+      text-align: center;
+    }
+    .closing-logo { margin-bottom: 14px; }
+    .closing-tag {
+      font-size: 38px;
+      font-weight: 300;
+      letter-spacing: 0.05em;
+      color: rgba(255,255,255,0.95);
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ================== SLIDE 1 — COVER ================== -->
+<section class="slide cover-bg">
+  <div class="slide-bg"></div>
+  <div class="cover-logo">
+    <div class="a51-logo a51-cover"></div>
+  </div>
+  <div class="cover-meta">
+    <div class="small-label">Proposta Comercial</div>
+    <img src="milan-logo.png" class="milan-logo cover-size" alt="Milan Leilões">
+    <div class="date">Maio / 2026</div>
+  </div>
+</section>
+
+<!-- ================== SLIDE 2 — PÚBLICO / PRODUTO ================== -->
+<section class="slide s2-bg">
+  <div class="slide-bg"></div>
+  <div class="slide-content">
+    <div class="header-block">
+      <div class="eyebrow">Proposta Comercial</div>
+      <img src="milan-logo.png" class="milan-logo title-size" alt="Milan Leilões">
+    </div>
+    <div class="row-2col" style="margin-top:10px;">
+      <div class="glass glass-teal info-block teal">
+        <div class="lab">Público</div>
+        <p class="body">Composto por <strong>investidores</strong> (iniciantes a experientes) e empresas focados em adquirir ativos abaixo do valor de mercado para <strong>revenda, renda ou expansão patrimonial</strong>. Inclui também compradores finais em busca de imóveis residenciais para moradia própria — todos unidos pelo interesse estratégico nas oportunidades vantajosas dos <strong>leilões imobiliários</strong>.</p>
+      </div>
+      <div class="glass glass-violet info-block violet">
+        <div class="lab">Produto</div>
+        <p class="body">Leilões de <strong>imóveis, materiais, veículos e cavalos</strong>. Foco inicial no setor de <strong>imóveis</strong>, área que concentra a maior demanda de atenção atualmente.</p>
+      </div>
+    </div>
+  </div>
+  <div class="binocular-strip">
+    <img src="../area51-apresentacaomodelo/elementos/Imagem-4.png" alt="">
+  </div>
+  <div class="brand-mark"></div>
+  <div class="slide-num">02 / 08</div>
+</section>
+
+<!-- ================== SLIDE 3 — SEGMENTAÇÃO ================== -->
+<section class="slide s3-bg">
+  <div class="slide-bg"></div>
+  <div class="slide-content">
+    <div class="seg-header">
+      <div>
+        <div class="eyebrow">Segmentação</div>
+        <img src="milan-logo.png" class="milan-logo title-size" alt="Milan Leilões">
+      </div>
+      <div class="base-desc">
+        <div class="lab">Descrição da Base</div>
+        <div class="chips">
+          <span class="chip">Pessoas Físicas</span>
+          <span class="chip">Estado: São Paulo</span>
+          <span class="chip">30 a 60 anos</span>
+          <span class="chip">Renda acima de R$ 8.000</span>
+          <span class="chip">Perfil de Investidores</span>
+        </div>
+      </div>
+      <div class="total-pill">
+        <div class="dot"></div>
+        <div class="lab">Base</div>
+        <div class="val">3,1</div>
+        <div class="unit">milhões de pessoas</div>
+      </div>
+    </div>
+
+    <div class="seg-grid">
+
+      <!-- GRUPO DE CARGOS (span 2 rows) -->
+      <div class="seg-card span-row">
+        <div class="seg-card-head">
+          <div class="title">Grupo de Cargos</div>
+          <div class="meta">Perfil dominante · 10</div>
+        </div>
+        <div class="row-stack">
+          <div class="bar-row"><div class="ix">01</div><div class="lab">Sócios</div><div class="val">1.65M</div>
+            <div class="bar-track"><div class="bar-fill" style="width:100%"></div></div></div>
+          <div class="bar-row"><div class="ix">02</div><div class="lab">Funcionários</div><div class="val">1.12M</div>
+            <div class="bar-track"><div class="bar-fill" style="width:68%"></div></div></div>
+          <div class="bar-row"><div class="ix">03</div><div class="lab">Gerentes</div><div class="val">310k</div>
+            <div class="bar-track"><div class="bar-fill" style="width:19%"></div></div></div>
+          <div class="bar-row"><div class="ix">04</div><div class="lab">Médicos</div><div class="val">102k</div>
+            <div class="bar-track"><div class="bar-fill violet" style="width:7%"></div></div></div>
+          <div class="bar-row"><div class="ix">05</div><div class="lab">Supervisores</div><div class="val">96.4k</div>
+            <div class="bar-track"><div class="bar-fill violet" style="width:6%"></div></div></div>
+          <div class="bar-row"><div class="ix">06</div><div class="lab">Engenheiros</div><div class="val">67.8k</div>
+            <div class="bar-track"><div class="bar-fill violet" style="width:5%"></div></div></div>
+          <div class="bar-row"><div class="ix">07</div><div class="lab">Diretores</div><div class="val">52.8k</div>
+            <div class="bar-track"><div class="bar-fill violet" style="width:4%"></div></div></div>
+          <div class="bar-row"><div class="ix">08</div><div class="lab">Advogados</div><div class="val">33k</div>
+            <div class="bar-track"><div class="bar-fill deep" style="width:2.5%"></div></div></div>
+          <div class="bar-row"><div class="ix">09</div><div class="lab">Coordenadores</div><div class="val">8.32k</div>
+            <div class="bar-track"><div class="bar-fill deep" style="width:1%"></div></div></div>
+          <div class="bar-row"><div class="ix">10</div><div class="lab">Dentistas</div><div class="val">6.72k</div>
+            <div class="bar-track"><div class="bar-fill deep" style="width:1%"></div></div></div>
+        </div>
+      </div>
+
+      <!-- SÓCIOS - SINAL FORTE -->
+      <div class="seg-card">
+        <div class="seg-card-head">
+          <div class="title">Sócios</div>
+          <div class="meta">Sinal forte</div>
+        </div>
+        <div class="donut-wrap">
+          <div class="donut">
+            <svg viewBox="0 0 36 36">
+              <circle cx="18" cy="18" r="14" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="4"/>
+              <!-- SIM 54.9% -->
+              <circle cx="18" cy="18" r="14" fill="none" stroke="#00B8A9" stroke-width="4"
+                stroke-dasharray="48.3 87.96" />
+              <!-- NÃO 45.1% -->
+              <circle cx="18" cy="18" r="14" fill="none" stroke="#2E1B5E" stroke-width="4"
+                stroke-dasharray="39.6 87.96" stroke-dashoffset="-48.3" />
+            </svg>
+          </div>
+          <div class="donut-legend">
+            <div class="li"><span class="swatch" style="background:#00B8A9"></span>
+              <div><div class="text">SIM</div><div class="num">1,69M <span class="pct">54,9%</span></div></div>
+            </div>
+            <div class="li"><span class="swatch" style="background:#2E1B5E"></span>
+              <div><div class="text">NÃO</div><div class="num">1,39M <span class="pct">45,1%</span></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- GÊNERO -->
+      <div class="seg-card">
+        <div class="seg-card-head">
+          <div class="title">Gênero</div>
+          <div class="meta">03 grupos</div>
+        </div>
+        <div class="donut-wrap">
+          <div class="donut">
+            <svg viewBox="0 0 36 36">
+              <circle cx="18" cy="18" r="14" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="4"/>
+              <!-- Masculino 59.4% -->
+              <circle cx="18" cy="18" r="14" fill="none" stroke="#2E1B5E" stroke-width="4"
+                stroke-dasharray="52.2 87.96" />
+              <!-- Feminino 40.3% -->
+              <circle cx="18" cy="18" r="14" fill="none" stroke="#00B8A9" stroke-width="4"
+                stroke-dasharray="35.4 87.96" stroke-dashoffset="-52.2" />
+              <!-- Indefinido 0.3% -->
+              <circle cx="18" cy="18" r="14" fill="none" stroke="rgba(255,255,255,0.30)" stroke-width="4"
+                stroke-dasharray="0.3 87.96" stroke-dashoffset="-87.6" />
+            </svg>
+          </div>
+          <div class="donut-legend">
+            <div class="li"><span class="swatch" style="background:#2E1B5E"></span>
+              <div><div class="text">Masculino</div><div class="num">1,83M</div></div>
+            </div>
+            <div class="li"><span class="swatch" style="background:#00B8A9"></span>
+              <div><div class="text">Feminino</div><div class="num">1,24M</div></div>
+            </div>
+            <div class="li"><span class="swatch" style="background:rgba(255,255,255,0.35)"></span>
+              <div><div class="text">Indefinido</div><div class="num">9.3k</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAIXA DE IDADE -->
+      <div class="seg-card">
+        <div class="seg-card-head">
+          <div class="title">Faixa de Idade</div>
+          <div class="meta">3 faixas</div>
+        </div>
+        <div class="row-stack">
+          <div class="bar-row"><div class="ix"></div><div class="lab">Adulto maduro <small>45–59</small></div><div class="val">1.61M</div>
+            <div class="bar-track"><div class="bar-fill" style="width:100%"></div></div></div>
+          <div class="bar-row"><div class="ix"></div><div class="lab">Adulto em ascensão <small>30–44</small></div><div class="val">1.37M</div>
+            <div class="bar-track"><div class="bar-fill" style="width:85%"></div></div></div>
+          <div class="bar-row"><div class="ix"></div><div class="lab">Sênior <small>60+</small></div><div class="val">104k</div>
+            <div class="bar-track"><div class="bar-fill violet" style="width:6.5%"></div></div></div>
+        </div>
+      </div>
+
+      <!-- FAIXA DE RENDA -->
+      <div class="seg-card">
+        <div class="seg-card-head">
+          <div class="title">Faixa de Renda</div>
+          <div class="meta">Alta</div>
+        </div>
+        <div class="row-stack">
+          <div class="bar-row"><div class="ix"></div><div class="lab">R$ 8.061 – 16.120</div><div class="val">1.90M</div>
+            <div class="bar-track"><div class="bar-fill" style="width:100%"></div></div></div>
+          <div class="bar-row"><div class="ix"></div><div class="lab">Acima de R$ 16.120</div><div class="val">1.18M</div>
+            <div class="bar-track"><div class="bar-fill violet" style="width:62%"></div></div></div>
+        </div>
+      </div>
+
+      <!-- CLASSE SOCIAL -->
+      <div class="seg-card">
+        <div class="seg-card-head">
+          <div class="title">Classe Social</div>
+          <div class="meta">2 grupos</div>
+        </div>
+        <div class="row-stack">
+          <div class="bar-row"><div class="ix"></div><div class="lab">Classe B</div><div class="val">1.90M</div>
+            <div class="bar-track"><div class="bar-fill" style="width:100%"></div></div></div>
+          <div class="bar-row"><div class="ix"></div><div class="lab">Classe A</div><div class="val">1.18M</div>
+            <div class="bar-track"><div class="bar-fill violet" style="width:62%"></div></div></div>
+        </div>
+      </div>
+
+      <!-- TOP CIDADES -->
+      <div class="seg-card">
+        <div class="seg-card-head">
+          <div class="title">Top Cidades</div>
+          <div class="meta">SP + ABC</div>
+        </div>
+        <div class="row-stack">
+          <div class="bar-row"><div class="ix">01</div><div class="lab">São Paulo</div><div class="val">1.30M</div>
+            <div class="bar-track"><div class="bar-fill" style="width:100%"></div></div></div>
+          <div class="bar-row"><div class="ix">02</div><div class="lab">Campinas</div><div class="val">116k</div>
+            <div class="bar-track"><div class="bar-fill" style="width:9%"></div></div></div>
+          <div class="bar-row"><div class="ix">03</div><div class="lab">S. Bernardo</div><div class="val">72.9k</div>
+            <div class="bar-track"><div class="bar-fill violet" style="width:6%"></div></div></div>
+          <div class="bar-row"><div class="ix">04</div><div class="lab">Santo André</div><div class="val">71.8k</div>
+            <div class="bar-track"><div class="bar-fill violet" style="width:5.5%"></div></div></div>
+          <div class="bar-row"><div class="ix">05</div><div class="lab">Guarulhos</div><div class="val">68.9k</div>
+            <div class="bar-track"><div class="bar-fill violet" style="width:5%"></div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="brand-mark"></div>
+  <div class="slide-num">03 / 08</div>
+</section>
+
+<!-- ================== SLIDE 4 — ENTREGÁVEIS: Personas + Data.51 ================== -->
+<section class="slide s4-bg">
+  <div class="slide-bg"></div>
+  <div class="slide-content">
+    <div class="header-block">
+      <div class="eyebrow">Entregáveis · Parte 1 de 2</div>
+      <div class="title">FRENTES <span class="accent">DE TRABALHO</span></div>
+    </div>
+    <div class="deliverables-grid">
+      <div class="deliverable-card teal">
+        <h3>Estudo de Personas</h3>
+        <div class="tag"><span class="tag-color">●</span> &nbsp;Modelagem estatística · ICP</div>
+        <ul>
+          <li>Análise da base de clientes <strong>(Bons e Maus)</strong> e aplicação de modelagens estatísticas para criação das personas, identificando as principais características e atributos.</li>
+          <li><strong>Enriquecimento</strong> das amostras disponibilizadas para a modelagem estatística, entregando estes novos dados ao cliente.</li>
+        </ul>
+      </div>
+      <div class="deliverable-card violet">
+        <h3>Data.51</h3>
+        <div class="tag"><span class="tag-color">●</span> &nbsp;Custom Audience · Dashboard · Bases alvo</div>
+        <ul>
+          <li><strong>Custom Audience:</strong> identificação de registros em nossa bigdata, conforme características aderentes às personas mapeadas na modelagem estatística (ICP).</li>
+          <li>Criação do <strong>Cubo (Dashboard)</strong> customizado para Milan Leilões.</li>
+          <li>Criação de <strong>novas bases alvo</strong>, não pertencentes ao cliente, mas que poderão ser impactadas diretamente através de campanhas de marketing digital.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="brand-mark"></div>
+  <div class="slide-num">04 / 08</div>
+</section>
+
+<!-- ================== SLIDE 5 — Tag.51 + Media.51 ================== -->
+<section class="slide s5-bg">
+  <div class="slide-bg"></div>
+  <div class="slide-content">
+    <div class="header-block">
+      <div class="eyebrow">Entregáveis · Parte 2 de 2</div>
+      <div class="title">ATIVAÇÃO <span class="accent">& MÍDIA</span></div>
+    </div>
+    <div class="deliverables-grid">
+      <div class="deliverable-card teal">
+        <h3>Tag.51</h3>
+        <div class="tag"><span class="tag-color">●</span> &nbsp;Identificação · Retargeting</div>
+        <ul>
+          <li>Criação de <strong>tag</strong> a ser instalada pelo cliente nas páginas relacionadas à campanha.</li>
+          <li>Serviço de <strong>identificação de visitantes não logados</strong>, enquanto durar o projeto.</li>
+          <li><strong>Cruzamento com as personas</strong> para melhorar a estratégia de retargeting.</li>
+        </ul>
+      </div>
+      <div class="deliverable-card violet">
+        <h3>Media.51</h3>
+        <div class="tag"><span class="tag-color">●</span> &nbsp;Bases · BM area51 · Performance</div>
+        <ul>
+          <li><strong>Extratificação das bases</strong>, a partir dos filtros feitos no Cubo customizado.</li>
+          <li><strong>Subida</strong> destas bases no BM area51, de modo que o cliente possa impactá-las através de suas campanhas.</li>
+          <li><strong>Suporte recorrente</strong> nas configurações das plataformas e acompanhamento dos resultados de mídia/performance junto com o cliente.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="brand-mark"></div>
+  <div class="slide-num">05 / 08</div>
+</section>
+
+<!-- ================== SLIDE 6 — INVESTIMENTO ================== -->
+<section class="slide s6-bg">
+  <div class="slide-bg"></div>
+  <div class="slide-content">
+    <div class="header-block">
+      <div class="eyebrow">Proposta Comercial</div>
+      <div class="title">INVESTIMENTO</div>
+    </div>
+
+    <div class="poc-grid">
+      <div class="poc-investment">
+        <div class="tag">Contrato · 12 meses</div>
+        <div class="price-stack">
+          <div class="price-row setup">
+            <div class="k">Setup · Valor único</div>
+            <div class="v"><span class="cur">R$</span>11.600<span class="sub">,00</span></div>
+          </div>
+          <div class="price-row monthly">
+            <div class="k">Mensalidade</div>
+            <div class="v"><span class="cur">R$</span>15.200<span class="per">/ mês</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="poc-side">
+        <div class="poc-detail">
+          <div class="k">Duração do Contrato</div>
+          <div class="v">12 meses</div>
+        </div>
+        <div class="poc-detail">
+          <div class="k">Forma de Pagamento</div>
+          <div class="v">Vencimento dia 30 <small>do mês vigente</small></div>
+        </div>
+        <div class="poc-detail">
+          <div class="k">Mensalidade por Extenso</div>
+          <div class="v">Quinze mil e duzentos reais</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="brand-mark"></div>
+  <div class="slide-num">06 / 08</div>
+</section>
+
+<!-- ================== SLIDE 7 — PACOTES PESSOA FÍSICA ================== -->
+<section class="slide s7-bg">
+  <div class="slide-bg"></div>
+  <div class="slide-content">
+    <div class="pkg-header">
+      <div>
+        <div class="pkg-eyebrow">Proposta exclusiva para enriquecimento de dados</div>
+        <img src="milan-logo.png" class="milan-logo title-size-sm" alt="Milan Leilões">
+      </div>
+      <div class="pf-tag">Pacote Pessoa Física</div>
+    </div>
+
+    <div class="pkg-grid">
+
+      <div class="pkg-card basic">
+        <div class="pkg-head">
+          <div class="pkg-name">Básico</div>
+          <span class="pkg-bracket">[ ]</span>
+        </div>
+        <ul>
+          <li>CPF</li>
+          <li>Nome Original</li>
+          <li>Nome Social</li>
+          <li>Endereço Completo</li>
+          <li>Indicação End. Comercial</li>
+          <li>Telefones Fixos</li>
+          <li>Telefones Celulares</li>
+          <li>E-mails</li>
+          <li>Flags WhatsApp, Procon, Meta e Google</li>
+          <li>Nacionalidade</li>
+          <li>Situação Cadastral RF (Histórico)</li>
+          <li>Consulta Online Situação RF</li>
+        </ul>
+      </div>
+
+      <div class="pkg-card plus">
+        <div class="pkg-head">
+          <div class="pkg-name">Plus</div>
+          <span class="pkg-bracket">[ ]</span>
+        </div>
+        <div class="pkg-includes">Básico +</div>
+        <ul>
+          <li>Data de Nascimento</li>
+          <li>Gênero</li>
+          <li>Estado Civil</li>
+          <li>Escolaridade</li>
+          <li>Profissão / Conselho</li>
+          <li>Cargo (CBO) e Empresa</li>
+          <li>Funcionários Públicos</li>
+          <li>Deficiente Físico</li>
+          <li>Parentescos</li>
+          <li>Score de Crédito</li>
+          <li>Classe Social</li>
+          <li>Renda Presumida (Ind./Emp./Fam.)</li>
+          <li>Hist. Aposentadoria e IR</li>
+        </ul>
+      </div>
+
+      <div class="pkg-card master">
+        <div class="pkg-head">
+          <div class="pkg-name">Master</div>
+          <span class="pkg-bracket">[ ]</span>
+        </div>
+        <div class="pkg-includes">Plus +</div>
+        <ul>
+          <li>Histórico de CCF</li>
+          <li>Situação de Cobrança</li>
+          <li>PEP / VIP</li>
+          <li>Dados Hist. de Emprego</li>
+          <li>Benefícios de Governo</li>
+          <li>Sociedades e Empresas Rel.</li>
+          <li>Plano de Saúde</li>
+          <li>Imóveis (São Paulo)</li>
+          <li>Veículos Automotivos (SP)</li>
+          <li>Modelos de Afinidade (27 Scores)</li>
+          <li>Dívida Ativa (PGFN)</li>
+          <li>Restritivos BACEN</li>
+          <li>Mandado de Prisão</li>
+          <li>Endereço de Votação</li>
+          <li>Comportamento Digital · Domínios Visitados</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="price-table-wrap">
+      <table class="price-table">
+        <thead>
+          <tr>
+            <th colspan="2" class="range-h">Quantidade de Consultas / Mês</th>
+            <th>Pacote Básico</th>
+            <th>Pacote Plus</th>
+            <th>Pacote Master</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="range">1</td><td class="range-right">5.000</td><td class="price">R$ 0,66</td><td class="price plus">R$ 1,23</td><td class="price master">R$ 1,82</td></tr>
+          <tr><td class="range">5.001</td><td class="range-right">10.000</td><td class="price">R$ 0,62</td><td class="price plus">R$ 1,04</td><td class="price master">R$ 1,54</td></tr>
+          <tr><td class="range">10.001</td><td class="range-right">50.000</td><td class="price">R$ 0,49</td><td class="price plus">R$ 0,81</td><td class="price master">R$ 1,20</td></tr>
+          <tr><td class="range">50.001</td><td class="range-right">100.000</td><td class="price">R$ 0,46</td><td class="price plus">R$ 0,74</td><td class="price master">R$ 1,11</td></tr>
+          <tr><td class="range">100.001</td><td class="range-right">250.000</td><td class="price">R$ 0,35</td><td class="price plus">R$ 0,60</td><td class="price master">R$ 0,88</td></tr>
+          <tr><td class="range">250.001</td><td class="range-right">500.000</td><td class="price">R$ 0,29</td><td class="price plus">R$ 0,50</td><td class="price master">R$ 0,74</td></tr>
+          <tr><td class="range">500.001</td><td class="range-right">1.000.000</td><td class="price">R$ 0,20</td><td class="price plus">R$ 0,34</td><td class="price master">R$ 0,49</td></tr>
+          <tr><td class="range" colspan="2">Acima de 1.000.000</td><td class="price">R$ 0,15</td><td class="price plus">R$ 0,25</td><td class="price master">R$ 0,32</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="brand-mark"></div>
+  <div class="slide-num">07 / 08</div>
+</section>
+
+<!-- ================== SLIDE 8 — CLOSING ================== -->
+<section class="slide s8-bg">
+  <div class="slide-bg"></div>
+  <div class="closing">
+    <div class="closing-logo">
+      <div class="a51-logo a51-closing"></div>
+    </div>
+    <div class="closing-tag">precisão em escala</div>
+  </div>
+  <div class="slide-num">08 / 08</div>
+</section>
+
+</body>
+</html>
