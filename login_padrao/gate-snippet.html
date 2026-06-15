@@ -24,7 +24,7 @@
     <h1>Acesso restrito</h1>
     <div class="gwe-field">
       <input id="gwe-pass" type="password" placeholder="Senha" autocomplete="current-password" autofocus>
-      <button type="button" class="gwe-eye" id="gwe-eye" aria-label="Mostrar senha">👁</button>
+      <button type="button" class="gwe-eye" id="gwe-eye" aria-label="Mostrar senha" aria-pressed="false">👁</button>
     </div>
     <button type="submit" class="gwe-submit" id="gwe-submit">Entrar</button>
     <div class="gwe-err" id="gwe-err"></div>
@@ -48,13 +48,15 @@
     try{ sessionStorage.setItem(STORAGE_KEY, urlKey); }catch(e){}
     if(gate && gate.parentNode){ gate.parentNode.removeChild(gate); }
     document.documentElement.style.overflow = '';
+    document.body.style.overflow = '';
   }
 
   // Já liberado nesta sessão?
   try{ if(sessionStorage.getItem(STORAGE_KEY) === urlKey){ liberar(); return; } }catch(e){}
 
-  // Trava o scroll do conteúdo atrás do overlay.
+  // Trava o scroll do conteúdo atrás do overlay (html e body).
   document.documentElement.style.overflow = 'hidden';
+  document.body.style.overflow = 'hidden';
 
   var form = document.getElementById('gwe-form');
   var pass = document.getElementById('gwe-pass');
@@ -63,7 +65,10 @@
   var eye  = document.getElementById('gwe-eye');
 
   eye.addEventListener('click', function(){
-    pass.type = (pass.type === 'password') ? 'text' : 'password';
+    var mostrar = (pass.type === 'password');
+    pass.type = mostrar ? 'text' : 'password';
+    eye.setAttribute('aria-label', mostrar ? 'Ocultar senha' : 'Mostrar senha');
+    eye.setAttribute('aria-pressed', String(mostrar));
     pass.focus();
   });
 
@@ -80,7 +85,7 @@
       },
       body: JSON.stringify({ p_url: location.href, p_senha: pass.value })
     })
-    .then(function(r){ return r.ok ? r.json() : false; })
+    .then(function(r){ if(!r.ok){ throw new Error('http ' + r.status); } return r.json(); })
     .then(function(ok){
       if(ok === true){ liberar(); }
       else { err.textContent = 'Senha incorreta.'; }
@@ -88,6 +93,8 @@
     .catch(function(){ err.textContent = 'Erro de conexão. Tente de novo.'; })
     .finally(function(){ btn.disabled = false; btn.textContent = 'Entrar'; });
   });
+
+  pass.focus();
 })();
 </script>
 <!-- ===== FIM LOGIN PADRÃO ===== -->
