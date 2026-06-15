@@ -31,6 +31,7 @@ $erro = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $senha = isset($_POST['senha']) ? (string) $_POST['senha'] : '';
   if (gwe_verificar($projeto_url, $senha) === true) {
+    // setcookie com array de opções exige PHP 7.3+ (a Hostinger atende).
     setcookie(GWE_COOKIE, GWE_TOKEN, [
       'expires'  => 0,       // cookie de sessão: fecha a aba -> pede de novo
       'path'     => $base,   // escopo só deste projeto (não vaza p/ outros)

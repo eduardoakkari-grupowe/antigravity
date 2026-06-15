@@ -30,3 +30,12 @@ OBSERVAÇÕES
   - Cada projeto tem o seu próprio token (no index.php e no conteudo/.htaccess) —
     para um novo projeto, peça uma nova pasta (token novo), não copie o token.
   - Requer PHP na hospedagem (a Hostinger tem). HTTPS recomendado.
+
+TESTE RÁPIDO DEPOIS DE SUBIR (importante)
+  - Abra a URL: deve aparecer a tela de senha (não o conteúdo).
+  - Tente acessar direto o conteúdo sem logar, ex.:
+      seudominio.com/projetos/projeto1/conteudo/index.html
+    Deve te jogar de volta pro login (o servidor barra). Se abrir o conteúdo,
+    o PHP/.htaccess não está ativo na hospedagem — me avise.
+  - Confirme que o index.php NÃO aparece como texto (se aparecer "<?php ...",
+    o PHP não está executando e o token ficaria exposto — me avise).
