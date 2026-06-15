@@ -1,0 +1,93 @@
+<!-- ===== LOGIN PADRÃO GrupoWE — colar logo após <body> ===== -->
+<style id="gwe-gate-style">
+  #gwe-gate{position:fixed;inset:0;z-index:2147483647;display:flex;align-items:center;
+    justify-content:center;background:#0b1020;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;}
+  #gwe-gate .gwe-card{width:100%;max-width:360px;margin:20px;background:#13182b;
+    border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:32px 28px;
+    box-shadow:0 24px 60px rgba(0,0,0,.5);text-align:center;color:#e8ebf5;}
+  #gwe-gate .gwe-logo{font-weight:800;letter-spacing:.18em;font-size:14px;color:#f5c518;margin-bottom:6px;}
+  #gwe-gate h1{font-size:18px;font-weight:600;margin:0 0 20px;color:#fff;}
+  #gwe-gate .gwe-field{position:relative;margin-bottom:14px;}
+  #gwe-gate input{width:100%;box-sizing:border-box;padding:13px 44px 13px 14px;border-radius:10px;
+    border:1px solid rgba(255,255,255,.14);background:#0b1020;color:#fff;font-size:15px;outline:none;}
+  #gwe-gate input:focus{border-color:#f5c518;}
+  #gwe-gate .gwe-eye{position:absolute;right:8px;top:50%;transform:translateY(-50%);
+    background:none;border:none;color:#8b93ad;cursor:pointer;font-size:16px;padding:6px;}
+  #gwe-gate button.gwe-submit{width:100%;padding:13px;border:none;border-radius:10px;background:#f5c518;
+    color:#0b1020;font-weight:700;font-size:15px;cursor:pointer;}
+  #gwe-gate button.gwe-submit:disabled{opacity:.6;cursor:default;}
+  #gwe-gate .gwe-err{min-height:18px;margin-top:12px;color:#ff6b6b;font-size:13px;}
+</style>
+<div id="gwe-gate" role="dialog" aria-modal="true">
+  <form class="gwe-card" id="gwe-form">
+    <div class="gwe-logo">GRUPO WE</div>
+    <h1>Acesso restrito</h1>
+    <div class="gwe-field">
+      <input id="gwe-pass" type="password" placeholder="Senha" autocomplete="current-password" autofocus>
+      <button type="button" class="gwe-eye" id="gwe-eye" aria-label="Mostrar senha">👁</button>
+    </div>
+    <button type="submit" class="gwe-submit" id="gwe-submit">Entrar</button>
+    <div class="gwe-err" id="gwe-err"></div>
+  </form>
+</div>
+<script>
+(function(){
+  var SUPABASE_URL = "https://gmmcfiajdtljdcpigrst.supabase.co";
+  var SUPABASE_ANON_KEY = "sb_publishable_aQ7ztI_2ZdS0QAjnm546Lw_uXHAKAZa";
+  var STORAGE_KEY = "gwe_projeto_auth_ok";
+
+  function normalizeUrl(u){
+    return String(u).toLowerCase()
+      .replace(/^https?:\/\//,'').replace(/^www\./,'')
+      .split('#')[0].split('?')[0].replace(/\/+$/,'');
+  }
+  var urlKey = normalizeUrl(location.href);
+  var gate = document.getElementById('gwe-gate');
+
+  function liberar(){
+    try{ sessionStorage.setItem(STORAGE_KEY, urlKey); }catch(e){}
+    if(gate && gate.parentNode){ gate.parentNode.removeChild(gate); }
+    document.documentElement.style.overflow = '';
+  }
+
+  // Já liberado nesta sessão?
+  try{ if(sessionStorage.getItem(STORAGE_KEY) === urlKey){ liberar(); return; } }catch(e){}
+
+  // Trava o scroll do conteúdo atrás do overlay.
+  document.documentElement.style.overflow = 'hidden';
+
+  var form = document.getElementById('gwe-form');
+  var pass = document.getElementById('gwe-pass');
+  var err  = document.getElementById('gwe-err');
+  var btn  = document.getElementById('gwe-submit');
+  var eye  = document.getElementById('gwe-eye');
+
+  eye.addEventListener('click', function(){
+    pass.type = (pass.type === 'password') ? 'text' : 'password';
+    pass.focus();
+  });
+
+  form.addEventListener('submit', function(ev){
+    ev.preventDefault();
+    err.textContent = '';
+    btn.disabled = true; btn.textContent = 'Verificando...';
+    fetch(SUPABASE_URL + "/rest/v1/rpc/projeto_verificar_senha", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "apikey": SUPABASE_ANON_KEY,
+        "Authorization": "Bearer " + SUPABASE_ANON_KEY
+      },
+      body: JSON.stringify({ p_url: location.href, p_senha: pass.value })
+    })
+    .then(function(r){ return r.ok ? r.json() : false; })
+    .then(function(ok){
+      if(ok === true){ liberar(); }
+      else { err.textContent = 'Senha incorreta.'; }
+    })
+    .catch(function(){ err.textContent = 'Erro de conexão. Tente de novo.'; })
+    .finally(function(){ btn.disabled = false; btn.textContent = 'Entrar'; });
+  });
+})();
+</script>
+<!-- ===== FIM LOGIN PADRÃO ===== -->
