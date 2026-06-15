@@ -1,0 +1,32 @@
+COMO USAR ESTA PASTA (projeto1) — Login Padrão GrupoWE (proteção real, Hostinger)
+================================================================================
+
+ESTRUTURA
+  projeto1/
+    index.php          -> a tela de login (NÃO mexer)
+    conteudo/
+      .htaccess        -> tranca a pasta sem login (NÃO mexer)
+      index.html       -> SUBSTITUA pelo seu projeto
+
+PASSO A PASSO
+  1. Coloque o seu projeto DENTRO da pasta "conteudo".
+       - HTML único: renomeie seu arquivo para "index.html".
+       - Pasta/ZIP: jogue todos os arquivos dentro de "conteudo"
+         (precisa ter um "index.html" como entrada).
+  2. Suba a pasta "projeto1" inteira na sua hospedagem (Hostinger).
+       Pode ser em qualquer caminho, ex.:
+         seudominio.com/projeto1/
+         seudominio.com/projetos/projeto1/
+  3. No grupowe-painel (módulo Projetos), cadastre:
+       - Link: a URL final onde você publicou (ex.: seudominio.com/projetos/projeto1/)
+       - Senha: a senha de acesso
+  4. Pronto. Abrir a URL -> tela de senha -> conteúdo liberado.
+       (Fica liberado até fechar a aba; depois pede de novo.)
+
+OBSERVAÇÕES
+  - Pode renomear a pasta "projeto1" para o nome que quiser.
+  - Se MOVER ou RENOMEAR a pasta depois, atualize o "Link" no painel
+    para continuar batendo com a URL real.
+  - Cada projeto tem o seu próprio token (no index.php e no conteudo/.htaccess) —
+    para um novo projeto, peça uma nova pasta (token novo), não copie o token.
+  - Requer PHP na hospedagem (a Hostinger tem). HTTPS recomendado.

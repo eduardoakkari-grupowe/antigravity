@@ -1,0 +1,12 @@
+# ============================================================================
+#  Protege /conteudo: sem o cookie de acesso válido (setado pelo index.php
+#  após a senha certa), qualquer acesso direto volta pro login.
+#  Quem barra é o SERVIDOR — não dá pra contornar pelo navegador.
+#  O token abaixo é o MESMO definido em ../index.php (GWE_TOKEN).
+# ============================================================================
+RewriteEngine On
+RewriteCond %{HTTP_COOKIE} !(^|;\s*)gwe_acesso=4922adaaa026ce9e562fb28a664f26ccc435f8d86a7e28a5(;|$)
+RewriteRule .* ../ [R=302,L]
+
+# Sem listagem de diretório.
+Options -Indexes
