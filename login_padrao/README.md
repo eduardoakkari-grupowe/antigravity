@@ -39,7 +39,7 @@ um usuário técnico pode contornar a tela (ver código-fonte / DevTools). Não 
 para conteúdo de segredo crítico.
 
 ## Normalização de URL
-minúsculo → remove `http(s)://` → remove `www.` → corta `?...`/`#...` → remove
+minúsculo → remove `http(s)://` → remove `www.` → corta `#...`/`?...` → remove
 barra final. Os dois lados (cadastro e tela) usam a mesma regra, então cadastrar
 com ou sem `https://` funciona igual.
 
