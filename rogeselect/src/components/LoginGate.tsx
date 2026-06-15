@@ -1,5 +1,4 @@
 import { useState, type ReactNode } from "react";
-import logoImage from "../assets/logoImage";
 
 interface LoginGateProps {
   password: string;
@@ -38,7 +37,7 @@ export default function LoginGate({ password, storageKey, subtitle, children }: 
         className="relative z-10 w-full max-w-md rounded-3xl bg-white p-8 shadow-soft sm:p-10"
       >
         <div className="flex flex-col items-center text-center">
-          <img src={logoImage} alt="Roge Select" className="mb-6 h-20 w-auto object-contain" />
+          <img src="/logo.png" alt="Roge Select" className="mb-6 h-20 w-auto object-contain" />
           {subtitle}
           <p className="mt-2 text-sm text-slate-500">
             Informe a senha de acesso para continuar.

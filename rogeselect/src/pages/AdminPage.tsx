@@ -4,7 +4,6 @@ import LoginGate from "../components/LoginGate";
 import Footer from "../components/Footer";
 import { supabase } from "../lib/supabase";
 import type { Participante } from "../lib/types";
-import logoImage from "../assets/logoImage";
 
 function fmtDate(s?: string) {
   if (!s) return "—";
@@ -98,7 +97,7 @@ function AdminInner() {
       <header className="sticky top-0 z-20 border-b border-slate-200 bg-white/90 backdrop-blur">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-6">
           <div className="flex items-center gap-3">
-            <img src={logoImage} alt="Roge Select" className="h-10 w-auto" />
+            <img src="/logo.png" alt="Roge Select" className="h-10 w-auto" />
             <div>
               <p className="text-xs font-semibold uppercase tracking-widest text-roge-red">
                 Administração

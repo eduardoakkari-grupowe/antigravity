@@ -9,16 +9,6 @@
   RewriteRule ^ index.html [L]
 </IfModule>
 
-# Garante o Content-Type correto (corrige imagem/JS aparecendo como texto)
-<IfModule mod_mime.c>
-  AddType image/png .png
-  AddType image/jpeg .jpg .jpeg
-  AddType image/svg+xml .svg
-  AddType image/x-icon .ico
-  AddType text/css .css
-  AddType application/javascript .js .mjs
-</IfModule>
-
 # Cache dos assets com hash
 <IfModule mod_expires.c>
   ExpiresActive On

@@ -10,8 +10,6 @@ import {
 } from "../components/FormFields";
 import { supabase, FOTOS_BUCKET } from "../lib/supabase";
 import { emptyParticipante, ESTADOS, type Participante } from "../lib/types";
-import headerImage from "../assets/headerImage";
-import logoImage from "../assets/logoImage";
 
 function formatCpf(v: string) {
   const d = v.replace(/\D/g, "").slice(0, 11);
@@ -140,7 +138,7 @@ function FormInner() {
     return (
       <div className="min-h-screen bg-roge-sand">
         <div className="mx-auto flex max-w-2xl flex-col items-center px-4 py-20 text-center">
-          <img src={logoImage} alt="Roge Select" className="h-20 w-auto" />
+          <img src="/logo.png" alt="Roge Select" className="h-20 w-auto" />
           <div className="mt-8 flex h-20 w-20 items-center justify-center rounded-full bg-roge-red/10">
             <svg viewBox="0 0 24 24" className="h-10 w-10 text-roge-red" fill="none" stroke="currentColor" strokeWidth="2.5">
               <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
@@ -166,7 +164,7 @@ function FormInner() {
         {/* Header image — mesma largura do box do formulário */}
         <div className="overflow-hidden rounded-3xl shadow-soft">
           <img
-            src={headerImage}
+            src="/header-experiencia.png"
             alt="Experiência Roge Select 2026 — Kuara Hotel, Arraial d'Ajuda, Porto Seguro"
             className="block w-full"
           />
